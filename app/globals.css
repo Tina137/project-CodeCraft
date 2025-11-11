@@ -1,0 +1,79 @@
+:root {
+  --white: #f7f9ff;
+  --black: #000000;
+  --royal-blue: #4169e1;
+  --royal-blue-lighter: #e8eeff;
+  --royal-blue-light: #7a96ea;
+  --royal-blue-darker: #1a2a5a;
+  --schema-two: #e8eeff;
+  --font-family: "Poppins", sans-serif;
+  --second-family: "Impact", sans-serif;
+  --third-family: "Montserrat", sans-serif;
+}
+
+body {
+  background-color: var(--white);
+  transition: background-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  min-width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+body.dark-theme {
+  --white: #000000;
+  --black: #ffffff;
+  --royal-blue: #ffffff;
+  --royal-blue-lighter: #7f7f7f;
+  --royal-blue-light: #4c4c4c;
+  --royal-blue-darker: #7a96ea;
+}
+
+body:has(.mobile-menu.is-open) {
+  overflow: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+main {
+  flex-grow: 1;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 16px;
+  margin: 0 auto;
+}
+
+/* З 375px — адаптивна мобільна верстка */
+@media (min-width: 375px) {
+  .wrapper {
+    max-width: 375px;
+    padding: 0 20px;
+  }
+}
+
+/* З 768px — планшет */
+@media (min-width: 768px) {
+  .wrapper {
+    max-width: 768px;
+    padding: 0 32px;
+  }
+}
+
+/* З 1440px — десктоп */
+@media (min-width: 1440px) {
+  .wrapper {
+    max-width: 1440px;
+    padding: 0 60px;
+  }
+}
