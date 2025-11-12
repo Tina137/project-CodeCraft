@@ -25,18 +25,20 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Подорожник",
     description: "Поділись своїми подорожами вже сьогодні!",
-    url: `https://podorognuk.com`,
+    url: "https://podorognuk.com",
     images: [
       {
-        url: "../public/Favicon.png",
-        alt: "Note hub",
+        url: "/Favicon.png",
+        alt: "Подорожник",
         width: 1200,
         height: 630,
       },
     ],
   },
+  icons: {
+    icon: "/Favicon.png",
+  },
 };
-
 export default function RootLayout({
   children,
   modal,
