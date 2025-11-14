@@ -6,9 +6,6 @@
   --royal-blue-light: #7a96ea;
   --royal-blue-darker: #1a2a5a;
   --schema-two: #e8eeff;
-  --font-family: "Poppins", sans-serif;
-  --second-family: "Impact", sans-serif;
-  --third-family: "Montserrat", sans-serif;
 }
 
 body {
@@ -19,6 +16,7 @@ body {
   min-width: 100vw;
   min-height: 100vh;
   margin: 0;
+  overflow-wrap: break-word;
 }
 
 a {

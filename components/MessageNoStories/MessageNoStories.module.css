@@ -1,0 +1,44 @@
+.noStoriesWrapper {
+  width: 335px;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: var(--schema-two);
+  margin: auto;
+  border-radius: 24px;
+}
+.noStoriesText {
+  color: var(--black);
+  font-weight: 900;
+  font-family: var(--font-sora);
+  font-size: 18px;
+}
+.noStoriesButton {
+  display: block;
+  color: var(--white);
+  background-color: var(--royal-blue);
+  padding: 12px 0;
+  text-align: center;
+  font-weight: 500;
+  font-family: var(--font-nunito_Sans);
+  border-radius: 8px;
+}
+@media (min-width: 768px) {
+  .noStoriesWrapper {
+    width: 533px;
+    margin: 0;
+  }
+  .noStoriesButton {
+    max-width: 150px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .noStoriesText {
+    font-size: 26px;
+    line-height: 140%;
+    letter-spacing: -1%;
+  }
+  .noStoriesButton {
+    font-size: 18px;
+  }
+}
