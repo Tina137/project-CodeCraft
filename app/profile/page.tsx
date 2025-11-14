@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 import TravellerInfo from "../../components/TravellerInfo/TravellerInfo";
 // import StoriesList from "@/components/StoriesList";
@@ -24,20 +25,18 @@ export default function ProfilePage() {
   const [tab, setTab] = useState<"saved" | "mine">("saved");
   const [loading, setLoading] = useState(true);
 
-   // Завантажити дані мандрівника
+  // Завантажити дані мандрівника
   useEffect(() => {
     getCurrentUser().then(setUser);
   }, []);
 
-  // Завантажити історії залежно від табу 
+  // Завантажити історії залежно від табу
   useEffect(() => {
     async function load() {
       setLoading(true);
 
       const data =
-        tab === "saved"
-          ? await getSavedStories()
-          : await getMyStories();
+        tab === "saved" ? await getSavedStories() : await getMyStories();
 
       setStories(data);
       setLoading(false);
@@ -52,12 +51,12 @@ export default function ProfilePage() {
     <div className={styles.container}>
       {/* TravellerInfo */}
       {user && (
-  <TravellerInfo
-    name={user.name}
-    description={user.description}
-    avatarUrl={user.avatarUrl}
-  />
-)}
+        <TravellerInfo
+          name={user.name}
+          description={user.description}
+          avatarUrl={user.avatarUrl}
+        />
+      )}
 
       {/* Switcher */}
       <div className={styles.tabs}>
@@ -79,10 +78,8 @@ export default function ProfilePage() {
       {/* Stories */}
       {loading ? (
         <p>Завантаження історій...</p>
-      ) : (
-        // <StoriesList stories={stories} /> 
-        null
-      )}
+      ) : // <StoriesList stories={stories} />
+      null}
     </div>
   );
 }
