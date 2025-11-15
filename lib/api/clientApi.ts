@@ -15,7 +15,7 @@ export const login = async (data: User) => {
   return res.data;
 };
 
-export const checkSession = async () => {
+export const setupSession = async () => {
   const { data } = await nextServer.get<CheckSessionResponse>(`/auth/session`);
   return data.success;
 };

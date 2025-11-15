@@ -1,16 +1,45 @@
-/* app/login/page.module.css */
-
 .mainContent {
-    /* Цей блок розтягнеться і "відштовхне" футер вниз */
     flex-grow: 1;
-
-    /* Центрування форми */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 40px 20px;
 }
+
+
+.tabNavigation {
+    display: flex;
+    width: 100%;
+    max-width: 400px; 
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 24px; 
+}
+
+.tabLink {
+    flex: 1;
+    padding: 16px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #555;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    text-align: center; 
+}
+
+.tabLink:hover {
+    color: #000;
+}
+
+
+.tabLink.active {
+    color: #4a69e2;
+    border-bottom: 2px solid #4a69e2;
+    margin-bottom: -1px;
+}
+
+
 
 .loginContainer {
     width: 100%;
@@ -32,7 +61,6 @@
     margin-bottom: 32px;
 }
 
-/* Форма */
 .formGroup {
     text-align: left;
     margin-bottom: 20px;
@@ -51,6 +79,7 @@
     font-size: 1rem;
     border: 1px solid #d0d0d0;
     border-radius: 8px;
+    box-sizing: border-box;
 }
 
 .btnPrimary {
@@ -64,14 +93,13 @@
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.2s ease;
-    margin-top: 10px; /* Невеликий відступ перед кнопкою */
+    margin-top: 10px;
 }
 
 .btnPrimary:hover {
     background-color: #3b58c4;
 }
 
-/* Опціонально: для посилання "Немає акаунту?" */
 .formFooter {
     margin-top: 24px;
     font-size: 0.9rem;
@@ -81,8 +109,16 @@
 .formFooter a {
     font-weight: 600;
     color: #4a69e2;
+    text-decoration: none;
 }
 
 .formFooter a:hover {
     text-decoration: underline;
+}
+
+.errorMessage {
+    color: #d93025;
+    font-size: 0.9rem;
+    text-align: left;
+    margin-bottom: 16px;
 }
