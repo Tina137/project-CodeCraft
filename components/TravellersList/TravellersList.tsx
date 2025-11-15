@@ -18,27 +18,29 @@ export default function TravellersList() {
   const [visibleCount, setVisibleCount] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  // Встановлюємо початкову кількість видимих карточок
   useEffect(() => {
     const initialCount = window.innerWidth >= 1024 ? 12 : 8;
     setVisibleCount(initialCount);
   }, []);
 
-  // Підвантажуємо мандрівників напряму з бекенду
   useEffect(() => {
     const fetchTravelers = async () => {
       try {
         const response = await axios.get(
-          "https://project-codecraft-backend.onrender.com/travellers",
+          "https://project-codecraft-backend.onrender.com/api/users",
           { withCredentials: true }
         );
-        const adapted = response.data.users.map((user: any) => ({
+
+        console.log("response.data:", response.data);
+
+        const adapted = response.data.data.map((user: any) => ({
           id: user._id,
           name: user.name,
           description: user.description || "Немає опису",
           avatarUrl: user.avatarUrl || "/default-avatar.png",
           articlesAmount: user.articlesAmount,
         }));
+
         setTravelers(adapted);
       } catch (err) {
         console.error("Помилка при завантаженні мандрівників:", err);
