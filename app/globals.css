@@ -7,6 +7,9 @@
   --royal-blue-darker: #1a2a5a;
   --schema-two: #e8eeff;
 }
+* {
+  margin: 0;
+}
 
 body {
   background-color: var(--white);
@@ -17,6 +20,7 @@ body {
   min-height: 100vh;
   margin: 0;
   overflow-wrap: break-word;
+  font-family: var(--font-nunito_Sans);
 }
 
 a {
@@ -46,18 +50,8 @@ main {
 }
 
 .wrapper {
-  width: 100%;
-  max-width: 100%;
   padding: 0 16px;
   margin: 0 auto;
-}
-
-/* З 375px — адаптивна мобільна верстка */
-@media (min-width: 375px) {
-  .wrapper {
-    max-width: 375px;
-    padding: 0 20px;
-  }
 }
 
 /* З 768px — планшет */
