@@ -31,11 +31,34 @@ export const setupSession = async (): Promise<boolean> => {
   }
 };
 
+export const sendResetEmail = async (email: string) => {
+  const res = await api.post("/auth/send-reset-email", { email });
+  return res.data;
+};
+
+export const resetPassword = async (data: {
+  token: string;
+  password: string;
+}) => {
+  const res = await api.post("/auth/reset-password", data);
+  return res.data;
+};
+
 // ---------------- USER ----------------
 
 export const getMe = async () => {
   const { data } = await api.get<User>(`/users/current`);
   return data;
+};
+
+export const getAllUsers = async () => {
+  const res = await api.get<User[]>("/users");
+  return res.data;
+};
+
+export const getUserById = async (id: string) => {
+  const res = await api.get<User>(`/users/${id}`);
+  return res.data;
 };
 
 export const updateProfile = async (payload: any) => {
