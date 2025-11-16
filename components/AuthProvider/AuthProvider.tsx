@@ -13,7 +13,7 @@ const AuthProvider = ({ children }: Props) => {
   const clearAuth = useAuthStore((state) => state.clearIsAuthenticated);
 
   useEffect(() => {
-    (async () => {
+    const fetchSession = async () => {
       try {
         const sessionValid = await setupSession();
         if (sessionValid) {
@@ -22,11 +22,17 @@ const AuthProvider = ({ children }: Props) => {
         } else {
           clearAuth();
         }
-      } catch (error) {
-        console.error("AuthProvider error:", error);
-        clearAuth();
+      } catch (error: any) {
+        if (error.response?.status === 401) {
+          clearAuth();
+        } else {
+          console.error("Unexpected error in AuthProvider:", error);
+          clearAuth();
+        }
       }
-    })();
+    };
+
+    fetchSession();
   }, [clearAuth, setAuth]);
 
   return children;

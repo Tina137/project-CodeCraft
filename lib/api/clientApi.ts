@@ -22,9 +22,13 @@ export const logout = async () => {
   return res.data;
 };
 
-export const setupSession = async () => {
-  const { data } = await api.post<CheckSessionResponse>(`/auth/refresh`);
-  return data.success;
+export const setupSession = async (): Promise<boolean> => {
+  try {
+    await api.post("/auth/refresh");
+    return true;
+  } catch {
+    return false;
+  }
 };
 
 // ---------------- USER ----------------
