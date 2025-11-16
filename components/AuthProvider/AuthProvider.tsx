@@ -13,16 +13,20 @@ const AuthProvider = ({ children }: Props) => {
   const clearAuth = useAuthStore((state) => state.clearIsAuthenticated);
 
   useEffect(() => {
-    const fetchSession = async () => {
-      const res = await setupSession();
-      if (res) {
-        const user = await getMe();
-        setAuth(user);
-      } else {
+    (async () => {
+      try {
+        const sessionValid = await setupSession();
+        if (sessionValid) {
+          const user = await getMe();
+          setAuth(user);
+        } else {
+          clearAuth();
+        }
+      } catch (error) {
+        console.error("AuthProvider error:", error);
         clearAuth();
       }
-    };
-    fetchSession();
+    })();
   }, [clearAuth, setAuth]);
 
   return children;
