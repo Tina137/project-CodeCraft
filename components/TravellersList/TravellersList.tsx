@@ -19,9 +19,11 @@ export default function TravellersList() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!travelers.length) return;
+
     const initialCount = window.innerWidth >= 1024 ? 12 : 8;
     setVisibleCount(initialCount);
-  }, []);
+  }, [travelers]);
 
   useEffect(() => {
     const fetchTravelers = async () => {
@@ -30,8 +32,6 @@ export default function TravellersList() {
           "https://project-codecraft-backend.onrender.com/api/users",
           { withCredentials: true }
         );
-
-        console.log("response.data:", response.data);
 
         const adapted = response.data.data.map((user: any) => ({
           id: user._id,
@@ -52,27 +52,27 @@ export default function TravellersList() {
     fetchTravelers();
   }, []);
 
-  const displayedTravelers = travelers.slice(0, visibleCount);
-
   const handleLoadMore = () => {
     setVisibleCount(prev => Math.min(prev + 4, travelers.length));
   };
+
+  const displayedTravelers = travelers.slice(0, visibleCount);
 
   if (loading) return <p>Завантаження мандрівників...</p>;
   if (!travelers.length) return <p>Немає мандрівників для відображення.</p>;
 
   return (
-    <div className={css.wrapper}>
-      <div className={css.cardsWrapper}>
+    <div className={css.listWrapper}>
+      <div className={css.listCardsWrapper}>
         {displayedTravelers.map(traveler => (
           <TravellerInfoCard key={traveler.id} {...traveler} />
         ))}
       </div>
 
       {visibleCount < travelers.length && (
-        <div className={css.pagination}>
-          <button className={css.paginationBtn} onClick={handleLoadMore}>
-            Переглянути всіх
+        <div className={css.listPagination}>
+          <button className={css.listPaginationBtn} onClick={handleLoadMore}>
+            Показати ще
           </button>
         </div>
       )}

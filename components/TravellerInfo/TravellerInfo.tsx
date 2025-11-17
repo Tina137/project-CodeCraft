@@ -4,13 +4,14 @@ import { useRouter } from "next/navigation";
 import styles from "./TravellerInfo.module.css";
 
 interface TravellerInfoProps {
+  id: string;
   name: string;
   description: string;
   avatarUrl: string;
   articlesAmount?: number;
 }
 
-export default function TravellerInfo({ name, description, avatarUrl }: TravellerInfoProps) {
+export default function TravellerInfo({id, name, description, avatarUrl }: TravellerInfoProps) {
   const router = useRouter();
 
   return (
@@ -20,6 +21,12 @@ export default function TravellerInfo({ name, description, avatarUrl }: Travelle
       <div className={styles.info}>
         <h2 className={styles.title}>{name}</h2>
         <p className={styles.description}>{description}</p>
+        <button
+          className={styles.profileButton}
+          onClick={() => router.push(`/travellers/${id}`)}
+        >
+          Переглянути профіль
+        </button>
       </div>
     </div>
   );
