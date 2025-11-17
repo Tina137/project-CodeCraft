@@ -23,29 +23,28 @@
 }
 
 .listPagination {
-  display: flex;
   justify-content: center;
   padding: 8px;
-  border: 12px;
+  
 }
 
 .listPaginationBtn {
+  padding: 12px;
+  border: none;
   width: 335px;
-  height: 48px;
-  display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-border: 1px solid var(--Color-RoyalBlue, rgba(65, 105, 225, 1));
-border-radius: var(--Radius-Small, 8px);
-background: var(--Color-RoyalBlue, rgba(65, 105, 225, 1));
-color: var(--Color-White, rgba(255, 255, 255, 1));
+  border-radius: 8px;
+  background-color: #4169e1;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
 
-font-family: Nunito Sans;
-font-size: 18px;
-font-weight: 200;
-line-height: 150%;
-text-align: left;
+.listPaginationBtn:active {
+  border: 1px solid #4169e1;
+  background-color: #7a96ea;
+  color: #000;
 }
 
 /* планшет */
@@ -57,48 +56,25 @@ text-align: left;
 
   .listPagination {
     display: flex;
-    justify-content: center;
   }
-
   .listPaginationBtn {
-    padding: 12px;
     width: 123px;
-    height: 48px;
-    border: none;
-    border-radius: 8px;
-    background-color: #4169e1;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
   }
 
-  .listPaginationBtn:hover,
-  .listPaginationBtn:focus {
-    border: 1px solid #4169e1;
-    background-color: #e8eeff;
-    color: #000;
-  }
-
-  .listPaginationBtn:active {
-    border: 1px solid #4169e1;
-    background-color: #7a96ea;
-    color: #000;
-  }
 }
 
 /* десктоп */
 @media (min-width: 1024px) {
   .listCardsWrapper > * {
-    flex: 1 1 calc(25% - 24px);
+      flex: 1 1 calc(25% - 24px);
     max-width: 310px;
+  
   }
 
   .listPaginationBtn {
-    width: 135px;
-    height: 48px;
-    padding: 10px 12px;
+     padding: 10px 12px;
     font-size: 18px;
+    width: 135px;
     font-weight: 500;
   }
 }

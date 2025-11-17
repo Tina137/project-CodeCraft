@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import TravellerInfoCard from "../TravellerInfo/TravellerInfo";
+import TravellerInfoCard from "../TravellersInfoCards/TravellersInfoCards";
 import css from "./TravellersList.module.css";
 import axios from "axios";
 
@@ -15,65 +15,75 @@ type Traveler = {
 
 export default function TravellersList() {
   const [travelers, setTravelers] = useState<Traveler[]>([]);
-  const [visibleCount, setVisibleCount] = useState(0);
+  const [page, setPage] = useState(1);
+  const [hasNextPage, setHasNextPage] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [perPage, setPerPage] = useState(8);
+
+  const fetchTravelers = async (pageNumber = 1, perPageArg = perPage) => {
+    try {
+      if (pageNumber === 1) setLoading(true);
+      else setLoadingMore(true);
+
+      const response = await axios.get(
+  `https://project-codecraft-backend.onrender.com/api/users?page=${pageNumber}&limit=${perPageArg}`,
+  { withCredentials: true }
+);
+
+      const adapted = response.data.data.map((user: any) => ({
+        id: user._id,
+        name: user.name,
+        description: user.description || "Немає опису",
+        avatarUrl: user.avatarUrl || "/default-avatar.png",
+        articlesAmount: user.articlesAmount,
+      }));
+
+      setTravelers(prev => [...prev, ...adapted]);
+      setHasNextPage(response.data.hasNextPage);
+    } catch (err) {
+      console.error("Помилка при завантаженні мандрівників:", err);
+    } finally {
+      setLoading(false);
+      setLoadingMore(false);
+    }
+  };
 
   useEffect(() => {
-    if (!travelers.length) return;
-
-    const initialCount = window.innerWidth >= 1024 ? 12 : 8;
-    setVisibleCount(initialCount);
-  }, [travelers]);
-
-  useEffect(() => {
-    const fetchTravelers = async () => {
-      try {
-        const response = await axios.get(
-          "https://project-codecraft-backend.onrender.com/api/users",
-          { withCredentials: true }
-        );
-
-        const adapted = response.data.data.map((user: any) => ({
-          id: user._id,
-          name: user.name,
-          description: user.description || "Немає опису",
-          avatarUrl: user.avatarUrl || "/default-avatar.png",
-          articlesAmount: user.articlesAmount,
-        }));
-
-        setTravelers(adapted);
-      } catch (err) {
-        console.error("Помилка при завантаженні мандрівників:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTravelers();
+    if (typeof window !== "undefined") {
+      const width = window.innerWidth;
+      const initialPerPage = width >= 1024 ? 12 : 8;
+      setPerPage(initialPerPage);
+      fetchTravelers(1, initialPerPage);
+    }
   }, []);
 
   const handleLoadMore = () => {
-    setVisibleCount(prev => Math.min(prev + 4, travelers.length));
+    const nextPage = page + 1;
+    setPage(nextPage);
+    fetchTravelers(nextPage, perPage);
   };
 
-  const displayedTravelers = travelers.slice(0, visibleCount);
-
-  if (loading) return <p>Завантаження мандрівників...</p>;
+  if (loading && !travelers.length) return <p>Завантаження мандрівників...</p>;
   if (!travelers.length) return <p>Немає мандрівників для відображення.</p>;
 
   return (
     <div className={css.listWrapper}>
       <div className={css.listCardsWrapper}>
-        {displayedTravelers.map(traveler => (
+        {travelers.map(traveler => (
           <TravellerInfoCard key={traveler.id} {...traveler} />
         ))}
       </div>
 
-      {visibleCount < travelers.length && (
+      {hasNextPage && (
         <div className={css.listPagination}>
-          <button className={css.listPaginationBtn} onClick={handleLoadMore}>
-            Показати ще
-          </button>
+          {loadingMore ? (
+            <span>Завантаження...</span>
+          ) : (
+            <button className={css.listPaginationBtn} onClick={handleLoadMore}>
+              Показати ще
+            </button>
+          )}
         </div>
       )}
     </div>
