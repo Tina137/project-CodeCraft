@@ -28,6 +28,11 @@ a {
   color: white;
 }
 
+ul {
+  list-style: none;
+  padding: 0;
+}
+
 body.dark-theme {
   --white: #000000;
   --black: #ffffff;
