@@ -18,7 +18,6 @@ const Header = () => {
   const isHomePage = pathname === '/';
   const isAuthPage = pathname === '/auth/login' || pathname === '/auth/register';
   
-  // Логіка зміни тексту логотипу: на auth сторінках обрізаємо до "Подор"
   const logoText = isAuthPage ? "Подор" : "Подорожники";
 
   const textColorClass = !isHomePage ? css.textDark : "";
@@ -71,10 +70,7 @@ const Header = () => {
 
   return (
     <> 
-      {/* === HEADER === */}
       <header className={`${css.header} ${!isHomePage ? css.headerWhite : ''}`}>
-        
-        {/* Логотип з динамічним текстом */}
         <Link href="/" className={css.logoContainer}>
           <Icon name="icon-favicon" />
           <p className={`${css.iconText} ${textColorClass}`}>
