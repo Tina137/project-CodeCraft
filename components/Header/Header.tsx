@@ -19,7 +19,6 @@ const Header = () => {
     </div>
     {!isAuthPage &&(
       <nav className={css.nav}>
-      
       {isAutorized ? (
         <>
       <ul className={css.navLink}>
