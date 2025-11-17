@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     url: "https://podorognuk.com",
     images: [
       {
-        url: "/Favicon.png",
+        url: "/favicon.svg",
         alt: "Подорожник",
         width: 1200,
         height: 630,
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     ],
   },
   icons: {
-    icon: "/Favicon.png",
+    icon: "/favicon.svg",
   },
 };
 export default function RootLayout({
