@@ -6,31 +6,44 @@ import { usePathname, useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/authStore";
 import Icon from "@/components/Icon/Icon";
 import { logout } from "@/lib/api/clientApi";
-import { useEffect, useState } from "react"; // 1. Додаємо useState та useEffect
+import { useEffect, useState } from "react";
 
 const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
   
-  // 2. Стан, щоб знати, чи ми вже на клієнті
   const [isMounted, setIsMounted] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const isHomePage = pathname === '/';
+  const isAuthPage = pathname === '/auth/login' || pathname === '/auth/register';
   
+  // Логіка зміни тексту логотипу: на auth сторінках обрізаємо до "Подор"
+  const logoText = isAuthPage ? "Подор" : "Подорожники";
+
   const textColorClass = !isHomePage ? css.textDark : "";
   const loginBtnClass = !isHomePage ? css.loginBtnGrey : "";
   const registerBtnClass = !isHomePage ? css.registerBtnBlue : "";
-
-  const isAuthPage = pathname === '/auth/login' || pathname === '/auth/register';
+  
   const { isAuthenticated, user, clearIsAuthenticated } = useAuthStore((state) => state);
 
   const userName = user?.name || "User"; 
   const avatarUrl = user?.avatarUrl || null;
 
-  // 3. Активуємо isMounted тільки після першого рендеру на клієнті
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isMobileMenuOpen]);
 
   const handleLogout = async () => {
     try {
@@ -39,112 +52,135 @@ const Header = () => {
       console.error("Logout error", error);
     } finally {
       clearIsAuthenticated(); 
+      setIsMobileMenuOpen(false);
       router.push("/");
       router.refresh(); 
     }
   };
 
-  // 4. Якщо ми ще на сервері або сторінка авторизації - рендеримо спрощену версію
-  // Це запобігає помилкам гідратації
-  if (!isMounted) {
-     // Можна повернути null або скелетон, 
-     // але краще повернути хедер без кнопок профілю, щоб не стрибала верстка.
-     // Для простоти поки повернемо null або статичну версію:
-     return null; 
-     // Або можна просто дати коду йти далі, але блокувати рендер частин, залежних від isAuthenticated
-  }
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(prev => !prev);
+  };
+
+  const handleNavClick = (path: string) => {
+    router.push(path);
+    setIsMobileMenuOpen(false);
+  };
+
+  const showAuthContent = isMounted && isAuthenticated;
 
   return (
-    <header className={`${css.header} ${!isHomePage ? css.headerWhite : ''}`}>
-      <div className={css.logoContainer}>
-        <Icon name="icon-favicon" />
-        <p className={`${css.iconText} ${textColorClass}`}>Подорожники</p>
-      </div>
+    <> 
+      {/* === HEADER === */}
+      <header className={`${css.header} ${!isHomePage ? css.headerWhite : ''}`}>
+        
+        {/* Логотип з динамічним текстом */}
+        <Link href="/" className={css.logoContainer}>
+          <Icon name="icon-favicon" />
+          <p className={`${css.iconText} ${textColorClass}`}>
+            {logoText}
+          </p>
+        </Link>
 
-      {!isAuthPage && (
-        <nav className={css.nav}>
-          {/* 5. Важлива перевірка: рендеримо логіку тільки якщо isMounted === true */}
-          {isMounted && isAuthenticated ? (
-            <>
-              <ul className={css.navLink}>
-                <li className={css.navItem}>
-                  <Link href="/" className={`${css.navItemLink} ${textColorClass}`}>Головна</Link>
-                </li>
-                <li className={css.navItem}>
-                  <Link href="/" className={`${css.navItemLink} ${textColorClass}`}>Історії</Link>
-                </li>
-                <li className={css.navItem}>
-                  <Link href="/" className={`${css.navItemLink} ${textColorClass}`}>Мандрівки</Link>
-                </li>
-                <li className={css.navItem}>
-                  <Link href="/profile" className={`${css.navItemLink} ${textColorClass}`}>Мій профіль</Link>
-                </li>
-              </ul>
-
-              <div className={css.wrapper}>
-                <button className={css.publishBtn}>
-                  Опублікувати історію
-                </button>
-
-                <div className={css.userProfile}>
-                  <div className={css.avatar}>
-                    {/* Додаткова перевірка для src, щоб не було null */}
-                    {avatarUrl ? (
-                      <img src={avatarUrl} alt={userName} className={css.avatarImg} />
-                    ) : (
-                      <span style={{ color: "#999", fontSize: "20px" }}>?</span>
-                    )}
+        {!isAuthPage && (
+          <nav className={css.nav}>
+            <div className={css.desktopNavContainer}>
+              {showAuthContent ? (
+                <>
+                  <ul className={css.navLink}>
+                    <li className={css.navItem}><Link href="/" className={`${css.navItemLink} ${textColorClass}`}>Головна</Link></li>
+                    <li className={css.navItem}><Link href="/" className={`${css.navItemLink} ${textColorClass}`}>Історії</Link></li>
+                    <li className={css.navItem}><Link href="/" className={`${css.navItemLink} ${textColorClass}`}>Мандрівки</Link></li>
+                    <li className={css.navItem}><Link href="/profile" className={`${css.navItemLink} ${textColorClass}`}>Мій профіль</Link></li>
+                  </ul>
+                  <div className={css.wrapper}>
+                    <button className={css.publishBtn}>Опублікувати історію</button>
+                    <div className={css.userProfile}>
+                      <div className={css.avatar}>
+                        {avatarUrl ? <img src={avatarUrl} alt={userName} className={css.avatarImg} /> : <span style={{ color: "#999", fontSize: "20px" }}>?</span>}
+                      </div>
+                      <span className={`${css.userName} ${textColorClass}`}>{userName}</span>
+                      <button className={`${css.logoutBtn} ${!isHomePage ? css.borderLeftDark : ''}`} onClick={handleLogout}>
+                        <Icon name="icon-logout" size={24} className={textColorClass}/> 
+                      </button>
+                    </div>
                   </div>
+                </>
+              ) : (
+                <>
+                  <ul className={css.navLink}>
+                    <li className={css.navItem}><Link href="/" className={`${css.navItemLink} ${textColorClass}`}>Головна</Link></li>
+                    <li className={css.navItem}><Link href="/" className={`${css.navItemLink} ${textColorClass}`}>Історії</Link></li>
+                    <li className={css.navItem}><Link href="/" className={`${css.navItemLink} ${textColorClass}`}>Мандрівки</Link></li>
+                  </ul>
+                  <ul className={css.navAuthLink}>
+                    <li className={css.navItem}><Link href="/auth/login" className={`${css.navItemLinkLogin} ${loginBtnClass}`}>Вхід</Link></li>
+                    <li className={css.navItem}><Link href="/auth/register" className={`${css.navItemLinkRegister} ${registerBtnClass}`}>Реєстрація</Link></li>
+                  </ul>
+                </>
+              )}
+            </div>
 
-                  <span className={`${css.userName} ${textColorClass}`}>{userName}</span>
+            <div className={css.mobileNavContainer}>
+              <button className={css.burgerButton} onClick={toggleMobileMenu} aria-label="Відкрити меню">
+                <Icon name="icon-menu" size={28} className={!isHomePage ? css.textDark : ''} />
+              </button>
+            </div>
+          </nav>
+        )}
+      </header>
 
-                  <button 
-                    className={`${css.logoutBtn} ${!isHomePage ? css.borderLeftDark : ''}`} 
-                    aria-label="Вийти"
-                    onClick={handleLogout}
-                  >
-                    <Icon name="icon-logout" size={24} className={textColorClass}/> 
+      {/* === MOBILE MENU === */}
+      <div className={`${css.backdrop} ${isMobileMenuOpen ? css.open : ''}`} onClick={toggleMobileMenu}>
+        <div className={`${css.menuContainer} ${isMobileMenuOpen ? css.open : ''}`} onClick={(e) => e.stopPropagation()}>
+          
+          <div className={css.menuHeader}>
+            <div className={css.logoContainer}>
+              <Icon name="icon-favicon" />
+              <p className={css.mobileMenuIconText}>Подорожники</p>
+            </div>
+            <button className={css.closeButton} onClick={toggleMobileMenu} aria-label="Закрити меню">
+              <Icon name="icon-close" size={24} />
+            </button>
+          </div>
+
+          <nav className={css.mobileNav}>
+            <button onClick={() => handleNavClick("/")} className={css.mobileNavLink}>Головна</button>
+            <button onClick={() => handleNavClick("/")} className={css.mobileNavLink}>Історії</button>
+            <button onClick={() => handleNavClick("/")} className={css.mobileNavLink}>Мандрівки</button>
+            {showAuthContent && (
+              <button onClick={() => handleNavClick("/profile")} className={css.mobileNavLink}>Мій Профіль</button>
+            )}
+          </nav>
+
+          <div className={css.mobileFooter}>
+            {showAuthContent ? (
+              <>
+                <button className={css.mobilePublishBtn}>Опублікувати історію</button>
+                <div className={css.mobileUserProfile}>
+                  <div className={css.mobileAvatar}>
+                    {avatarUrl ? <img src={avatarUrl} alt={userName} className={css.mobileAvatarImg} /> : <span style={{ color: "#999", fontSize: "20px" }}>?</span>}
+                  </div>
+                  <span className={css.mobileUserName}>{userName}</span>
+                  <button className={css.mobileLogoutBtn} onClick={handleLogout}>
+                    <Icon name="icon-logout" size={24} /> 
                   </button>
                 </div>
+              </>
+            ) : (
+              <div className={css.mobileAuthButtons}>
+                <Link href="/auth/login" className={css.mobileLoginLink} onClick={toggleMobileMenu}>
+                  Вхід
+                </Link>
+                <Link href="/auth/register" className={css.mobileRegisterLink} onClick={toggleMobileMenu}>
+                  Реєстрація
+                </Link>
               </div>
-            </>
-          ) : (
-            /* Блок для неавторизованих */
-            <>
-              <ul className={css.navLink}>
-                <li className={css.navItem}>
-                  <Link href="/" className={`${css.navItemLink} ${textColorClass}`}>Головна</Link>
-                </li>
-                <li className={css.navItem}>
-                  <Link href="/" className={`${css.navItemLink} ${textColorClass}`}>Історії</Link>
-                </li>
-                <li className={css.navItem}>
-                  <Link href="/" className={`${css.navItemLink} ${textColorClass}`}>Мандрівки</Link>
-                </li>
-              </ul>
-              <ul className={css.navAuthLink}>
-                <li className={css.navItem}>
-                  <Link 
-                    href="/auth/login" 
-                    className={`${css.navItemLinkLogin} ${loginBtnClass}`}
-                  >
-                    Вхід
-                  </Link>
-                </li>
-                <li className={css.navItem}>
-                  <Link 
-                    href="/auth/register" 
-                    className={`${css.navItemLinkRegister} ${registerBtnClass}`}
-                  >
-                    Реєстрація
-                  </Link>
-                </li>
-              </ul>
-            </>
-          )}
-        </nav>
-      )}
-    </header>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 
