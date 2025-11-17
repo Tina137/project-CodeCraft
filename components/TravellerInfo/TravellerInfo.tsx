@@ -1,3 +1,5 @@
+"use client";
+
 import { useRouter } from "next/navigation";
 import styles from "./TravellerInfo.module.css";
 
@@ -14,11 +16,11 @@ export default function TravellerInfo({ name, description, avatarUrl }: Travelle
   return (
     <div className={styles.wrapper}>
       <img src={avatarUrl} alt={name} className={styles.image} />
-      <h2>{name}</h2>
-      <p>{description}</p>
-      <button onClick={() => router.push("/stories")} className={styles.backButton}>
-        Назад до історій
-      </button>
+      
+      <div className={styles.info}>
+        <h2 className={styles.title}>{name}</h2>
+        <p className={styles.description}>{description}</p>
+      </div>
     </div>
   );
 }
