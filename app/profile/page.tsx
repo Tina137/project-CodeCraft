@@ -1,7 +1,8 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import TravellerInfo from "../../components/TravellerInfo/TravellerInfo";
-// import StoriesList from "@/components/StoriesList";
+// import TravellersStories from "@/components/TravellersStories";
 
 import {
   getMe,
@@ -20,6 +21,7 @@ interface ProfileUser {
 }
 
 export default function ProfilePage() {
+  const router = useRouter();
   const [user, setUser] = useState<ProfileUser | null>(null);
   const [stories, setStories] = useState([]);
   const [tab, setTab] = useState<"saved" | "mine">("saved");
@@ -27,7 +29,11 @@ export default function ProfilePage() {
 
   // Завантажити дані мандрівника
   useEffect(() => {
-    getMe().then(setUser);
+    getMe()
+      .then(setUser)
+      .catch(() => {
+        router.push("/auth/register"); 
+      });
   }, []);
 
   // Завантажити історії залежно від табу
@@ -45,7 +51,7 @@ export default function ProfilePage() {
     load();
   }, [tab]);
 
-  if (!user) return <p>Завантаження...</p>;
+  // if (!user) return <p>Завантаження...</p>;
 
   return (
     <div className={styles.container}>
@@ -61,14 +67,14 @@ export default function ProfilePage() {
       {/* Switcher */}
       <div className={styles.tabs}>
         <button
-          className={tab === "saved" ? styles.active : ""}
+          className={tab === "saved" ? styles.active : styles.inactive}
           onClick={() => setTab("saved")}
         >
           Збережені історії
         </button>
 
         <button
-          className={tab === "mine" ? styles.active : ""}
+          className={tab === "mine" ? styles.active : styles.inactive}
           onClick={() => setTab("mine")}
         >
           Мої історії
@@ -78,7 +84,7 @@ export default function ProfilePage() {
       {/* Stories */}
       {loading ? (
         <p>Завантаження історій...</p>
-      ) : // <StoriesList stories={stories} />
+      ) : // <TravellersStories items={stories} />
       null}
     </div>
   );

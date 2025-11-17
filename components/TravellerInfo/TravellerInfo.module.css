@@ -46,27 +46,30 @@
 @media screen and (min-width: 768px) {
 
 .wrapper {
-  width: 704px;
-  height: 199px;
+  width: 590px;
+  height: auto;
   display: flex;
   flex-direction: row;
   align-items: center;
   text-align: left;
+  gap: 24px;
 }
 
 .info {
   align-items: flex-start;
   }
+
+.title,
+.description {
+  text-align: left;
+  margin: 0;
+}
 }
 
 /* ========= desktop ========= */
 
 @media screen and (min-width: 1440px) {
 
-.wrapper {
-  width: 1312px;
-  height: 199px;
-}
 
 .info {
   width: 367px;
@@ -80,5 +83,4 @@
 .description {
   font-size: 18px;
 }
-
 }
