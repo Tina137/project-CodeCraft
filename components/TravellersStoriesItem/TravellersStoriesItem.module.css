@@ -1,0 +1,222 @@
+/* ==== CARD ==== */
+.card {
+  background-color: #e8eeff;
+  border-radius: 16px;
+  overflow: hidden;
+  max-width: 421px;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.3s ease;
+}
+
+/* ==== IMAGE ==== */
+.cardImage {
+  width: 100%;
+  max-height: 223px;
+  object-fit: cover;
+  background-color: #dbdbdb;
+}
+
+/* ==== MAIN CONTENT ==== */
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px;
+}
+
+/* ==== HEADER ==== */
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cardCategory {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000;
+}
+
+.cardTitle {
+  height: 54px;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #000;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardDescription {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ==== AUTHOR BLOCK ==== */
+.cardFooter {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cardAuthor {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.authorAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.authorInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.authorName {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #000;
+}
+
+.authorMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.metaDot {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000;
+}
+
+.authorDate {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #000;
+}
+
+/* ==== FAVORITE ==== */
+.favorite {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.favoriteCount {
+  font-size: 12px;
+}
+
+.favoriteIcon,
+.buttonIconSvg {
+  fill: #000;
+}
+
+/* ==== ACTION BUTTONS ==== */
+.cardActions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.buttonPrimary {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000;
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background-color: rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.buttonIcon {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background-color: rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.buttonPrimary:hover,
+.buttonPrimary:focus,
+.buttonIcon:hover,
+.buttonIcon:focus {
+  background-color: #4169e1;
+  color: #fff;
+}
+
+.buttonIcon:hover .buttonIconSvg,
+.buttonIcon:focus .buttonIconSvg {
+  fill: #fff;
+}
+
+.buttonPrimary:active,
+.buttonIcon:active {
+  background-color: #1a2a5a;
+}
+
+/* ==== RESPONSIVE ==== */
+@media screen and (min-width: 768px) {
+  .card {
+    flex-basis: calc((100% - 24px) / 2);
+  }
+  .cardImage {
+    max-height: 226px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .card {
+    flex-basis: calc((100% - 24px) / 3);
+  }
+
+  .cardImage {
+    max-height: 280px;
+  }
+
+  .cardCategory,
+  .favoriteCount,
+  .authorName,
+  .authorDate {
+    font-size: 16px;
+  }
+
+  .cardTitle {
+    font-size: 26px;
+    height: 78px;
+  }
+
+  .cardDescription,
+  .buttonPrimary {
+    font-size: 18px;
+  }
+}

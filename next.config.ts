@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "project-codecraft-backend",
       },
+      {
+        protocol: "https",
+        hostname: "ftp.goit.study",
+      },
     ],
   },
 };
