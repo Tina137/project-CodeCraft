@@ -1,0 +1,87 @@
+"use client";
+
+import React, { useState } from "react";
+import css from "./TravelersMainPage.module.css";
+import TravellerInfo from "../TravellerInfo/TravellerInfo";
+import { getAllUsers } from "../../lib/api/clientApi";
+import { TravelersResponse, Traveler } from "../../lib/api/api";
+
+interface TravelersMainPageProps {
+  initialData: TravelersResponse;
+}
+
+export default function TravelersMainPage({
+  initialData,
+}: TravelersMainPageProps) {
+  console.log("[TravelersMainPage] initial:", {
+    page: initialData.page,
+    limit: initialData.limit,
+    total: initialData.total,
+    returned: initialData.data.length,
+  });
+
+  const [users, setUsers] = useState<Traveler[]>(initialData.data);
+  const [page, setPage] = useState<number>(initialData.page);
+  const [limit] = useState<number>(initialData.limit);
+  const [total, setTotal] = useState<number>(initialData.total);
+  const [hasNextPage, setHasNextPage] = useState<boolean>(
+    initialData.hasNextPage
+  );
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const loadMore = async () => {
+    if (!hasNextPage || loading) return;
+
+    const nextPage = page + 1;
+    setLoading(true);
+    setError(null);
+
+    try {
+      const resp: TravelersResponse = await getAllUsers(nextPage, limit);
+
+      setUsers((prev) => [...prev, ...resp.data]);
+      setPage(resp.page);
+      setTotal(resp.total);
+      setHasNextPage(resp.hasNextPage);
+    } catch (e) {
+      console.error("[TravelersMainPage] loadMore error:", e);
+      setError("Ошибка загрузки данных");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <h2>Наші Мандрівники</h2>
+
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+      <div className={css.grid}>
+        {users.map((u) => (
+          <TravellerInfo
+            key={u._id}
+            name={u.name}
+            description={u.description}
+            avatarUrl={u.avatarUrl}
+            articlesAmount={u.articlesAmount}
+            _id={u._id}
+          />
+        ))}
+      </div>
+
+      <div className={css.controls}>
+        {hasNextPage && (
+          <button
+            onClick={loadMore}
+            disabled={loading}
+            className={css.loadMoreButton}
+          >
+            {loading ? "Завантаження..." : "Показати ще"}
+          </button>
+        )}
+      </div>
+    </>
+  );
+}
