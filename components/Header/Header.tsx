@@ -6,16 +6,18 @@ import { usePathname, useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/authStore";
 import Icon from "@/components/Icon/Icon";
 import { logout } from "@/lib/api/clientApi";
+import { useEffect, useState } from "react"; // 1. Додаємо useState та useEffect
 
 const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
   
+  // 2. Стан, щоб знати, чи ми вже на клієнті
+  const [isMounted, setIsMounted] = useState(false);
+
   const isHomePage = pathname === '/';
   
   const textColorClass = !isHomePage ? css.textDark : "";
-
-  // Логіка класів для кнопок
   const loginBtnClass = !isHomePage ? css.loginBtnGrey : "";
   const registerBtnClass = !isHomePage ? css.registerBtnBlue : "";
 
@@ -24,6 +26,11 @@ const Header = () => {
 
   const userName = user?.name || "User"; 
   const avatarUrl = user?.avatarUrl || null;
+
+  // 3. Активуємо isMounted тільки після першого рендеру на клієнті
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -37,6 +44,16 @@ const Header = () => {
     }
   };
 
+  // 4. Якщо ми ще на сервері або сторінка авторизації - рендеримо спрощену версію
+  // Це запобігає помилкам гідратації
+  if (!isMounted) {
+     // Можна повернути null або скелетон, 
+     // але краще повернути хедер без кнопок профілю, щоб не стрибала верстка.
+     // Для простоти поки повернемо null або статичну версію:
+     return null; 
+     // Або можна просто дати коду йти далі, але блокувати рендер частин, залежних від isAuthenticated
+  }
+
   return (
     <header className={`${css.header} ${!isHomePage ? css.headerWhite : ''}`}>
       <div className={css.logoContainer}>
@@ -46,7 +63,8 @@ const Header = () => {
 
       {!isAuthPage && (
         <nav className={css.nav}>
-          {isAuthenticated ? (
+          {/* 5. Важлива перевірка: рендеримо логіку тільки якщо isMounted === true */}
+          {isMounted && isAuthenticated ? (
             <>
               <ul className={css.navLink}>
                 <li className={css.navItem}>
@@ -70,6 +88,7 @@ const Header = () => {
 
                 <div className={css.userProfile}>
                   <div className={css.avatar}>
+                    {/* Додаткова перевірка для src, щоб не було null */}
                     {avatarUrl ? (
                       <img src={avatarUrl} alt={userName} className={css.avatarImg} />
                     ) : (
@@ -90,6 +109,7 @@ const Header = () => {
               </div>
             </>
           ) : (
+            /* Блок для неавторизованих */
             <>
               <ul className={css.navLink}>
                 <li className={css.navItem}>
@@ -104,7 +124,6 @@ const Header = () => {
               </ul>
               <ul className={css.navAuthLink}>
                 <li className={css.navItem}>
-                  {/* Кнопка ВХІД: додаємо loginBtnClass */}
                   <Link 
                     href="/auth/login" 
                     className={`${css.navItemLinkLogin} ${loginBtnClass}`}
@@ -113,7 +132,6 @@ const Header = () => {
                   </Link>
                 </li>
                 <li className={css.navItem}>
-                  {/* Кнопка РЕЄСТРАЦІЯ: додаємо registerBtnClass */}
                   <Link 
                     href="/auth/register" 
                     className={`${css.navItemLinkRegister} ${registerBtnClass}`}
