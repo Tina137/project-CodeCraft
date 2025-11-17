@@ -18,7 +18,7 @@ import type { PaginatedStoriesResponse } from "@/types/story";
 
 type PageProps = { params: Promise<{ travellerId: string }> };
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+const APP_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
 
 async function fetchUser(travellerId: string): Promise<User> {
   const res = await fetch(`${APP_URL}/api/users/${travellerId}`, {

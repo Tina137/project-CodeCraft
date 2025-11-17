@@ -11,7 +11,7 @@ type Props = {
   initialStories: PaginatedStoriesResponse;
 };
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+const APP_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
 
 async function fetchStoriesPage(
   travellerId: string,
