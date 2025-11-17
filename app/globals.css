@@ -7,8 +7,12 @@
   --royal-blue-darker: #1a2a5a;
   --schema-two: #e8eeff;
 }
-* {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
+  padding: 0;
 }
 
 body {
@@ -26,6 +30,11 @@ body {
 a {
   text-decoration: none;
   color: white;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
 }
 
 body.dark-theme {

@@ -1,6 +1,10 @@
 // app/page.tsx
+
+import About from "@/components/About/About";
+
 import css from "./page.module.css";
 import Hero from "@/components/Hero/Hero";
+import { Join } from "@/components/Join/Join";
 
 import OurTravellers from "../components/OurTravellers/OurTravellers";
 import { getUsersServer } from "../lib/api/serverApi";
@@ -12,6 +16,8 @@ export default async function Home() {
     <main className={css.main}>
       <Hero />
       <OurTravellers initialData={initialData} />
+      <About />
+      <Join />
     </main>
   );
 }

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import css from "./OurTravellers.module.css";
 import TravellerInfo from "../TravellerInfo/TravellerInfo";
+
 import { getAllUsers } from "../../lib/api/clientApi";
 import { TravelersResponse, Traveler } from "../../lib/api/api";
 
@@ -51,20 +52,21 @@ export default function OurTravellers({ initialData }: TravelersMainPageProps) {
   };
 
   return (
-    <div className="container">
-      <h2>Наші Мандрівники</h2>
-      <div className={css.grid}>
+    <div className={css.container}>
+      <h2 className={css.title}>Наші Мандрівники</h2>
+      <ul className={css.travellersBox}>
         {users.map((u) => (
-          <TravellerInfo
-            key={u._id}
-            name={u.name}
-            description={u.description}
-            avatarUrl={u.avatarUrl}
-            articlesAmount={u.articlesAmount}
-            _id={u._id}
-          />
+          <li key={u._id} className={css.wrapper}>
+            <TravellerInfo
+              name={u.name}
+              description={u.description}
+              avatarUrl={u.avatarUrl}
+              articlesAmount={u.articlesAmount}
+              _id={u._id}
+            />
+          </li>
         ))}
-      </div>
+      </ul>
 
       <div className={css.controls}>
         {hasNextPage && (
@@ -73,7 +75,7 @@ export default function OurTravellers({ initialData }: TravelersMainPageProps) {
             disabled={loading}
             className={css.loadMoreButton}
           >
-            {loading ? "Завантаження..." : "Показати ще"}
+            {loading ? "Завантаження..." : "Переглянути всіх"}
           </button>
         )}
       </div>

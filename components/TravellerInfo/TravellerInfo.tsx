@@ -21,7 +21,7 @@ export default function TravellerInfo({
   const router = useRouter();
 
   return (
-    <div className={styles.wrapper}>
+    <div>
       <img src={avatarUrl} alt={name} className={styles.image} />
 
       <div className={styles.info}>
