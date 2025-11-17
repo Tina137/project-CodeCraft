@@ -28,6 +28,11 @@ a {
   color: white;
 }
 
+ul {
+  list-style: none;
+  padding: 0;
+}
+
 body.dark-theme {
   --white: #000000;
   --black: #ffffff;
@@ -50,7 +55,9 @@ main {
 }
 
 .wrapper {
-  padding: 0 16px;
+  /* min-width: 320px; */
+  max-width: 375px;
+  padding: 0 20px;
   margin: 0 auto;
 }
 

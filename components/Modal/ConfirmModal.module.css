@@ -1,0 +1,89 @@
+
+.confirmWrapper {
+  max-width: 640px; 
+
+  margin: 0 auto; 
+  padding: 64px;
+  text-align: center;
+  
+}
+
+.title {
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-size: 48px;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #000000;
+}
+
+.message {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 20px; 
+  font-weight: 400; 
+  color: #555;
+  line-height: 1.5;
+  margin-top: 0;
+  margin-bottom: 32px; 
+}
+
+.buttons {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+}
+.cancelButton,
+.confirmButton {
+  padding: 13.5px 24px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 203px;
+}
+.cancelButton {
+  background-color: #f0f0f0; 
+  color: #333;
+}
+.confirmButton {
+  background-color: #0070f3; 
+  color: #fff;
+}
+
+@media (max-width: 1439px) {
+  .confirmWrapper {
+    padding: 64px 32px;
+  }
+
+}
+
+@media (max-width: 767px) {
+  .confirmWrapper {
+    padding: 64px 20px 20px 20px ;
+    max-width: 100%;
+  }
+  
+  .title {
+    font-size: 26px;
+    margin-bottom: 16px;
+  }
+
+  .message {
+    font-size: 16px;
+    margin-bottom: 32px; 
+  }
+
+  .buttons {
+   flex-direction: column;
+    gap: 24px;
+  }
+
+  .cancelButton,
+  .confirmButton {
+    min-width: 100px;
+  }
+}
