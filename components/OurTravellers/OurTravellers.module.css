@@ -1,6 +1,6 @@
 /* скрыть кнопку на мобильных */
 @media (max-width: 767px) {
   .loadMoreButton {
-    display: none !important;
+    display: none;
   }
 }

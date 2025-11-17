@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import css from "./TravelersMainPage.module.css";
+import css from "./OurTravellers.module.css";
 import TravellerInfo from "../TravellerInfo/TravellerInfo";
 import { getAllUsers } from "../../lib/api/clientApi";
 import { TravelersResponse, Traveler } from "../../lib/api/api";
@@ -10,9 +10,7 @@ interface TravelersMainPageProps {
   initialData: TravelersResponse;
 }
 
-export default function TravelersMainPage({
-  initialData,
-}: TravelersMainPageProps) {
+export default function OurTravellers({ initialData }: TravelersMainPageProps) {
   console.log("[TravelersMainPage] initial:", {
     page: initialData.page,
     limit: initialData.limit,
@@ -53,11 +51,8 @@ export default function TravelersMainPage({
   };
 
   return (
-    <>
+    <div className="container">
       <h2>Наші Мандрівники</h2>
-
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
       <div className={css.grid}>
         {users.map((u) => (
           <TravellerInfo
@@ -82,6 +77,6 @@ export default function TravelersMainPage({
           </button>
         )}
       </div>
-    </>
+    </div>
   );
 }
