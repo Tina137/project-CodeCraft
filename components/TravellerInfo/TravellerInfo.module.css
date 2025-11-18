@@ -53,25 +53,25 @@
     text-align: left;
   }
 
-.wrapper {
-  width: 590px;
-  height: auto;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  text-align: left;
-  gap: 24px;
-}
-
-.info {
-  align-items: flex-start;
+  .wrapper {
+    width: 590px;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 24px;
   }
 
-.title,
-.description {
-  text-align: left;
-  margin: 0;
-}
+  .info {
+    align-items: flex-start;
+  }
+
+  .title,
+  .description {
+    text-align: left;
+    margin: 0;
+  }
 }
 
 /* ========= desktop ========= */
@@ -82,7 +82,7 @@
     height: 199px;
   }
 
-.info {
+  .info {
     width: 367px;
   }
   .title {

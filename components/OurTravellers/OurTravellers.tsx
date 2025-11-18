@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import css from "./OurTravellers.module.css";
-import TravellerInfo from "../TravellerInfo/TravellerInfo";
+import TravellersInfoCards from "../TravellersInfoCards/TravellersInfoCards";
 
 import { getAllUsers } from "../../lib/api/clientApi";
 import { TravelersResponse, Traveler } from "../../lib/api/api";
@@ -57,12 +57,11 @@ export default function OurTravellers({ initialData }: TravelersMainPageProps) {
       <ul className={css.travellersBox}>
         {users.map((u) => (
           <li key={u._id} className={css.wrapper}>
-            <TravellerInfo
+            <TravellersInfoCards
               name={u.name}
               description={u.description}
               avatarUrl={u.avatarUrl}
-              articlesAmount={u.articlesAmount}
-              _id={u._id}
+              id={u._id}
             />
           </li>
         ))}
