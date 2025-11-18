@@ -53,6 +53,7 @@ export default function RootLayout({
               {children}
               {modal}
             </main>
+            <div id="loader-root"></div>
             <Footer />
           </AuthProvider>
         </TanStackProvider>
