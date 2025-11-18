@@ -4,14 +4,14 @@ import TravellerInfo from "../../components/TravellerInfo/TravellerInfo";
 // import StoriesList from "@/components/StoriesList";
 
 import {
-  getCurrentUser,
+  getMe,
   getSavedStories,
   getMyStories,
 } from "@/lib/api/clientApi";
 
 import styles from "./page.module.css";
 
-interface User {
+interface ProfileUser {
   _id: string;
   name: string;
   avatarUrl: string;
@@ -20,14 +20,14 @@ interface User {
 }
 
 export default function ProfilePage() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<ProfileUser | null>(null);
   const [stories, setStories] = useState([]);
   const [tab, setTab] = useState<"saved" | "mine">("saved");
   const [loading, setLoading] = useState(true);
 
   // Завантажити дані мандрівника
   useEffect(() => {
-    getCurrentUser().then(setUser);
+    getMe().then(setUser);
   }, []);
 
   // Завантажити історії залежно від табу

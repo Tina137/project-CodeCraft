@@ -1,0 +1,124 @@
+.joinSection {
+  position: relative; 
+  color: #ffffff; 
+  border-radius: 20px; 
+  overflow: hidden; 
+  
+  
+  background-image: url('/images/moonlit-coral-reef 1.png');
+  background-size: cover;
+  background-position: center;
+
+  
+  width: 335px; 
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px; 
+}
+
+
+.joinSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); 
+  z-index: 1;
+}
+
+.container {
+  position: relative; 
+  z-index: 2;
+  
+  
+  padding: 20px;
+  text-align: center;
+}
+
+.title {
+  font-family: var(--font-sora); 
+  font-weight: 700;
+  margin-top: 0;
+ font-size: 26px; 
+  margin-bottom: 16px;
+}
+
+.text {
+  font-family: var(--font-nunito_Sans); 
+  line-height: 1.6;
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+.button {
+  padding: 12px;
+ font-size: 16px;
+ font-weight: 500;
+  color: #fff;
+  background-color: #5B44F3;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  line-height: 1.5;
+      font-family: "Nunito Sans", sans-serif;
+
+}
+.button:hover {
+  background-color: #4a37d1;
+}
+
+@media (min-width: 768px) {
+  .joinSection {
+    width: 704px; 
+  }
+
+  .container {
+    padding: 32px;
+    text-align: left; 
+  }
+
+  .title {
+   
+    margin-bottom: 8px;
+    max-width: 550px; 
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .text {
+  font-size: 16px;
+    margin-bottom: 16px;
+    max-width: 450px; 
+    line-height: 1.5;
+    font-weight: 400;
+  }
+}
+
+
+@media (min-width: 1440px) {
+  .joinSection {
+    width: 1312px; 
+  }
+    .container {
+    padding: 80px 0 80px 64px;
+    text-align: left; 
+  }
+
+    .title {
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+
+  .text {
+font-size: 20px;
+    margin-bottom: 32px;
+    max-width: 450px; 
+     }
+}
