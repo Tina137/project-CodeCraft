@@ -1,10 +1,16 @@
 import TravellersList from "@/components/TravellersList/TravellersList";
+import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer/Footer";
 
 export default function TravellersPage() {
   return (
-    <div>
-      <h1>Мандрівники</h1>
-      <TravellersList />
-    </div>
+    <>
+      <Header />
+
+        <h1 style={{ textAlign: "center", marginBottom: "32px" }}>Мандрівники</h1>
+        <TravellersList />
+
+      <Footer />
+    </>
   );
 }

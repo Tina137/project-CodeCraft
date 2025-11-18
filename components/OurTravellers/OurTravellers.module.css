@@ -1,0 +1,110 @@
+/* скрыть кнопку на мобильных */
+
+.container {
+  width: 100%; /* занимает всю ширину экрана */
+  max-width: 375px; /* ограничение на мобилке */
+  min-width: 320px; /* минимальная ширина */
+  padding: 64px 20px;
+  margin: 0 auto;
+}
+.wrapper {
+  max-width: 335px;
+}
+.title {
+  margin-bottom: 48px;
+  font-size: 28px;
+  line-height: 120%;
+  letter-spacing: -0.01em;
+}
+.loadMoreButton {
+  display: none;
+}
+.travellersBox {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 768px;
+    max-width: none;
+    min-width: none;
+    padding: 64px 32px;
+  }
+  .title {
+    font-size: 44px;
+  }
+  .wrapper {
+    max-width: 340px;
+  }
+  .travellersBox {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .loadMoreButton {
+    margin: 24px auto 0;
+    display: block;
+    border: 1px solid var(--royal-blue);
+    border-radius: 8px;
+    padding: 6px 12px;
+    width: 156px;
+    height: 48px;
+    color: var(--white);
+    background-color: var(--royal-blue);
+    text-align: center;
+    font-weight: 500;
+
+    font-size: 16px;
+    line-height: 150%;
+    color: var(--white);
+    transition:
+      background-color 250ms ease,
+      color 250ms ease,
+      border-color 250ms ease;
+  }
+  .loadMoreButton:hover,
+  .loadMoreButton:active {
+    cursor: pointer;
+    border: 1px solid var(--royal-blue);
+    background-color: var(--royal-blue-lighter);
+    color: var(--black);
+  }
+}
+
+@media (min-width: 1440px) {
+  .container {
+    width: 1440px;
+    max-width: none;
+    min-width: none;
+    padding: 72px 64px;
+  }
+
+  .title {
+    font-size: 52px;
+  }
+
+  .wrapper {
+    max-width: 310px;
+  }
+  .loadMoreButton {
+    margin: 48px auto 0;
+
+    width: 173px;
+    height: 48px;
+    font-size: 18px;
+
+    transition:
+      background-color 250ms ease,
+      color 250ms ease,
+      border-color 250ms ease;
+  }
+  .loadMoreButton:hover,
+  .loadMoreButton:active {
+    cursor: pointer;
+    border: 1px solid var(--royal-blue);
+    background-color: var(--royal-blue-lighter);
+    color: var(--black);
+  }
+}
