@@ -53,9 +53,25 @@
     text-align: left;
   }
 
-  .info {
-    align-items: flex-start;
+.wrapper {
+  width: 590px;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  gap: 24px;
+}
+
+.info {
+  align-items: flex-start;
   }
+
+.title,
+.description {
+  text-align: left;
+  margin: 0;
+}
 }
 
 /* ========= desktop ========= */
@@ -66,10 +82,9 @@
     height: 199px;
   }
 
-  .info {
+.info {
     width: 367px;
   }
-
   .title {
     font-size: 32px;
     margin-bottom: 0;
@@ -91,7 +106,7 @@
   font-weight: 500;
   transition: background 0.2s;
 }
-
 .button:hover {
   background-color: #0051a2;
+}
 }
