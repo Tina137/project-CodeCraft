@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import TravellerInfoCard from "../TravellerInfo/TravellerInfo";
+import TravellerInfoCard from "../TravellersInfoCards/TravellersInfoCards";
 import css from "./TravellersList.module.css";
 import axios from "axios";
 
@@ -15,65 +15,75 @@ type Traveler = {
 
 export default function TravellersList() {
   const [travelers, setTravelers] = useState<Traveler[]>([]);
-  const [visibleCount, setVisibleCount] = useState(0);
+  const [page, setPage] = useState(1);
+  const [hasNextPage, setHasNextPage] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [perPage, setPerPage] = useState(8);
 
-  useEffect(() => {
-    const initialCount = window.innerWidth >= 1024 ? 12 : 8;
-    setVisibleCount(initialCount);
-  }, []);
+  const fetchTravelers = async (pageNumber = 1, perPageArg = perPage) => {
+    try {
+      if (pageNumber === 1) setLoading(true);
+      else setLoadingMore(true);
 
-  useEffect(() => {
-    const fetchTravelers = async () => {
-      try {
-        const response = await axios.get(
-          "https://project-codecraft-backend.onrender.com/api/users",
-          { withCredentials: true }
-        );
+      const response = await axios.get(
+  `https://project-codecraft-backend.onrender.com/api/users?page=${pageNumber}&limit=${perPageArg}`,
+  { withCredentials: true }
+);
 
-        console.log("response.data:", response.data);
+      const adapted = response.data.data.map((user: any) => ({
+        id: user._id,
+        name: user.name,
+        description: user.description || "Немає опису",
+        avatarUrl: user.avatarUrl || "/default-avatar.png",
+        articlesAmount: user.articlesAmount,
+      }));
 
-        const adapted = response.data.data.map((user: any) => ({
-          id: user._id,
-          name: user.name,
-          description: user.description || "Немає опису",
-          avatarUrl: user.avatarUrl || "/default-avatar.png",
-          articlesAmount: user.articlesAmount,
-        }));
-
-        setTravelers(adapted);
-      } catch (err) {
-        console.error("Помилка при завантаженні мандрівників:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTravelers();
-  }, []);
-
-  const displayedTravelers = travelers.slice(0, visibleCount);
-
-  const handleLoadMore = () => {
-    setVisibleCount(prev => Math.min(prev + 4, travelers.length));
+      setTravelers(prev => [...prev, ...adapted]);
+      setHasNextPage(response.data.hasNextPage);
+    } catch (err) {
+      console.error("Помилка при завантаженні мандрівників:", err);
+    } finally {
+      setLoading(false);
+      setLoadingMore(false);
+    }
   };
 
-  if (loading) return <p>Завантаження мандрівників...</p>;
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const width = window.innerWidth;
+      const initialPerPage = width >= 1024 ? 12 : 8;
+      setPerPage(initialPerPage);
+      fetchTravelers(1, initialPerPage);
+    }
+  }, []);
+
+  const handleLoadMore = () => {
+    const nextPage = page + 1;
+    setPage(nextPage);
+    fetchTravelers(nextPage, perPage);
+  };
+
+  if (loading && !travelers.length) return <p>Завантаження мандрівників...</p>;
   if (!travelers.length) return <p>Немає мандрівників для відображення.</p>;
 
   return (
-    <div className={css.wrapper}>
-      <div className={css.cardsWrapper}>
-        {displayedTravelers.map(traveler => (
+    <div className={css.listWrapper}>
+      <div className={css.listCardsWrapper}>
+        {travelers.map(traveler => (
           <TravellerInfoCard key={traveler.id} {...traveler} />
         ))}
       </div>
 
-      {visibleCount < travelers.length && (
-        <div className={css.pagination}>
-          <button className={css.paginationBtn} onClick={handleLoadMore}>
-            Переглянути всіх
-          </button>
+      {hasNextPage && (
+        <div className={css.listPagination}>
+          {loadingMore ? (
+            <span>Завантаження...</span>
+          ) : (
+            <button className={css.listPaginationBtn} onClick={handleLoadMore}>
+              Показати ще
+            </button>
+          )}
         </div>
       )}
     </div>

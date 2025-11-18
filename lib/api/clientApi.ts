@@ -64,7 +64,7 @@ export const getSavedStories = async () => {
   const requests = savedIds.map((id: string) => api.get(`/stories/${id}`));
   const responses = await Promise.all(requests);
 
-  return responses.map(res => res.data);
+  return responses.map((res) => res.data);
 };
 
 export const getMyStories = async () => {
@@ -75,10 +75,12 @@ export const getMyStories = async () => {
   return stories.filter((story: any) => story.author._id === user._id);
 };
 
-export const getAllUsers = async () => {
-  const res = await api.get<User[]>("/users");
-  return res.data;
-};
+export async function getAllUsers(page:number, limit:number) {
+  const base = process.env.NEXT_PUBLIC_API_URL;
+  const url = `${base}/api/users?page=${page}&limit=${limit}`;
+  const res = await fetch(url);
+  return res.json();
+}
 
 export const getUserById = async (id: string) => {
   const res = await api.get<User>(`/users/${id}`);
