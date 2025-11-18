@@ -1,0 +1,96 @@
+.footer{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 80px;
+    background: #e8eeff;
+    padding: 48px 20px; 
+}
+
+.footerTop{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.logoSection{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+    
+}
+
+.logoSectionText{
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 110%;
+    letter-spacing: -0.01em;
+    color: #000;
+}
+
+
+.socialsList{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: row;
+    gap: 16px;  
+}
+
+
+.footerLinks{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: row;
+    gap: 24px;
+}
+
+.footerLinksList{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.footerLinksItem{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 4px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    color: #000;
+}
+
+.footerLinksItemText{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    color: #000;
+}
+
+.footerBottom{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    border-top: 1px solid #d1d5db;
+    padding-top: 24px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: row;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 150%;
+    color: #000;
+}

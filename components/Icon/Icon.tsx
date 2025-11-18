@@ -4,6 +4,7 @@ type IconProps = {
   name: string; // назва <symbol id="...">
   size?: number; // розмір px
   className?: string; // додаткові стилі
+children?: React.ReactNode;
 };
 
 const Icon: React.FC<IconProps> = ({ name, size = 24, className = "" }) => {
