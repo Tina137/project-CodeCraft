@@ -27,3 +27,18 @@ export type PaginatedStoriesResponse = {
   hasNextPage: boolean;
   hasPreviousPage: boolean;
 };
+
+export interface StoryInitialData {
+  _id?: string;
+  img: string;
+  title: string;
+  article: string;
+  category: string | { _id: string; name: string };
+}
+
+export interface StoryFormValues {
+  img: File | null;
+  title: string;
+  article: string;
+  category: string;
+}

@@ -75,7 +75,7 @@ export const getMyStories = async () => {
   return stories.filter((story: any) => story.author._id === user._id);
 };
 
-export async function getAllUsers(page:number, limit:number) {
+export async function getAllUsers(page: number, limit: number) {
   const base = process.env.NEXT_PUBLIC_API_URL;
   const url = `${base}/api/users?page=${page}&limit=${limit}`;
   const res = await fetch(url);
@@ -124,7 +124,7 @@ export const getStories = async () => {
 
 export const getStoryById = async (id: string) => {
   const { data } = await api.get(`/stories/${id}`);
-  return data;
+  return data.data ?? data;
 };
 
 export const createStory = async (payload: any) => {
@@ -183,3 +183,10 @@ export async function clientFetchStoriesPage(
     data: json.data.data,
   };
 }
+
+// ---------------- CATEGORIES ----------------
+
+export const getCategories = async () => {
+  const { data } = await api.get("/categories");
+  return data.data ?? data;
+};
