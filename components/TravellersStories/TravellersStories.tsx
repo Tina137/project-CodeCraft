@@ -19,6 +19,7 @@ export default function TravellersStories({
   loadingMore,
 }: TravellerStoriesProps) {
   const savedList = useSavedStore((s) => s.savedList);
+  console.log(items);
 
   return (
     <>
