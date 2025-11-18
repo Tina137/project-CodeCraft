@@ -75,7 +75,7 @@ export const getMyStories = async () => {
   return stories.filter((story: any) => story.author._id === user._id);
 };
 
-export async function getAllUsers(page:number, limit:number) {
+export async function getAllUsers(page: number, limit: number) {
   const base = process.env.NEXT_PUBLIC_API_URL;
   const url = `${base}/api/users?page=${page}&limit=${limit}`;
   const res = await fetch(url);
@@ -171,8 +171,8 @@ export async function clientFetchStoriesPage(
   );
 
   if (!res.ok) throw new Error(`Failed to load page ${page}`);
-  const json = await res.json();
 
+  const json = await res.json();
   return {
     page: json.data.page,
     perPage: json.data.perPage,
@@ -180,6 +180,6 @@ export async function clientFetchStoriesPage(
     totalItems: json.data.totalItems,
     hasNextPage: json.data.hasNextPage,
     hasPreviousPage: json.data.hasPreviousPage,
-    data: json.data.data,
+    data: json.data.stories,
   };
 }

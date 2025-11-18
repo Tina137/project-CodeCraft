@@ -7,31 +7,24 @@ import { useRouter } from "next/navigation";
 import { formatDate } from "@/utils/formatDate";
 import Icon from "../Icon/Icon";
 import { useSaveStory } from "@/hooks/useSaveStory";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSavedStore } from "@/lib/store/savedStore";
 
 interface TravellersStoriesItemProps {
   story: Story;
-  isSaved: boolean;
 }
 
 export default function TravellersStoriesItem({
   story,
-  isSaved,
 }: TravellersStoriesItemProps) {
   const router = useRouter();
 
   const { addMutation, removeMutation } = useSaveStory();
-
   const toggleGlobalSaved = useSavedStore((s) => s.toggleSaved);
 
-  const [saved, setSaved] = useState(isSaved);
-  const [count, setCount] = useState(story.favoriteCount);
+  const isSaved = useSavedStore((s) => s.savedList.includes(story._id));
 
-  // Синхронізація із глобальним savedList
-  useEffect(() => {
-    setSaved(isSaved);
-  }, [isSaved]);
+  const [count, setCount] = useState(story.favoriteCount);
 
   const toggleSave = () => {
     const handle401 = (err: any) => {
@@ -40,11 +33,10 @@ export default function TravellersStoriesItem({
       }
     };
 
-    if (saved) {
+    if (isSaved) {
       removeMutation.mutate(story._id, {
         onSuccess: () => {
           toggleGlobalSaved(story._id);
-          setSaved(false);
           setCount((p) => p - 1);
         },
         onError: handle401,
@@ -53,7 +45,6 @@ export default function TravellersStoriesItem({
       addMutation.mutate(story._id, {
         onSuccess: () => {
           toggleGlobalSaved(story._id);
-          setSaved(true);
           setCount((p) => p + 1);
         },
         onError: handle401,
@@ -117,9 +108,7 @@ export default function TravellersStoriesItem({
             </button>
 
             <button
-              className={`${css.buttonIcon} ${
-                saved ? css.buttonIconActive : ""
-              }`}
+              className={`${css.buttonIcon} ${isSaved ? css.buttonIconActive : ""}`}
               disabled={isLoading}
               onClick={toggleSave}
             >

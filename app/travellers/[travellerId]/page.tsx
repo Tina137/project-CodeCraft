@@ -36,48 +36,9 @@ export async function generateMetadata({
   };
 }
 
-async function getCurrentUser() {
-  try {
-    const cookieStore = await cookies();
-
-    const accessToken = cookieStore.get("accessToken")?.value;
-    const refreshToken = cookieStore.get("refreshToken")?.value;
-    const sessionId = cookieStore.get("sessionId")?.value;
-
-    const cookieHeader = [
-      accessToken ? `accessToken=${accessToken}` : "",
-      refreshToken ? `refreshToken=${refreshToken}` : "",
-      sessionId ? `sessionId=${sessionId}` : "",
-    ]
-      .filter(Boolean)
-      .join("; ");
-
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_APP_URL}/api/users/current`,
-      {
-        method: "GET",
-        headers: {
-          Cookie: cookieHeader,
-        },
-        cache: "no-store",
-      }
-    );
-
-    if (!res.ok) return null;
-
-    const json = await res.json();
-    return json.data;
-  } catch {
-    return null;
-  }
-}
-
 export default async function TravellerPage({ params }: PageProps) {
   const { travellerId } = await params;
   if (!travellerId) notFound();
-
-  const currentUser = await getCurrentUser();
-  const savedList = currentUser?.savedStories ?? [];
 
   const [user, initialStories] = await Promise.all([
     serverFetchUser(travellerId),
@@ -85,12 +46,10 @@ export default async function TravellerPage({ params }: PageProps) {
   ]);
 
   const queryClient = new QueryClient();
-
   queryClient.setQueryData(
     ["traveller-stories", travellerId, initialStories.perPage],
     { pages: [initialStories], pageParams: [1] }
   );
-
   const dehydratedState = dehydrate(queryClient);
 
   return (
@@ -114,7 +73,6 @@ export default async function TravellerPage({ params }: PageProps) {
             <TravellerStoriesWrapper
               travellerId={travellerId}
               initialStories={initialStories}
-              savedList={savedList}
             />
           </HydrationBoundary>
         ) : (
