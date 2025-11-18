@@ -84,7 +84,7 @@ export default function RegisterPage() {
                 </form>
 
                 <div className={css.formFooter}>
-                    Вже маєте акаунт? <Link href="/login">Увійти</Link>
+                    Вже маєте акаунт? <Link href="/auth/login">Увійти</Link>
                 </div>
             </div>
         </main>
