@@ -43,7 +43,7 @@ export default function TravellerInfo({
           </p>
         )}
       </div>
-
+      
       {showViewProfileButton && (
         <Link href={`/travellers/${_id}`} className={styles.button}>
           Переглянути профіль
