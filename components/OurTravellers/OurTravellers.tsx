@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import css from "./OurTravellers.module.css";
 import TravellersInfoCards from "../TravellersInfoCards/TravellersInfoCards";
+import Loader from "../Loader/Loader";
 
 import { getAllUsers } from "../../lib/api/clientApi";
 import { TravelersResponse, Traveler } from "../../lib/api/api";
@@ -68,6 +69,7 @@ export default function OurTravellers({ initialData }: TravelersMainPageProps) {
       </ul>
 
       <div className={css.controls}>
+        {loading && <Loader />}
         {hasNextPage && (
           <button
             onClick={loadMore}
