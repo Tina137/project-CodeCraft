@@ -3,6 +3,7 @@
 import TravellerStoryItem from "../TravellersStoriesItem/TravellersStoriesItem";
 import css from "./TravellersStories.module.css";
 import { Story } from "@/types/story";
+import { useSavedStore } from "@/lib/store/savedStore";
 
 interface TravellerStoriesProps {
   items: Story[];
@@ -11,26 +12,32 @@ interface TravellerStoriesProps {
   loadingMore?: boolean;
 }
 
-const TravellerStories = ({
+export default function TravellersStories({
   items,
   onLoadMore,
   hasMore,
   loadingMore,
-}: TravellerStoriesProps) => {
+}: TravellerStoriesProps) {
+  const savedList = useSavedStore((s) => s.savedList);
+
   return (
     <>
       <ul className={css.list}>
         {items.map((story) => (
-          <TravellerStoryItem story={story} key={story._id} />
+          <TravellerStoryItem
+            key={story._id}
+            story={story}
+            isSaved={savedList.includes(story._id)}
+          />
         ))}
       </ul>
+
       <div className={css.loadMoreWrapper}>
         {onLoadMore && hasMore && (
           <button
             className={css.loadMore}
-            type="button"
-            onClick={onLoadMore}
             disabled={loadingMore}
+            onClick={onLoadMore}
           >
             {loadingMore ? "Завантаження…" : "Показати ще"}
           </button>
@@ -38,6 +45,4 @@ const TravellerStories = ({
       </div>
     </>
   );
-};
-
-export default TravellerStories;
+}

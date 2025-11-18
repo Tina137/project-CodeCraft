@@ -26,8 +26,8 @@
   padding: 24px;
 }
 
-/* ==== HEADER ==== */
-.cardHeader {
+/* ==== TOP ==== */
+.cardTop {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -67,7 +67,7 @@
 }
 
 /* ==== AUTHOR BLOCK ==== */
-.cardFooter {
+.cardBottom {
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -159,11 +159,34 @@
 }
 
 .buttonIcon {
+  width: 48px;
+  height: 48px;
   padding: 12px;
   border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.15);
   background-color: rgba(0, 0, 0, 0.05);
   transition: all 0.2s ease;
+}
+
+.buttonIconActive {
+  background: #7a96ea;
+  border: 1px solid #4169e1;
+}
+
+.loaderIcon {
+  width: 21px;
+  height: 21px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .buttonPrimary:hover,
