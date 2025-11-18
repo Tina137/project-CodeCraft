@@ -1,0 +1,67 @@
+/* ===== LIST ===== */
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+/* ===== LOAD MORE BUTTON ===== */
+.loadMoreWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 64px;
+}
+
+.loadMore {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #fff;
+  width: 100%;
+  padding: 12px 16px;
+  background-color: #4169e1;
+  border: 1px solid #4169e1;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+}
+
+.loadMore:hover,
+.loadMore:focus {
+  background-color: #e8eeff;
+  color: #000;
+}
+
+.loadMore:active {
+  background-color: #7a96ea;
+  color: #000;
+}
+
+.loadMore:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (min-width: 768px) {
+  .loadMoreWrapper {
+    margin: 0 auto 64px;
+  }
+
+  .loadMore {
+    width: auto;
+    display: block;
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .loadMoreWrapper {
+    margin-bottom: 72px;
+  }
+
+  .loadMore {
+    font-size: 18px;
+  }
+}

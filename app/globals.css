@@ -65,6 +65,14 @@ main {
   margin: 0 auto;
 }
 
+/* З 375px — адаптивна мобільна верстка */
+@media (min-width: 375px) {
+  .wrapper {
+    max-width: 375px;
+    padding: 0 20px;
+  }
+}
+
 /* З 768px — планшет */
 @media (min-width: 768px) {
   .wrapper {

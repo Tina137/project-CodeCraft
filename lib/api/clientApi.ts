@@ -1,5 +1,6 @@
 import { api } from "./api";
 import { User } from "@/types/user";
+import type { PaginatedStoriesResponse } from "@/types/story";
 
 export type CheckSessionResponse = {
   success: boolean;
@@ -156,3 +157,29 @@ export const deleteStory = async (id: string) => {
   const { data } = await api.delete(`/stories/${id}`);
   return data;
 };
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
+
+export async function clientFetchStoriesPage(
+  travellerId: string,
+  page: number,
+  perPage: number
+): Promise<PaginatedStoriesResponse> {
+  const res = await fetch(
+    `${API_URL}/api/stories?ownerId=${travellerId}&page=${page}&perPage=${perPage}`,
+    { credentials: "include" }
+  );
+
+  if (!res.ok) throw new Error(`Failed to load page ${page}`);
+  const json = await res.json();
+
+  return {
+    page: json.data.page,
+    perPage: json.data.perPage,
+    totalPages: json.data.totalPages,
+    totalItems: json.data.totalItems,
+    hasNextPage: json.data.hasNextPage,
+    hasPreviousPage: json.data.hasPreviousPage,
+    data: json.data.data,
+  };
+}
