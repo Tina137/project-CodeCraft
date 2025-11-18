@@ -97,10 +97,12 @@ export default async function TravellerPage({ params }: PageProps) {
     <div className={conCss.container}>
       <div className={css.section}>
         <TravellerInfo
+          _id={user._id}
           name={user.name}
           description={user.description}
           avatarUrl={user.avatarUrl || "/Placeholder_Avatar_Image.png"}
           articlesAmount={initialStories.totalItems}
+          showViewProfileButton={false}
         />
       </div>
 
