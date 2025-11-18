@@ -60,6 +60,6 @@ export async function serverFetchStoriesPage(
     totalItems: json.data.totalItems,
     hasNextPage: json.data.hasNextPage,
     hasPreviousPage: json.data.hasPreviousPage,
-    data: json.data.data,
+    data: json.data.stories,
   };
 }
