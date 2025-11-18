@@ -1,5 +1,6 @@
 import { api } from "./api";
 import { User } from "@/types/user";
+import { Category } from "@/types/category";
 
 export type CheckSessionResponse = {
   success: boolean;
@@ -53,12 +54,12 @@ export const uploadAvatar = async (file: File) => {
 // Saved stories
 
 export const saveStory = async (storyId: string) => {
-  const { data } = await api.post("/users/saved/${storyId}");
+  const { data } = await api.post(`/users/saved/${storyId}`);
   return data;
 };
 
 export const removeSavedStory = async (storyId: string) => {
-  const { data } = await api.delete("/users/saved/${storyId}");
+  const { data } = await api.delete(`/users/saved/${storyId}`);
   return data;
 };
 
@@ -66,12 +67,12 @@ export const removeSavedStory = async (storyId: string) => {
 
 export const getStories = async () => {
   const { data } = await api.get("/stories");
-  return data;
+  return data.data ?? data;
 };
 
 export const getStoryById = async (id: string) => {
   const { data } = await api.get(`/stories/${id}`);
-  return data;
+  return data.data ?? data;
 };
 
 export const createStory = async (payload: any) => {
@@ -84,7 +85,7 @@ export const createStory = async (payload: any) => {
     headers: { "Content-Type": "multipart/form-data" },
   });
 
-  return data;
+  return data.data ?? data;
 };
 
 export const updateStory = async (id: string, payload: any) => {
@@ -97,10 +98,17 @@ export const updateStory = async (id: string, payload: any) => {
     headers: { "Content-Type": "multipart/form-data" },
   });
 
-  return data;
+  return data.data ?? data;
 };
 
 export const deleteStory = async (id: string) => {
   const { data } = await api.delete(`/stories/${id}`);
-  return data;
+  return data.data ?? data;
+};
+
+// ---------------- CATEGORIES ----------------
+
+export const getCategories = async () => {
+  const { data } = await api.get("/categories");
+  return data.data ?? data;
 };
