@@ -1,216 +1,9 @@
-/* 
-
-.form {
-  width: 100%;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-
-.left {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.title {
-  font-weight: 900;
-  font-size: 32px;
-  line-height: 110%;
-  margin-bottom: 12px;
-}
-
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.labelText {
-  font-size: 14px;
-  font-weight: 500;
-}
-
-
-.previewBox {
-  width: 100%;
-  height: 223px;
-  background: #e0e0e0;
-  border-radius: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-.previewImg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.previewPlaceholder {
-  width: 64px;
-  height: 64px;
-  opacity: 0.25;
-  background-image: url("/Placeholder_Image.png");
-  background-size: cover;
-  background-position: center;
-}
-
-
-.fileInput {
-  margin-top: 8px;
-}
-
-.input,
-.select,
-.textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #d9d9d9;
-  border-radius: 8px;
-  font-size: 14px;
-}
-
-.textarea {
-  min-height: 140px;
-  resize: vertical;
-}
-
-
-.error {
-  margin-top: 4px;
-  color: #d60000;
-  font-size: 12px;
-}
-
-
-.right {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.primaryBtn {
-  width: 100%;
-  padding: 12px 0;
-  border-radius: 8px;
-  background: var(--royal-blue);
-  color: var(--white);
-  font-size: 16px;
-  font-weight: 600;
-  border: none;
-  transition: opacity 0.2s;
-}
-
-.primaryBtn:disabled {
-  opacity: 0.4;
-}
-
-.secondaryBtn {
-  width: 100%;
-  padding: 12px 0;
-  border-radius: 8px;
-  background: var(--royal-blue-lighter);
-  color: var(--royal-blue-darker);
-  font-size: 16px;
-  font-weight: 600;
-  border: none;
-}
-
-
-@media (min-width: 768px) {
-  .title {
-    font-size: 40px;
-  }
-
-  .previewBox {
-    height: 469px;
-  }
-
-  .content {
-    gap: 40px;
-  }
-
-  .right {
-    max-width: 300px;
-  }
-}
-
-@media (min-width: 1440px) {
-  .content {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 60px;
-  }
-
-  .left {
-    width: 70%;
-  }
-
-  .right {
-    width: 30%;
-  }
-
-  .previewBox {
-    height: 576px;
-    border-radius: 24px;
-  }
-
-  .title {
-    font-size: 48px;
-  }
-
-  .primaryBtn,
-  .secondaryBtn {
-    font-size: 18px;
-    padding: 14px 0;
-  }
-}
-
-
-.modalContent {
-  padding: 24px;
-}
-
-.modalTitle {
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-
-.modalText {
-  font-size: 14px;
-  margin-bottom: 20px;
-}
-
-.modalBtn {
-  width: 100%;
-  padding: 12px;
-  background: var(--royal-blue);
-  color: var(--white);
-  border-radius: 8px;
-  border: none;
-} */
-
-/* =========================================================
-   MOBILE FIRST — 320–767px
-========================================================= */
-
 .formWrapper {
   width: 100%;
   padding: 0 20px;
   margin: 0 auto;
 }
 
-/* TITLE */
 .title {
   font-family: "Sora", sans-serif;
   font-weight: 700;
@@ -220,21 +13,18 @@
   margin: 32px 0;
 }
 
-/* GRID (mobile = one column) */
 .grid {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-/* LEFT COLUMN — contains fields */
 .left {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-/* LABELS */
 .label {
   display: flex;
   flex-direction: column;
@@ -249,7 +39,6 @@
   letter-spacing: 0;
 }
 
-/* PREVIEW */
 .previewBox {
   width: 100%;
   max-width: 335px;
@@ -281,7 +70,6 @@
   height: 64px;
 }
 
-/* HIDDEN INPUT */
 .hiddenInput {
   display: none;
 }
@@ -306,7 +94,6 @@
   border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
-/* INPUTS */
 .input,
 .select,
 .textarea {
@@ -329,14 +116,12 @@
   resize: none;
 }
 
-/* ERROR */
 .error {
   color: #d60000;
   font-size: 12px;
   margin-top: 4px;
 }
 
-/* RIGHT (buttons block — mobile is vertical) */
 .right {
   display: flex;
   flex-direction: column;
@@ -387,9 +172,6 @@
   cursor: pointer;
 }
 
-/* =========================================================
-   TABLET — 768–1439px
-========================================================= */
 @media (min-width: 768px) {
   .formWrapper {
     padding: 0 32px;
@@ -411,13 +193,8 @@
   .right {
     width: 100%;
   }
-
-  /* Buttons stay under form — same as mobile */
 }
 
-/* =========================================================
-   DESKTOP — 1440px+
-========================================================= */
 @media (min-width: 1440px) {
   .formWrapper {
     max-width: 1440px;
@@ -458,10 +235,6 @@
     font-size: 18px;
   }
 }
-
-/* =========================================================
-   MODAL
-========================================================= */
 
 .modalContent {
   padding: 24px;
