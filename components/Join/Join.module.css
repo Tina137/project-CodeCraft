@@ -1,70 +1,71 @@
+.sec {
+  padding: 32px 20px;
+}
 .joinSection {
-  position: relative; 
-  color: #ffffff; 
-  border-radius: 20px; 
-  overflow: hidden; 
-  
-  
-  background-image: url('/images/moonlit-coral-reef 1.png');
+  position: relative;
+  color: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+
+  background-image: url("/images/moonlit-coral-reef 1.png");
   background-size: cover;
   background-position: center;
 
-  
-  width: 335px; 
+  max-width: 335px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 40px; 
+  margin-bottom: 40px;
+  box-sizing: border-box;
+  margin: auto;
 }
 
-
 .joinSection::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4); 
+  background-color: rgba(0, 0, 0, 0.4);
   z-index: 1;
 }
 
 .container {
-  position: relative; 
+  position: relative;
   z-index: 2;
-  
-  
+
   padding: 20px;
   text-align: center;
 }
 
 .title {
-  font-family: var(--font-sora); 
+  font-family: var(--font-sora);
   font-weight: 700;
   margin-top: 0;
- font-size: 26px; 
+  font-size: 26px;
   margin-bottom: 16px;
 }
 
 .text {
-  font-family: var(--font-nunito_Sans); 
+  font-family: var(--font-nunito_Sans);
   line-height: 1.6;
   font-size: 16px;
   margin-bottom: 24px;
 }
 
 .button {
-  padding: 12px;
- font-size: 16px;
- font-weight: 500;
+  padding: 12px 0;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 500;
   color: #fff;
-  background-color: #5B44F3;
+  background-color: #4169e1;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
   line-height: 1.5;
-      font-family: "Nunito Sans", sans-serif;
-
+  font-family: "Nunito Sans", sans-serif;
 }
 .button:hover {
   background-color: #4a37d1;
@@ -72,43 +73,47 @@
 
 @media (min-width: 768px) {
   .joinSection {
-    width: 704px; 
+    max-width: 704px;
   }
 
   .container {
     padding: 32px;
-    text-align: left; 
+    text-align: left;
   }
 
   .title {
-   
     margin-bottom: 8px;
-    max-width: 550px; 
+    max-width: 550px;
     font-size: 32px;
     font-weight: 700;
     letter-spacing: -0.01em;
   }
 
   .text {
-  font-size: 16px;
+    font-size: 16px;
     margin-bottom: 16px;
-    max-width: 450px; 
+    max-width: 450px;
     line-height: 1.5;
     font-weight: 400;
   }
+  .button {
+    width: 153px;
+  }
+  .sec {
+    padding: 32px;
+  }
 }
-
 
 @media (min-width: 1440px) {
   .joinSection {
-    width: 1312px; 
+    max-width: 1312px;
   }
-    .container {
+  .container {
     padding: 80px 0 80px 64px;
-    text-align: left; 
+    text-align: left;
   }
 
-    .title {
+  .title {
     font-size: 48px;
     font-weight: 700;
     letter-spacing: -0.01em;
@@ -117,8 +122,14 @@
   }
 
   .text {
-font-size: 20px;
+    font-size: 20px;
     margin-bottom: 32px;
-    max-width: 450px; 
-     }
+    max-width: 450px;
+  }
+  .button {
+    width: 169px;
+  }
+  .sec {
+    padding: 48px 64px;
+  }
 }
