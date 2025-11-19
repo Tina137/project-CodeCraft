@@ -73,9 +73,13 @@ const Header = () => {
       <header className={`${css.header} ${!isHomePage ? css.headerWhite : ''}`}>
         <Link href="/" className={css.logoContainer}>
           <Icon name="icon-favicon" />
-          <p className={`${css.iconText} ${textColorClass}`}>
-            {logoText}
-          </p>
+            {isAuthPage ? (
+              <p className={`${css.iconText} ${textColorClass}`}>Подор<span className={css.iconTextSecondPart}>ожники</span></p>
+            ) : (
+            <>
+              <p className={`${css.iconText} ${textColorClass}`}>Подорожники</p>
+            </>
+          )}
         </Link>
 
         {!isAuthPage && (
