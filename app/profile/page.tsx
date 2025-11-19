@@ -3,11 +3,11 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import TravellerInfo from "../../components/TravellerInfo/TravellerInfo";
 import TravellersStories from "../../components/TravellersStories/TravellersStories";
+import { Story as FullStory } from "@/types/story";
 
 import {
   getMe,
-  getSavedStories,
-  getMyStories,
+  getStories,
 } from "@/lib/api/clientApi";
 
 import styles from "./page.module.css";
@@ -24,39 +24,46 @@ interface ProfileUser {
 export default function ProfilePage() {
   const router = useRouter();
   const [user, setUser] = useState<ProfileUser | null>(null);
-  const [stories, setStories] = useState([]);
+  const [stories, setStories] = useState<FullStory[]>([]);
   const [tab, setTab] = useState<"saved" | "mine">("saved");
   const [loading, setLoading] = useState(true);
 
-  // Завантажити дані мандрівника
   useEffect(() => {
     getMe()
-      .then(setUser)
-      .catch(() => {
-        router.push("/auth/register"); 
-      });
-  }, []);
+      .then((data) => setUser(data))
+      .catch(() => 
+        router.push("/auth/register"));
+  }, [router]);
 
-  // Завантажити історії залежно від табу
-  useEffect(() => {
-    if (!user) return;
-     async function loadStories(user: ProfileUser) {
-     setLoading(true);
+ useEffect(() => {
+  if (!user) return;
 
-      const data =
-        tab === "saved"
-         ? await getSavedStories(user.savedStories) 
-         : await getMyStories(user._id);
+  const currentUser = user; 
 
-      setStories(data);
-      setLoading(false);
+  async function loadStories() {
+    setLoading(true);
+
+  try {
+        const response = await getStories(); // повертає PaginatedStoriesResponse
+        let data: FullStory[] = response.data;
+
+        if (tab === "mine") {
+          data = data.filter((story) => story.ownerId._id === currentUser._id);
+        }
+
+        setStories(data);
+      } catch (error) {
+        console.error("Помилка завантаження історій:", error);
+        setStories([]);
+      } finally {
+        setLoading(false);
+      }
     }
+    
+  loadStories();
+}, [tab, user]);
 
-    loadStories(user);
-
-  }, [tab, user]);
-
-  // if (!user) return <p>Завантаження...</p>;
+  if (!user) return <p>Завантаження...</p>;
 
   return (
     <div className={styles.container}>
