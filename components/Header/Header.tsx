@@ -89,8 +89,8 @@ const Header = () => {
                 <>
                   <ul className={css.navLink}>
                     <li className={css.navItem}><Link href="/" className={`${css.navItemLink} ${textColorClass}`}>Головна</Link></li>
-                    <li className={css.navItem}><Link href="/" className={`${css.navItemLink} ${textColorClass}`}>Історії</Link></li>
-                    <li className={css.navItem}><Link href="/" className={`${css.navItemLink} ${textColorClass}`}>Мандрівки</Link></li>
+                    <li className={css.navItem}><Link href="/stories" className={`${css.navItemLink} ${textColorClass}`}>Історії</Link></li>
+                    <li className={css.navItem}><Link href="/travellers" className={`${css.navItemLink} ${textColorClass}`}>Мандрівки</Link></li>
                     <li className={css.navItem}><Link href="/profile" className={`${css.navItemLink} ${textColorClass}`}>Мій профіль</Link></li>
                   </ul>
                   <div className={css.wrapper}>
@@ -110,8 +110,8 @@ const Header = () => {
                 <>
                   <ul className={css.navLink}>
                     <li className={css.navItem}><Link href="/" className={`${css.navItemLink} ${textColorClass}`}>Головна</Link></li>
-                    <li className={css.navItem}><Link href="/" className={`${css.navItemLink} ${textColorClass}`}>Історії</Link></li>
-                    <li className={css.navItem}><Link href="/" className={`${css.navItemLink} ${textColorClass}`}>Мандрівки</Link></li>
+                    <li className={css.navItem}><Link href="/stories" className={`${css.navItemLink} ${textColorClass}`}>Історії</Link></li>
+                    <li className={css.navItem}><Link href="/travellers" className={`${css.navItemLink} ${textColorClass}`}>Мандрівки</Link></li>
                   </ul>
                   <ul className={css.navAuthLink}>
                     <li className={css.navItem}><Link href="/auth/login" className={`${css.navItemLinkLogin} ${loginBtnClass}`}>Вхід</Link></li>
@@ -146,8 +146,8 @@ const Header = () => {
 
           <nav className={css.mobileNav}>
             <button onClick={() => handleNavClick("/")} className={css.mobileNavLink}>Головна</button>
-            <button onClick={() => handleNavClick("/")} className={css.mobileNavLink}>Історії</button>
-            <button onClick={() => handleNavClick("/")} className={css.mobileNavLink}>Мандрівки</button>
+            <button onClick={() => handleNavClick("/stories")} className={css.mobileNavLink}>Історії</button>
+            <button onClick={() => handleNavClick("/travellers")} className={css.mobileNavLink}>Мандрівки</button>
             {showAuthContent && (
               <button onClick={() => handleNavClick("/profile")} className={css.mobileNavLink}>Мій Профіль</button>
             )}
