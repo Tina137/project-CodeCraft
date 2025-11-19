@@ -1,3 +1,9 @@
+export interface StoryOwner {
+  _id: string;
+  name: string;
+  avatarUrl: string | null;
+}
+
 export interface Story {
   _id: string;
   img: string;
@@ -7,11 +13,7 @@ export interface Story {
     _id: string;
     name: string;
   };
-  ownerId: {
-    _id: string;
-    name: string;
-    avatarUrl: string;
-  };
+  ownerId: StoryOwner;
   date: string;
   favoriteCount: number;
   createdAt: string;
