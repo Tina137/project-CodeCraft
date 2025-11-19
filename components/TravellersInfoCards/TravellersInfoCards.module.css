@@ -19,9 +19,9 @@
 }
 
 .photo {
-  width: 112px;
   height: 112px;
   overflow: hidden;
+  width: 112px;
   border-radius: 100%;
 }
 
@@ -32,36 +32,34 @@
 }
 
 .infoBlock {
-  display: flex;
-  flex-direction: column;
   gap: 16px;
   max-width: 287px;
   height: 179px;
+  display: flex;
+  flex-direction: column;
+}
+
+.personAbout {
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  color: #000;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
 }
 
 .personName {
   font-size: 18px;
-  font-weight: 600;
-  color: #000;
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.personAbout {
+  font-weight: 600;
   color: #000;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .profileLink {
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.15);
   color: #000;
   font-size: 16px;
   font-weight: 500;
