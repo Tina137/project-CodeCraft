@@ -26,6 +26,14 @@ export async function getUsersServer(page: number, limit: number) {
   return res.json();
 }
 
+export const getStoriesServer = async (page: number, perPage: number) => {
+  const sortBy = "favoriteCount";
+  const sortOrder = "desc";
+  const path = `/api/stories?page=${page}&perPage=${perPage}&sortBy=${sortBy}&sortOrder=${sortOrder}`;
+  const res = await serverApi(path, { method: "GET" });
+  return res.json();
+};
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
 
 export async function serverFetchUser(travellerId: string): Promise<User> {

@@ -13,13 +13,6 @@ interface TravelersMainPageProps {
 }
 
 export default function OurTravellers({ initialData }: TravelersMainPageProps) {
-  console.log("[TravelersMainPage] initial:", {
-    page: initialData.page,
-    limit: initialData.limit,
-    total: initialData.total,
-    returned: initialData.data.length,
-  });
-
   const [users, setUsers] = useState<Traveler[]>(initialData.data);
   const [page, setPage] = useState<number>(initialData.page);
   const [limit] = useState<number>(initialData.limit);

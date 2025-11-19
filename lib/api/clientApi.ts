@@ -56,22 +56,16 @@ export const getMe = async () => {
 
 export const getSavedStories = async () => {
   const { data: user } = await api.get("/users/current");
-
   const savedIds = user.savedStories || [];
-
   if (savedIds.length === 0) return [];
-
   const requests = savedIds.map((id: string) => api.get(`/stories/${id}`));
   const responses = await Promise.all(requests);
-
   return responses.map((res) => res.data);
 };
 
 export const getMyStories = async () => {
   const { data: user } = await api.get("/users/current");
-
   const { data: stories } = await api.get("/stories");
-
   return stories.filter((story: any) => story.author._id === user._id);
 };
 
@@ -95,11 +89,9 @@ export const updateProfile = async (payload: any) => {
 export const uploadAvatar = async (file: File) => {
   const formData = new FormData();
   formData.append("avatar", file);
-
   const { data } = await api.patch("/users/avatar", formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
-
   return data;
 };
 
@@ -122,6 +114,15 @@ export const getStories = async () => {
   return data;
 };
 
+export const getPopularStories = async (page: number, perPage: number) => {
+  const sortBy = "favoriteCount";
+  const sortOrder = "desc";
+  const { data } = await api.get(
+    `/stories?page=${page}&perPage=${perPage}&sortBy=${sortBy}&sortOrder=${sortOrder}`
+  );
+  return data;
+};
+
 export const getStoryById = async (id: string) => {
   const { data } = await api.get(`/stories/${id}`);
   return data;
@@ -132,11 +133,9 @@ export const createStory = async (payload: any) => {
   Object.entries(payload).forEach(([key, value]) => {
     formData.append(key, value as any);
   });
-
   const { data } = await api.post("/stories", formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
-
   return data;
 };
 
