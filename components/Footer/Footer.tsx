@@ -6,6 +6,7 @@ const Footer = () => {
   return (
   <footer className={css.footer}>
     <div className={css.footerTop}>
+      <div className={css.footerLogoSocials}>
       <div className={css.logoSection}>
       <Icon name="icon-favicon"></Icon>
       <p className={css.logoSectionText}>Подорожники</p>
@@ -33,6 +34,7 @@ const Footer = () => {
             </Link>
           </li>
         </ul>
+      </div>
       </div>
       <div className={css.footerLinks}>
         <ul className={css.footerLinksList}>
