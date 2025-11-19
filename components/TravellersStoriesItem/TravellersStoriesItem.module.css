@@ -46,6 +46,7 @@
   font-size: 16px;
   line-height: 1.5;
   color: #000;
+  min-height: 24px;
 }
 
 .cardTitle {
@@ -165,6 +166,12 @@
   transition: all 0.2s ease;
 }
 
+@media screen and (max-width: 324px) {
+  .buttonPrimary {
+    font-size: 15px;
+  }
+}
+
 .buttonIcon {
   width: 48px;
   height: 48px;
@@ -222,6 +229,11 @@
   .cardImage {
     max-height: 226px;
   }
+
+  .cardDescription {
+    min-height: 72px;
+    min-width: 292px;
+  }
 }
 
 @media screen and (min-width: 1440px) {
@@ -231,6 +243,11 @@
 
   .cardImage {
     max-height: 280px;
+  }
+
+  .cardDescription {
+    min-height: 81px;
+    min-width: 373px;
   }
 
   .cardCategory,
