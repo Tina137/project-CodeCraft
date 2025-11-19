@@ -53,23 +53,6 @@ export const getMe = async () => {
   return data;
 };
 
-// для сторінки profile👇, прошу не змінювати код без попередження
-
-export const getSavedStories = async () => {
-  const { data: user } = await api.get("/users/current");
-  const savedIds = user.savedStories || [];
-  if (savedIds.length === 0) return [];
-  const requests = savedIds.map((id: string) => api.get(`/stories/${id}`));
-  const responses = await Promise.all(requests);
-  return responses.map((res) => res.data);
-};
-
-export const getMyStories = async () => {
-  const { data: user } = await api.get("/users/current");
-  const { data: stories } = await api.get("/stories");
-  return stories.filter((story: any) => story.author._id === user._id);
-};
-
 export async function getAllUsers(page: number, limit: number) {
   const base = process.env.NEXT_PUBLIC_API_URL;
   const url = `${base}/api/users?page=${page}&limit=${limit}`;
