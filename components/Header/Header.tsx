@@ -146,8 +146,8 @@ const Header = () => {
 
           <nav className={css.mobileNav}>
             <button onClick={() => handleNavClick("/")} className={css.mobileNavLink}>Головна</button>
-            <button onClick={() => handleNavClick("/")} className={css.mobileNavLink}>Історії</button>
-            <button onClick={() => handleNavClick("/")} className={css.mobileNavLink}>Мандрівки</button>
+            <button onClick={() => handleNavClick("/stories")} className={css.mobileNavLink}>Історії</button>
+            <button onClick={() => handleNavClick("/travellers")} className={css.mobileNavLink}>Мандрівки</button>
             {showAuthContent && (
               <button onClick={() => handleNavClick("/profile")} className={css.mobileNavLink}>Мій Профіль</button>
             )}
