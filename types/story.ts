@@ -1,3 +1,9 @@
+export interface StoryOwner {
+  _id: string;
+  name: string;
+  avatarUrl: string | null;
+}
+
 export interface Story {
   _id: string;
   img: string;
@@ -7,11 +13,7 @@ export interface Story {
     _id: string;
     name: string;
   };
-  ownerId: {
-    _id: string;
-    name: string;
-    avatarUrl: string;
-  };
+  ownerId: StoryOwner;
   date: string;
   favoriteCount: number;
   createdAt: string;
@@ -27,3 +29,18 @@ export type PaginatedStoriesResponse = {
   hasNextPage: boolean;
   hasPreviousPage: boolean;
 };
+
+export interface StoryInitialData {
+  _id?: string;
+  img: string;
+  title: string;
+  article: string;
+  category: string | { _id: string; name: string };
+}
+
+export interface StoryFormValues {
+  img: File | null;
+  title: string;
+  article: string;
+  category: string;
+}
