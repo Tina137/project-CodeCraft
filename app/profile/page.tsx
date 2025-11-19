@@ -4,12 +4,7 @@ import { useState, useEffect } from "react";
 import TravellerInfo from "../../components/TravellerInfo/TravellerInfo";
 import TravellersStories from "../../components/TravellersStories/TravellersStories";
 import { Story as FullStory } from "@/types/story";
-
-import {
-  getMe,
-  getStories,
-} from "@/lib/api/clientApi";
-
+import { getMe, getStories } from "@/lib/api/clientApi";
 import styles from "./page.module.css";
 
 interface ProfileUser {
@@ -29,29 +24,37 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getMe()
-      .then((data) => setUser(data))
-      .catch(() => 
-        router.push("/auth/register"));
+    async function loadUser() {
+      try {
+        const me = await getMe();
+        setUser(me.data); // або me
+      } catch {
+        router.push("/auth/register");
+      }
+    }
+    loadUser();
   }, [router]);
 
- useEffect(() => {
-  if (!user) return;
+  useEffect(() => {
+    if (!user) return;
 
-  const currentUser = user; 
+    const userId = user._id;
+    const savedIds = new Set(user.savedStories);
 
-  async function loadStories() {
-    setLoading(true);
+    async function loadStories() {
+      setLoading(true);
 
-  try {
-        const response = await getStories(); // повертає PaginatedStoriesResponse
-        let data: FullStory[] = response.data;
+      try {
+        const response = await getStories();
+        const allStories: FullStory[] = response.data.stories;
 
-        if (tab === "mine") {
-          data = data.filter((story) => story.ownerId._id === currentUser._id);
-        }
+        const filteredStories = allStories.filter((story) => {
+          if (tab === "mine") return story.ownerId._id === userId;
+          if (tab === "saved") return savedIds.has(story._id);
+          return false;
+        });
 
-        setStories(data);
+        setStories(filteredStories);
       } catch (error) {
         console.error("Помилка завантаження історій:", error);
         setStories([]);
@@ -59,26 +62,20 @@ export default function ProfilePage() {
         setLoading(false);
       }
     }
-    
-  loadStories();
-}, [tab, user]);
+
+    loadStories();
+  }, [tab, user]);
 
   if (!user) return <p>Завантаження...</p>;
 
   return (
     <div className={styles.container}>
-      {/* TravellerInfo */}
-      {user && (
-  <TravellerInfo
-   
-    name={user.name}
-    description={user.description}
-    avatarUrl={user.avatarUrl}
-   
-  />
-)}
+      <TravellerInfo
+        name={user.name}
+        description={user.description}
+        avatarUrl={user.avatarUrl}
+      />
 
-      {/* Switcher */}
       <div className={styles.tabs}>
         <button
           className={tab === "saved" ? styles.active : styles.inactive}
@@ -95,12 +92,11 @@ export default function ProfilePage() {
         </button>
       </div>
 
-      {/* Stories */}
-{loading ? (
-  <p>Завантаження історій...</p>
-) : (
-  <TravellersStories items={stories} />
-)}
+      {loading ? (
+        <p>Завантаження історій...</p>
+      ) : (
+        <TravellersStories items={stories} />
+      )}
     </div>
   );
 }
