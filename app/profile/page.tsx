@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import TravellerInfo from "../../components/TravellerInfo/TravellerInfo";
-// import TravellersStories from "@/components/TravellersStories";
+import TravellersStories from "../../components/TravellersStories/TravellersStories";
 
 import {
   getMe,
@@ -57,12 +57,14 @@ export default function ProfilePage() {
     <div className={styles.container}>
       {/* TravellerInfo */}
       {user && (
-        <TravellerInfo
-          name={user.name}
-          description={user.description}
-          avatarUrl={user.avatarUrl}
-        />
-      )}
+  <TravellerInfo
+   
+    name={user.name}
+    description={user.description}
+    avatarUrl={user.avatarUrl}
+   
+  />
+)}
 
       {/* Switcher */}
       <div className={styles.tabs}>
@@ -82,10 +84,11 @@ export default function ProfilePage() {
       </div>
 
       {/* Stories */}
-      {loading ? (
-        <p>Завантаження історій...</p>
-      ) : // <TravellersStories items={stories} />
-      null}
+{loading ? (
+  <p>Завантаження історій...</p>
+) : (
+  <TravellersStories items={stories} />
+)}
     </div>
   );
 }
