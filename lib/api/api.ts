@@ -4,6 +4,7 @@ export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL + "/api",
   withCredentials: true,
 });
+
 export interface Traveler {
   _id: string;
   name: string;
@@ -21,4 +22,20 @@ export interface TravelersResponse {
   total: number;
   hasNextPage: boolean;
   data: Traveler[];
+}
+
+import { Story } from "../../types/story";
+export interface GetStoriesResponse {
+  status: number;
+  message: string;
+  page: number;
+  data: {
+    stories: Story[];
+    page: number;
+    perPage: number;
+    totalItems: number;
+    totalPages: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+  };
 }

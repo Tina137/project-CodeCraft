@@ -59,18 +59,18 @@ export default function TravellersStoriesItem({
   };
 
   return (
-    <li className={css.card}>
+    <div className={css.card}>
       <Image
         className={css.cardImage}
         src={story.img || "/Placeholder_Image.png"}
-        alt={story.title}
+        alt={story.title || "Story image"}
         width={335}
         height={223}
       />
 
       <div className={css.cardContent}>
         <div className={css.cardTop}>
-          <p className={css.cardCategory}>{story.category.name}</p>
+          <p className={css.cardCategory}>{story.category?.name || ""}</p>
           <h2 className={css.cardTitle}>{story.title}</h2>
           <p className={css.cardDescription}>{story.article}</p>
         </div>
@@ -79,13 +79,13 @@ export default function TravellersStoriesItem({
           <div className={css.cardAuthor}>
             <Image
               className={css.authorAvatar}
-              src={story.ownerId.avatarUrl || "/Placeholder_Avatar_Image.png"}
-              alt={story.ownerId.name}
+              src={story.ownerId?.avatarUrl || "/Placeholder_Avatar_Image.png"}
+              alt={story.ownerId?.name || "Автор"}
               width={48}
               height={48}
             />
             <div className={css.authorInfo}>
-              <p className={css.authorName}>{story.ownerId.name}</p>
+              <p className={css.authorName}>{story.ownerId?.name || "Автор"}</p>
               <div className={css.authorMeta}>
                 <p className={css.authorDate}>{formatDate(story.date)}</p>
                 <span className={css.metaDot}>•</span>
@@ -125,6 +125,6 @@ export default function TravellersStoriesItem({
           </div>
         </div>
       </div>
-    </li>
+    </div>
   );
 }
