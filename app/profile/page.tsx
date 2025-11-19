@@ -18,6 +18,7 @@ interface ProfileUser {
   avatarUrl: string;
   description: string;
   articlesAmount?: number;
+  savedStories: string[];
 }
 
 export default function ProfilePage() {
@@ -38,18 +39,22 @@ export default function ProfilePage() {
 
   // Завантажити історії залежно від табу
   useEffect(() => {
-    async function load() {
-      setLoading(true);
+    if (!user) return;
+     async function loadStories(user: ProfileUser) {
+     setLoading(true);
 
       const data =
-        tab === "saved" ? await getSavedStories() : await getMyStories();
+        tab === "saved"
+         ? await getSavedStories(user.savedStories) 
+         : await getMyStories(user._id);
 
       setStories(data);
       setLoading(false);
     }
 
-    load();
-  }, [tab]);
+    loadStories(user);
+
+  }, [tab, user]);
 
   // if (!user) return <p>Завантаження...</p>;
 
