@@ -7,8 +7,12 @@
   --royal-blue-darker: #1a2a5a;
   --schema-two: #e8eeff;
 }
-* {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
+  padding: 0;
 }
 
 body {
@@ -59,6 +63,14 @@ main {
   max-width: 375px;
   padding: 0 20px;
   margin: 0 auto;
+}
+
+/* З 375px — адаптивна мобільна верстка */
+@media (min-width: 375px) {
+  .wrapper {
+    max-width: 375px;
+    padding: 0 20px;
+  }
 }
 
 /* З 768px — планшет */

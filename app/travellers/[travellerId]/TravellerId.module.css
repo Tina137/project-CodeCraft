@@ -1,0 +1,29 @@
+.title {
+  font-family: "Sora", sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #000;
+  letter-spacing: -0.01em;
+  margin-bottom: 40px;
+}
+
+.section {
+  margin: 32px 0;
+}
+
+@media screen and (min-width: 768px) {
+  .title {
+    font-size: 44px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .title {
+    font-size: 52px;
+  }
+  .section {
+    margin: 48px 0;
+  }
+}

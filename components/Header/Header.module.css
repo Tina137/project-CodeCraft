@@ -92,8 +92,8 @@
 }
 
 .loginBtnGrey {
-  background-color: #F0F2F5 !important;
-  border: 1px solid #E4E6EB !important;
+  background-color: #f0f2f5 !important;
+  border: 1px solid #e4e6eb !important;
   color: #050505 !important;
 }
 
@@ -108,7 +108,7 @@
 }
 
 .headerWhite .burgerButton {
-  background-color: #F0F2F5;
+  background-color: #f0f2f5;
   color: #050505;
 }
 
@@ -174,7 +174,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #F0F2F5;
+  background-color: #f0f2f5;
   border: none;
   border-radius: 50%;
   width: 40px;
@@ -238,8 +238,8 @@
 }
 
 .mobileLoginLink {
-  background-color: #F0F2F5;
-  border: 1px solid #E4E6EB;
+  background-color: #f0f2f5;
+  border: 1px solid #e4e6eb;
   color: #050505;
 }
 
@@ -340,6 +340,9 @@
 @media (min-width: 1440px) {
   .header {
     padding: 20px 40px;
+    width: 1440px;
+    left: 50%;
+    transform: translate(-50%);
   }
 
   .mobileNavContainer {
