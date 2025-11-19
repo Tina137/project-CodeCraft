@@ -2,9 +2,9 @@ import TravellersList from "@/components/TravellersList/TravellersList";
 
 export default function TravellersPage() {
   return (
-    <div>
-      <h1>Мандрівники</h1>
+    <>
+      <h1 style={{ textAlign: "center", marginBottom: "32px" }}>Мандрівники</h1>
       <TravellersList />
-    </div>
+    </>
   );
 }
