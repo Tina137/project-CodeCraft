@@ -183,8 +183,12 @@
 }
 
 .buttonIconActive {
-  background: #7a96ea;
-  border: 1px solid #4169e1;
+  background: var(--color-royal-blue-darker);
+  border: 1px solid var(--opacity-transparent);
+}
+
+.buttonIconActive .buttonIconSvg {
+  fill: var(--color-white);
 }
 
 .loaderIcon {
