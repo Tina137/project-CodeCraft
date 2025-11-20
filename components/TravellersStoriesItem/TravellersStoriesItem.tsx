@@ -173,6 +173,8 @@ export default function TravellersStoriesItem({ story }: Props) {
           setShowAuthModal(false);
           router.push("/auth/login");
         }}
+        routeLogin="/auth/login"
+        routeReg="/auth/register"
       />
     </>
   );
