@@ -7,7 +7,7 @@ import { useAuthStore } from "@/lib/store/authStore";
 import Icon from "@/components/Icon/Icon";
 import { logout } from "@/lib/api/clientApi";
 import { useEffect, useState } from "react";
-import { ConfirmModal } from "../Modal/ConfirmModal"; // Імпортуємо компонент
+import { ConfirmModal } from "../Modal/ConfirmModal";
 
 const Header = () => {
   const pathname = usePathname();
@@ -15,15 +15,11 @@ const Header = () => {
   
   const [isMounted, setIsMounted] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
-  // Стан для відкриття/закриття модального вікна виходу
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   const isHomePage = pathname === '/';
   const isAuthPage = pathname === '/auth/login' || pathname === '/auth/register';
   
-  const logoText = isAuthPage ? "Подор" : "Подорожники";
-
   const textColorClass = !isHomePage ? css.textDark : "";
   const loginBtnClass = !isHomePage ? css.loginBtnGrey : "";
   const registerBtnClass = !isHomePage ? css.registerBtnBlue : "";
@@ -48,13 +44,11 @@ const Header = () => {
     };
   }, [isMobileMenuOpen]);
 
-  // 1. Ця функція тепер просто відкриває модальне вікно
   const handleLogoutClick = () => {
     setIsLogoutModalOpen(true);
-    setIsMobileMenuOpen(false); // Закриваємо мобільне меню, якщо воно відкрите
+    setIsMobileMenuOpen(false);
   };
 
-  // 2. А ця функція виконує реальний вихід (передається в onConfirm)
   const handleConfirmLogout = async () => {
     try {
       await logout(); 
@@ -62,7 +56,7 @@ const Header = () => {
       console.error("Logout error", error);
     } finally {
       clearIsAuthenticated(); 
-      setIsLogoutModalOpen(false); // Закриваємо модалку
+      setIsLogoutModalOpen(false);
       router.push("/");
       router.refresh(); 
     }
@@ -111,7 +105,6 @@ const Header = () => {
                         {avatarUrl ? <img src={avatarUrl} alt={userName} className={css.avatarImg} /> : <span style={{ color: "#999", fontSize: "20px" }}>?</span>}
                       </div>
                       <span className={`${css.userName} ${textColorClass}`}>{userName}</span>
-                      {/* Змінено onClick на handleLogoutClick */}
                       <button className={`${css.logoutBtn} ${!isHomePage ? css.borderLeftDark : ''}`} onClick={handleLogoutClick}>
                         <Icon name="icon-logout" size={24} className={textColorClass}/> 
                       </button>
@@ -142,7 +135,6 @@ const Header = () => {
         )}
       </header>
 
-      {/* === MOBILE MENU === */}
       <div className={`${css.backdrop} ${isMobileMenuOpen ? css.open : ''}`} onClick={toggleMobileMenu}>
         <div className={`${css.menuContainer} ${isMobileMenuOpen ? css.open : ''}`} onClick={(e) => e.stopPropagation()}>
           
@@ -174,7 +166,6 @@ const Header = () => {
                     {avatarUrl ? <img src={avatarUrl} alt={userName} className={css.mobileAvatarImg} /> : <span style={{ color: "#999", fontSize: "20px" }}>?</span>}
                   </div>
                   <span className={css.mobileUserName}>{userName}</span>
-                  {/* Змінено onClick на handleLogoutClick для мобільної версії також */}
                   <button className={css.mobileLogoutBtn} onClick={handleLogoutClick}>
                     <Icon name="icon-logout" size={24} /> 
                   </button>
@@ -194,17 +185,16 @@ const Header = () => {
         </div>
       </div>
 
-      {/* === CONFIRM LOGOUT MODAL === */}
       <ConfirmModal
         isOpen={isLogoutModalOpen}
         title="Ви точно хочете вийти?"
         message="Ми будемо сумувати за вами!"
-        confirmText="Вийти"     // Текст правої (синьої) кнопки
-        cancelText="Відмінити"  // Текст лівої (сірої) кнопки
+        confirmText="Вийти"
+        cancelText="Відмінити"
         onConfirm={handleConfirmLogout}
         onCancel={() => setIsLogoutModalOpen(false)}
         onClose={() => setIsLogoutModalOpen(false)}
-        isNavigation={false} // Важливо: вказуємо, що це дії, а не посилання
+        isNavigation={false}
       />
     </>
   );

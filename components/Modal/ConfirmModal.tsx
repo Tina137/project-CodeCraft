@@ -3,7 +3,7 @@
 import { Modal } from "./Modal";
 import styles from "./ConfirmModal.module.css";
 import Link from "next/link";
-import Icon from "@/components/Icon/Icon"; // Переконайся, що шлях до Icon правильний
+import Icon from "@/components/Icon/Icon";
 
 interface ConfirmModalProps {
   isOpen: boolean;
@@ -39,7 +39,6 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
   return (
     <Modal onClose={onClose}>
       <div className={styles.confirmWrapper}>
-        {/* Кнопка закриття (хрестик) */}
         <button 
           onClick={onClose} 
           className={styles.closeButton} 
@@ -52,7 +51,6 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
         <p className={styles.message}>{message}</p>
         
         <div className={styles.buttons}>
-          {/* Ліва кнопка */}
           {!isNavigation ? (
             <button
               onClick={onCancel}
@@ -69,7 +67,6 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
             </Link>
           )}
 
-          {/* Права кнопка */}
           {!isNavigation ? (
             <button
               onClick={onConfirm}

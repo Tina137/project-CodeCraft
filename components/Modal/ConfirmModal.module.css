@@ -3,15 +3,13 @@
   margin: 0 auto;
   padding: 64px;
   text-align: center;
-  /* Додано для коректного позиціонування кнопки закриття */
-  position: relative; 
+  position: relative;
 }
 
-/* Стилі для кнопки закриття (хрестика) */
 .closeButton {
   position: absolute;
-  top: 24px;    /* Відступ зверху */
-  right: 24px;  /* Відступ справа */
+  top: 24px;
+  right: 24px;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -19,7 +17,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #000000; /* Колір іконки */
+  color: #000000;
   transition: opacity 0.2s ease;
   z-index: 10;
 }
@@ -67,7 +65,6 @@
   cursor: pointer;
   transition: all 0.2s ease;
   min-width: 203px;
-  /* Додано display flex для центрування тексту/лінків, якщо це <a> тег */
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -104,7 +101,6 @@
     max-width: 100%;
   }
 
-  /* На мобільних можна трохи змінити позицію хрестика, якщо потрібно */
   .closeButton {
     top: 16px;
     right: 16px;
@@ -128,6 +124,6 @@
   .cancelButton,
   .confirmButton {
     min-width: 100px;
-    width: 100%; /* Кнопки на всю ширину на мобільному */
+    width: 100%;
   }
 }
