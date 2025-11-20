@@ -8,6 +8,10 @@
     padding: 48px 20px; 
 }
 
+.footerAuth {
+    background: transparent;
+}
+
 .footerTop {
     display: flex;
     flex-wrap: wrap;
@@ -96,6 +100,12 @@
     font-size: 12px;
     line-height: 150%;
     color: #000;
+}
+
+.footerBottomAuth {
+    padding-top: 0;
+    background: transparent;
+    border-top: none;
 }
 
 /* ==========================================================================
