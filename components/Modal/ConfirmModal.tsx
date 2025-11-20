@@ -3,18 +3,20 @@
 import { Modal } from "./Modal";
 import styles from "./ConfirmModal.module.css";
 import Link from "next/link";
+import Icon from "@/components/Icon/Icon";
 
 interface ConfirmModalProps {
   isOpen: boolean;
   title: string;
   message: string;
-  onConfirm: () => void;
+  onConfirm?: () => void;
   onCancel: () => void;
   onClose: () => void;
   confirmText?: string;
   cancelText?: string;
-  routeLogin: string;
-  routeReg: string;
+  routeLogin?: string;
+  routeReg?: string;
+  isNavigation?: boolean;
 }
 
 export const ConfirmModal: React.FC<ConfirmModalProps> = ({
@@ -28,6 +30,7 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
   cancelText = "Вийти",
   routeLogin = "/auth/login",
   routeReg = "/auth/register",
+  isNavigation = false,
 }) => {
   if (!isOpen) {
     return null;
@@ -36,10 +39,19 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
   return (
     <Modal onClose={onClose}>
       <div className={styles.confirmWrapper}>
+        <button 
+          onClick={onClose} 
+          className={styles.closeButton} 
+          aria-label="Закрити"
+        >
+          <Icon name="icon-close" size={24} />
+        </button>
+
         <h2 className={styles.title}>{title}</h2>
         <p className={styles.message}>{message}</p>
+        
         <div className={styles.buttons}>
-          {confirmText === "Відмінити" ? (
+          {!isNavigation ? (
             <button
               onClick={onCancel}
               className={`${styles.button} ${styles.cancelButton}`}
@@ -55,7 +67,7 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
             </Link>
           )}
 
-          {confirmText === "Відмінити" ? (
+          {!isNavigation ? (
             <button
               onClick={onConfirm}
               className={`${styles.button} ${styles.confirmButton}`}

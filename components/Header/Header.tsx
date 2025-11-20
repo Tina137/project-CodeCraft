@@ -7,6 +7,7 @@ import { useAuthStore } from "@/lib/store/authStore";
 import Icon from "@/components/Icon/Icon";
 import { logout } from "@/lib/api/clientApi";
 import { useEffect, useState } from "react";
+import { ConfirmModal } from "../Modal/ConfirmModal";
 
 const Header = () => {
   const pathname = usePathname();
@@ -14,13 +15,12 @@ const Header = () => {
 
   const [isMounted, setIsMounted] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
-  const isHomePage = pathname === "/";
-  const isAuthPage =
-    pathname === "/auth/login" || pathname === "/auth/register";
 
-  const logoText = isAuthPage ? "Подор" : "Подорожники";
-
+   const isHomePage = pathname === '/';
+  const isAuthPage = pathname === '/auth/login' || pathname === '/auth/register';
+  
   const textColorClass = !isHomePage ? css.textDark : "";
   const loginBtnClass = !isHomePage ? css.loginBtnGrey : "";
   const registerBtnClass = !isHomePage ? css.registerBtnBlue : "";
@@ -47,14 +47,19 @@ const Header = () => {
     };
   }, [isMobileMenuOpen]);
 
-  const handleLogout = async () => {
+  const handleLogoutClick = () => {
+    setIsLogoutModalOpen(true);
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleConfirmLogout = async () => {
     try {
       await logout();
     } catch (error) {
       console.error("Logout error", error);
     } finally {
-      clearIsAuthenticated();
-      setIsMobileMenuOpen(false);
+      clearIsAuthenticated(); 
+      setIsLogoutModalOpen(false);
       router.push("/");
       router.refresh();
     }
@@ -144,18 +149,9 @@ const Header = () => {
                           </span>
                         )}
                       </div>
-                      <span className={`${css.userName} ${textColorClass}`}>
-                        {userName}
-                      </span>
-                      <button
-                        className={`${css.logoutBtn} ${!isHomePage ? css.borderLeftDark : ""}`}
-                        onClick={handleLogout}
-                      >
-                        <Icon
-                          name="icon-logout"
-                          size={24}
-                          className={textColorClass}
-                        />
+                      <span className={`${css.userName} ${textColorClass}`}>{userName}</span>
+                      <button className={`${css.logoutBtn} ${!isHomePage ? css.borderLeftDark : ''}`} onClick={handleLogoutClick}>
+                        <Icon name="icon-logout" size={24} className={textColorClass}/> 
                       </button>
                     </div>
                   </div>
@@ -227,15 +223,9 @@ const Header = () => {
         )}
       </header>
 
-      {/* === MOBILE MENU === */}
-      <div
-        className={`${css.backdrop} ${isMobileMenuOpen ? css.open : ""}`}
-        onClick={toggleMobileMenu}
-      >
-        <div
-          className={`${css.menuContainer} ${isMobileMenuOpen ? css.open : ""}`}
-          onClick={(e) => e.stopPropagation()}
-        >
+      <div className={`${css.backdrop} ${isMobileMenuOpen ? css.open : ''}`} onClick={toggleMobileMenu}>
+        <div className={`${css.menuContainer} ${isMobileMenuOpen ? css.open : ''}`} onClick={(e) => e.stopPropagation()}>
+          
           <div className={css.menuHeader}>
             <div className={css.logoContainer}>
               <Icon name="icon-favicon" />
@@ -298,11 +288,8 @@ const Header = () => {
                     )}
                   </div>
                   <span className={css.mobileUserName}>{userName}</span>
-                  <button
-                    className={css.mobileLogoutBtn}
-                    onClick={handleLogout}
-                  >
-                    <Icon name="icon-logout" size={24} />
+                  <button className={css.mobileLogoutBtn} onClick={handleLogoutClick}>
+                    <Icon name="icon-logout" size={24} /> 
                   </button>
                 </div>
               </>
@@ -327,6 +314,18 @@ const Header = () => {
           </div>
         </div>
       </div>
+
+      <ConfirmModal
+        isOpen={isLogoutModalOpen}
+        title="Ви точно хочете вийти?"
+        message="Ми будемо сумувати за вами!"
+        confirmText="Вийти"
+        cancelText="Відмінити"
+        onConfirm={handleConfirmLogout}
+        onCancel={() => setIsLogoutModalOpen(false)}
+        onClose={() => setIsLogoutModalOpen(false)}
+        isNavigation={false}
+      />
     </>
   );
 };

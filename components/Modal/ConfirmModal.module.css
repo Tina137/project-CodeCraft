@@ -1,9 +1,29 @@
 .confirmWrapper {
   max-width: 640px;
-
   margin: 0 auto;
   padding: 64px;
   text-align: center;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+.closeButton:hover {
+  opacity: 0.6;
 }
 
 .title {
@@ -30,9 +50,11 @@
   gap: 24px;
   justify-content: center;
 }
+
 .button {
   font-family: var(--font-nunito_Sans);
 }
+
 .cancelButton,
 .confirmButton {
   padding: 13.5px 24px;
@@ -43,14 +65,28 @@
   cursor: pointer;
   transition: all 0.2s ease;
   min-width: 203px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
 }
+
 .cancelButton {
   background-color: #f0f0f0;
   color: #333;
 }
+
+.cancelButton:hover {
+  background-color: #e0e0e0;
+}
+
 .confirmButton {
   background-color: #0070f3;
   color: #fff;
+}
+
+.confirmButton:hover {
+  background-color: #0060df;
 }
 
 @media (max-width: 1439px) {
@@ -63,6 +99,11 @@
   .confirmWrapper {
     padding: 64px 20px 20px 20px;
     max-width: 100%;
+  }
+
+  .closeButton {
+    top: 16px;
+    right: 16px;
   }
 
   .title {
@@ -83,5 +124,6 @@
   .cancelButton,
   .confirmButton {
     min-width: 100px;
+    width: 100%;
   }
 }
