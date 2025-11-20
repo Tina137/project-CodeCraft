@@ -25,10 +25,8 @@ const AuthProvider = ({ children }: Props) => {
         if (sessionValid) {
           const user = await getMe();
 
-          // 1️⃣ встановлюємо користувача в authStore
           setAuth(user);
 
-          // 2️⃣ синхронізуємо savedStore
           const saved = user.savedStories ?? user.data?.savedStories ?? [];
           const uid = user._id ?? user.data?._id ?? null;
 
