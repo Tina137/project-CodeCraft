@@ -1,0 +1,290 @@
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 24px 16px 32px;
+  box-sizing: border-box;
+}
+
+.titleRow {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 110%;
+  letter-spacing: -0.01em;
+  color: var(--color-scheme-2-text);
+}
+
+.categoryTag {
+  align-self: flex-start;
+  background: #e0edff;
+  color: #2563eb;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.metaWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.metaBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.metaRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.metaCategory {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 150%;
+  width: 76px;
+  height: 26px;
+  border-radius: 10%;
+  background: #e5e8ecc9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.metaLabel {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 16px;
+  line-height:150%;
+}
+
+.metaValue {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+}
+
+.metaSeparator {
+  color: #cbd5e1;
+}
+
+.mainImageWrapper {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.mainImage {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.contentSection {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.articleWrapper {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #4b5563;
+}
+
+.articleText {
+  white-space: pre-line;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 150%;
+}
+.sidebar {
+  width: 100%;
+}
+
+.saveCard {
+  background: #f1f5f9;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.saveTitle {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 140%;
+  letter-spacing: -0.01em;
+  color: var(--color-scheme-1-text);
+}
+
+.saveText {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--color-scheme-1-text);
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.saveButton {
+  width: 100%;
+  height: 44px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.saveButton:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.saveButtonIcon {
+  display: block;
+}
+
+.popularSection {
+  margin-top: 40px;
+}
+
+.popularTitle {
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 120%;
+  letter-spacing: -0.01em;
+  margin-bottom: 40px;
+  margin-top: 64px;
+}
+
+.popularList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  margin-bottom: 64px;
+}
+
+.popularLoading {
+  font-size: 14px;
+  color: #64748b;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    padding: 32px;
+    border-radius: 18px;
+  }
+
+  .title {
+    font-size: 48px;
+    margin-bottom: 32px;
+  }
+
+  .metaRow {
+    font-size: 14px;
+  }
+
+  .mainImageWrapper {
+    margin-bottom: 24px;
+    border-radius: 20px;
+  }
+
+  .contentSection {
+    align-items: flex-start;
+  }
+
+  .articleWrapper {
+    flex: 3;
+    padding-right: 24px;
+    font-size: 15px;
+  }
+
+  .sidebar {
+    flex: 2;
+    max-width: 320px;
+  }
+
+  .metaWrapper {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .metaBlock {
+    flex-direction: row;
+    gap: 48px;
+  }
+
+  .metaCategory {
+    margin-top: 0;
+  }
+
+  .saveCard {
+    border: 0px solid var(--color-scheme-1-border);
+    border-radius: 24px;
+    padding: 32px;
+    width: 418px;
+    height: 217px;
+  }
+
+  .popularTitle {
+    font-size: 44px;
+  }
+}
+
+@media screen and (min-width: 1312px) {
+  .container {
+    max-width: 1312px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 40px;
+  }
+  .contentSection {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .articleWrapper {
+    flex: 0 0 65%;
+  }
+  .sidebar {
+    flex: 0 0 35%;
+    max-width: 360px;
+  }
+  .title {
+    font-size: 56px;
+  }
+  .popularList {
+    flex-wrap: nowrap;
+  }
+}

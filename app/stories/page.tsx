@@ -121,7 +121,6 @@ export default function StoriesPage() {
             </button>
           ))}
         </div>
-        {/* MOBILE */}
         <div className={css.filtersSelectWrap}>
     <label className={css.selectLabel}>Категорії</label>
     <select
