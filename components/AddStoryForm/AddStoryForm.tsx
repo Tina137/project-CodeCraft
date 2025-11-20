@@ -11,6 +11,7 @@ import { getCategories, createStory, updateStory } from "@/lib/api/clientApi";
 import { Category } from "@/types/category";
 import { StoryFormValues, StoryInitialData } from "@/types/story";
 import { Modal } from "@/components/Modal/Modal";
+import Loader from "@/components/Loader/Loader";
 
 interface Props {
   initialData?: StoryInitialData;
@@ -25,6 +26,8 @@ export default function AddStoryForm({ initialData, isEdit = false }: Props) {
     initialData?.img ?? null
   );
   const [errorModal, setErrorModal] = useState(false);
+
+  const [loading, setLoading] = useState(false);
 
   const currentObjectUrlRef = useRef<string | null>(null);
 
@@ -72,6 +75,8 @@ export default function AddStoryForm({ initialData, isEdit = false }: Props) {
 
   const handleSubmit = async (values: StoryFormValues) => {
     try {
+      setLoading(true);
+
       const payload: any = {
         title: values.title,
         article: values.article,
@@ -89,11 +94,15 @@ export default function AddStoryForm({ initialData, isEdit = false }: Props) {
       }
     } catch (err) {
       setErrorModal(true);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <>
+      {loading && <Loader />}
+
       {errorModal && (
         <Modal onClose={() => setErrorModal(false)}>
           <div className={css.modalContent}>
@@ -101,12 +110,6 @@ export default function AddStoryForm({ initialData, isEdit = false }: Props) {
             <p className={css.modalText}>
               Сталася помилка під час збереження історії. Спробуйте ще раз.
             </p>
-            <button
-              onClick={() => setErrorModal(false)}
-              className={css.modalBtn}
-            >
-              Закрити
-            </button>
           </div>
         </Modal>
       )}
@@ -118,7 +121,7 @@ export default function AddStoryForm({ initialData, isEdit = false }: Props) {
         enableReinitialize
         validateOnMount
       >
-        {({ setFieldValue, isValid, dirty }) => (
+        {({ setFieldValue, isValid, dirty, errors, touched }) => (
           <Form className={css.formWrapper}>
             <h1 className={css.title}>
               {isEdit ? "Редагувати історію" : "Створити нову історію"}
@@ -185,7 +188,9 @@ export default function AddStoryForm({ initialData, isEdit = false }: Props) {
                   <span className={css.labelText}>Заголовок</span>
                   <Field
                     name="title"
-                    className={css.input}
+                    className={`${css.input} ${
+                      errors.title && touched.title ? css.inputError : ""
+                    }`}
                     placeholder="Введіть заголовок історії"
                   />
                   <ErrorMessage
@@ -197,7 +202,13 @@ export default function AddStoryForm({ initialData, isEdit = false }: Props) {
 
                 <label className={css.label}>
                   <span className={css.labelText}>Категорія</span>
-                  <Field as="select" name="category" className={css.select}>
+                  <Field
+                    as="select"
+                    name="category"
+                    className={`${css.select} ${
+                      errors.category && touched.category ? css.selectError : ""
+                    }`}
+                  >
                     <option value="">Категорія</option>
                     {categories.map((c) => (
                       <option key={c._id} value={c._id}>
@@ -212,12 +223,14 @@ export default function AddStoryForm({ initialData, isEdit = false }: Props) {
                   />
                 </label>
 
-                <label className={css.label}>
+                <label className={`${css.label} ${css.articleLabel}`}>
                   <span className={css.labelText}>Текст історії</span>
                   <Field
                     as="textarea"
                     name="article"
-                    className={css.textarea}
+                    className={`${css.textarea} ${
+                      errors.article && touched.article ? css.textareaError : ""
+                    }`}
                     placeholder="Ваша історія тут"
                   />
                   <ErrorMessage
