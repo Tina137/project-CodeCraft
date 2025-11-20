@@ -6,10 +6,6 @@
     gap: 24px;
     background: #e8eeff;
     padding: 48px 20px; 
-
-    width: 100vw;  /* Примусова ширина вікна браузера */
-    margin-left: calc(50% - 50vw); /* Зсув вліво за межі батька */
-    margin-right: calc(50% - 50vw); /* Зсув вправо за межі батька */
 }
 
 .footerTop {
