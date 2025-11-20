@@ -7,6 +7,7 @@ import { useAuthStore } from "@/lib/store/authStore";
 import Icon from "@/components/Icon/Icon";
 import { logout } from "@/lib/api/clientApi";
 import { useEffect, useState } from "react";
+import { ConfirmModal } from "../Modal/ConfirmModal"; // Імпортуємо компонент
 
 const Header = () => {
   const pathname = usePathname();
@@ -14,6 +15,9 @@ const Header = () => {
   
   const [isMounted, setIsMounted] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  // Стан для відкриття/закриття модального вікна виходу
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   const isHomePage = pathname === '/';
   const isAuthPage = pathname === '/auth/login' || pathname === '/auth/register';
@@ -44,14 +48,21 @@ const Header = () => {
     };
   }, [isMobileMenuOpen]);
 
-  const handleLogout = async () => {
+  // 1. Ця функція тепер просто відкриває модальне вікно
+  const handleLogoutClick = () => {
+    setIsLogoutModalOpen(true);
+    setIsMobileMenuOpen(false); // Закриваємо мобільне меню, якщо воно відкрите
+  };
+
+  // 2. А ця функція виконує реальний вихід (передається в onConfirm)
+  const handleConfirmLogout = async () => {
     try {
       await logout(); 
     } catch (error) {
       console.error("Logout error", error);
     } finally {
       clearIsAuthenticated(); 
-      setIsMobileMenuOpen(false);
+      setIsLogoutModalOpen(false); // Закриваємо модалку
       router.push("/");
       router.refresh(); 
     }
@@ -100,7 +111,8 @@ const Header = () => {
                         {avatarUrl ? <img src={avatarUrl} alt={userName} className={css.avatarImg} /> : <span style={{ color: "#999", fontSize: "20px" }}>?</span>}
                       </div>
                       <span className={`${css.userName} ${textColorClass}`}>{userName}</span>
-                      <button className={`${css.logoutBtn} ${!isHomePage ? css.borderLeftDark : ''}`} onClick={handleLogout}>
+                      {/* Змінено onClick на handleLogoutClick */}
+                      <button className={`${css.logoutBtn} ${!isHomePage ? css.borderLeftDark : ''}`} onClick={handleLogoutClick}>
                         <Icon name="icon-logout" size={24} className={textColorClass}/> 
                       </button>
                     </div>
@@ -162,7 +174,8 @@ const Header = () => {
                     {avatarUrl ? <img src={avatarUrl} alt={userName} className={css.mobileAvatarImg} /> : <span style={{ color: "#999", fontSize: "20px" }}>?</span>}
                   </div>
                   <span className={css.mobileUserName}>{userName}</span>
-                  <button className={css.mobileLogoutBtn} onClick={handleLogout}>
+                  {/* Змінено onClick на handleLogoutClick для мобільної версії також */}
+                  <button className={css.mobileLogoutBtn} onClick={handleLogoutClick}>
                     <Icon name="icon-logout" size={24} /> 
                   </button>
                 </div>
@@ -180,6 +193,19 @@ const Header = () => {
           </div>
         </div>
       </div>
+
+      {/* === CONFIRM LOGOUT MODAL === */}
+      <ConfirmModal
+        isOpen={isLogoutModalOpen}
+        title="Ви точно хочете вийти?"
+        message="Ми будемо сумувати за вами!"
+        confirmText="Вийти"     // Текст правої (синьої) кнопки
+        cancelText="Відмінити"  // Текст лівої (сірої) кнопки
+        onConfirm={handleConfirmLogout}
+        onCancel={() => setIsLogoutModalOpen(false)}
+        onClose={() => setIsLogoutModalOpen(false)}
+        isNavigation={false} // Важливо: вказуємо, що це дії, а не посилання
+      />
     </>
   );
 };
