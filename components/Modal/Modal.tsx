@@ -34,14 +34,7 @@ export function Modal({ onClose, children }: ModalProps) {
       role="dialog"
       aria-modal="true"
     >
-      <div className={css.modal}>
-        
-        <button type="button" className={css.closeButton} onClick={onClose}>
-          &times;
-        </button>
-        
-        {children}
-      </div>
+      <div className={css.modal}>{children}</div>
     </div>,
     document.body
   );

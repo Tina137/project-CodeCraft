@@ -1,15 +1,12 @@
-
 .confirmWrapper {
-  max-width: 640px; 
+  max-width: 640px;
 
-  margin: 0 auto; 
+  margin: 0 auto;
   padding: 64px;
   text-align: center;
-  
 }
 
 .title {
-  font-family: Georgia, "Times New Roman", serif;
   line-height: 1.2;
   letter-spacing: -0.01em;
   font-size: 48px;
@@ -20,19 +17,21 @@
 }
 
 .message {
-  font-family: "Nunito Sans", sans-serif;
-  font-size: 20px; 
-  font-weight: 400; 
+  font-size: 20px;
+  font-weight: 400;
   color: #555;
   line-height: 1.5;
   margin-top: 0;
-  margin-bottom: 32px; 
+  margin-bottom: 32px;
 }
 
 .buttons {
   display: flex;
   gap: 24px;
   justify-content: center;
+}
+.button {
+  font-family: var(--font-nunito_Sans);
 }
 .cancelButton,
 .confirmButton {
@@ -46,11 +45,11 @@
   min-width: 203px;
 }
 .cancelButton {
-  background-color: #f0f0f0; 
+  background-color: #f0f0f0;
   color: #333;
 }
 .confirmButton {
-  background-color: #0070f3; 
+  background-color: #0070f3;
   color: #fff;
 }
 
@@ -58,15 +57,14 @@
   .confirmWrapper {
     padding: 64px 32px;
   }
-
 }
 
 @media (max-width: 767px) {
   .confirmWrapper {
-    padding: 64px 20px 20px 20px ;
+    padding: 64px 20px 20px 20px;
     max-width: 100%;
   }
-  
+
   .title {
     font-size: 26px;
     margin-bottom: 16px;
@@ -74,11 +72,11 @@
 
   .message {
     font-size: 16px;
-    margin-bottom: 32px; 
+    margin-bottom: 32px;
   }
 
   .buttons {
-   flex-direction: column;
+    flex-direction: column;
     gap: 24px;
   }
 
