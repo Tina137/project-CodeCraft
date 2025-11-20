@@ -1,11 +1,18 @@
+"use client";
+
 import css from "./Footer.module.css";
 import Link from "next/link";
 import Icon from "../Icon/Icon";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
+  const pathname = usePathname();
+  const isAuthPage = pathname === '/auth/login' || pathname === '/auth/register';
+
   return (
-  <footer className={css.footer}>
-    <div className={css.footerTop}>
+  <footer className={`${css.footer} ${isAuthPage ? css.footerAuth : ''}`}>
+    {!isAuthPage &&
+    (<div className={css.footerTop}>
       <div className={css.footerLogoSocials}>
       <div className={css.logoSection}>
       <Icon name="icon-favicon"></Icon>
@@ -50,7 +57,8 @@ const Footer = () => {
         </ul>
       </div>
     </div>
-    <p className={css.footerBottom}>
+    )}
+    <p className={`${css.footerBottom} ${isAuthPage ? css.footerBottomAuth : ''}`}>
       © 2025 Подорожники. Всі права захищені.
     </p>
   </footer>

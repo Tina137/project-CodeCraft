@@ -8,6 +8,10 @@
     padding: 48px 20px; 
 }
 
+.footerAuth {
+    background: transparent;
+}
+
 .footerTop {
     display: flex;
     flex-wrap: wrap;
@@ -98,6 +102,12 @@
     color: #000;
 }
 
+.footerBottomAuth {
+    padding-top: 0;
+    background: transparent;
+    border-top: none;
+}
+
 /* ==========================================================================
    2. МЕДІА-ЗАПИТИ (TABLET)
    ========================================================================== */
@@ -136,6 +146,8 @@
         justify-content: space-between;
         flex-wrap: nowrap;
         width: 100%;
+        max-width: 1280px; 
+        margin: 0 auto;
     }
 
     .footerLogoSocials {
