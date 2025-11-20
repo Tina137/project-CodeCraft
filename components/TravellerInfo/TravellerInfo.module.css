@@ -46,22 +46,11 @@
 
 @media screen and (min-width: 768px) {
   .wrapper {
-    width: 704px;
-    height: 199px;
+    width: auto;
     display: flex;
     flex-direction: row;
     align-items: center;
     text-align: left;
-  }
-
-  .wrapper {
-    width: 590px;
-    height: auto;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    text-align: left;
-    gap: 24px;
   }
 
   .info {
