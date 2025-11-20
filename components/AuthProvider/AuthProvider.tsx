@@ -2,6 +2,7 @@
 
 import { setupSession, getMe } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
+import { useSavedStore } from "@/lib/store/savedStore";
 import { useEffect } from "react";
 
 type Props = {
@@ -12,28 +13,42 @@ const AuthProvider = ({ children }: Props) => {
   const setAuth = useAuthStore((state) => state.setUser);
   const clearAuth = useAuthStore((state) => state.clearIsAuthenticated);
 
+  const setSavedList = useSavedStore((s) => s.setSavedList);
+  const setSavedLoaded = useSavedStore((s) => s.setSavedLoaded);
+  const setUserId = useSavedStore((s) => s.setUserId);
+
   useEffect(() => {
     const fetchSession = async () => {
       try {
         const sessionValid = await setupSession();
+
         if (sessionValid) {
           const user = await getMe();
+
           setAuth(user);
+
+          const saved = user.savedStories ?? user.data?.savedStories ?? [];
+          const uid = user._id ?? user.data?._id ?? null;
+
+          useSavedStore.setState({
+            savedList: saved,
+            userId: uid,
+            savedLoaded: true,
+          });
         } else {
           clearAuth();
+          setSavedList([]);
+          setUserId(null);
+          setSavedLoaded(true);
         }
       } catch (error: any) {
-        if (error.response?.status === 401) {
-          clearAuth();
-        } else {
-          console.error("Unexpected error in AuthProvider:", error);
-          clearAuth();
-        }
+        clearAuth();
+        setSavedLoaded(true);
       }
     };
 
     fetchSession();
-  }, [clearAuth, setAuth]);
+  }, []);
 
   return children;
 };

@@ -231,8 +231,13 @@
 @media screen and (min-width: 768px) {
   .card {
     flex-basis: calc((100% - 24px) / 2);
-    min-width: 421px;
+    min-width: 340px;
   }
+
+  .cardTitle {
+    height: 54px;
+  }
+
   .cardImage {
     max-height: 226px;
   }
@@ -246,6 +251,7 @@
 @media screen and (min-width: 1440px) {
   .card {
     flex-basis: calc((100% - 24px) / 3);
+    min-width: 421px;
   }
 
   .cardImage {
