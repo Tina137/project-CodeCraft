@@ -11,7 +11,7 @@ export const Join = () => {
   const isLoggedIn = useAuthStore((state) => state.isAuthenticated);
 
   const buttonText = isLoggedIn ? "Збережені" : "Зареєструватися";
-  const buttonLink = isLoggedIn ? "/auth/profile" : "/auth/register";
+  const buttonLink = isLoggedIn ? "/profile" : "/auth/register";
 
   const handleNavigate = () => {
     router.push(buttonLink);

@@ -68,8 +68,12 @@
   font-family: "Nunito Sans", sans-serif;
 }
 .button:hover {
-  background-color: #4a37d1;
+  background-color: #e8eeff;
+  color:black;
+  border-color: blue;
+  
 }
+
 
 @media (min-width: 768px) {
   .joinSection {
