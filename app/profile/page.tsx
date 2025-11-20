@@ -1,14 +1,22 @@
 "use client";
-import { useState, useEffect } from "react";
-import TravellerInfo from "../../components/TravellerInfo/TravellerInfo";
-// import StoriesList from "@/components/StoriesList";
+
+import { useRouter } from "next/navigation";
+import { useState, useEffect, useCallback } from "react";
+
+import TravellerInfo from "@/components/TravellerInfo/TravellerInfo";
+import TravellersStories from "@/components/TravellersStories/TravellersStories";
 
 import {
   getMe,
-  getSavedStories,
-  getMyStories,
+  clientFetchStoriesPage,
+  getStoryById,
 } from "@/lib/api/clientApi";
+import { useStoriesPerPage } from "@/hooks/useStoriesPerPage";
 
+import type {
+  Story as FullStory,
+  PaginatedStoriesResponse,
+} from "@/types/story";
 import styles from "./page.module.css";
 
 interface ProfileUser {
@@ -17,69 +25,110 @@ interface ProfileUser {
   avatarUrl: string;
   description: string;
   articlesAmount?: number;
+  savedStories: string[];
 }
 
 export default function ProfilePage() {
+  const router = useRouter();
+  const perPage = useStoriesPerPage();
+
   const [user, setUser] = useState<ProfileUser | null>(null);
-  const [stories, setStories] = useState([]);
+  const [stories, setStories] = useState<FullStory[]>([]);
   const [tab, setTab] = useState<"saved" | "mine">("saved");
   const [loading, setLoading] = useState(true);
 
-  // Завантажити дані мандрівника
   useEffect(() => {
-    getMe().then(setUser);
-  }, []);
+    async function loadUser() {
+      try {
+        const me = await getMe();
+        setUser(me.data);
+      } catch {
+        router.push("/auth/register");
+      }
+    }
+    loadUser();
+  }, [router]);
 
-  // Завантажити історії залежно від табу
-  useEffect(() => {
-    async function load() {
-      setLoading(true);
+  const loadMyStories = useCallback(async () => {
+    if (!user) return;
 
-      const data =
-        tab === "saved" ? await getSavedStories() : await getMyStories();
+    setLoading(true);
 
-      setStories(data);
+    try {
+      const response: PaginatedStoriesResponse = await clientFetchStoriesPage(
+        user._id,
+        1,
+        perPage
+      );
+
+      setStories(response.data);
+    } catch (e) {
+      console.error("Error fetching 'My Stories':", e);
+      setStories([]);
+    } finally {
       setLoading(false);
     }
+  }, [user, perPage]);
 
-    load();
-  }, [tab]);
+  const loadSavedStories = useCallback(async () => {
+    if (!user) return;
+
+    setLoading(true);
+
+    try {
+      const ids = user.savedStories;
+
+      const requests = ids.map((id) => getStoryById(id));
+
+      const results = await Promise.all(requests);
+
+      setStories(results);
+    } catch (e) {
+      console.error("Error fetching saved stories:", e);
+      setStories([]);
+    } finally {
+      setLoading(false);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (!user) return;
+
+    if (tab === "mine") loadMyStories();
+    else loadSavedStories();
+  }, [tab, user, loadMyStories, loadSavedStories]);
 
   if (!user) return <p>Завантаження...</p>;
 
   return (
-    <div className={styles.container}>
-      {/* TravellerInfo */}
-      {user && (
-        <TravellerInfo
-          name={user.name}
-          description={user.description}
-          avatarUrl={user.avatarUrl}
-        />
-      )}
+    <div className={styles.section}>
+      <TravellerInfo
+        name={user.name}
+        description={user.description}
+        avatarUrl={user.avatarUrl}
+      />
 
-      {/* Switcher */}
       <div className={styles.tabs}>
         <button
-          className={tab === "saved" ? styles.active : ""}
+          className={tab === "saved" ? styles.active : styles.inactive}
           onClick={() => setTab("saved")}
         >
           Збережені історії
         </button>
 
         <button
-          className={tab === "mine" ? styles.active : ""}
+          className={tab === "mine" ? styles.active : styles.inactive}
           onClick={() => setTab("mine")}
         >
           Мої історії
         </button>
       </div>
 
-      {/* Stories */}
       {loading ? (
         <p>Завантаження історій...</p>
-      ) : // <StoriesList stories={stories} />
-      null}
+      ) : (
+        <TravellersStories items={stories} />
+      )}
     </div>
   );
 }

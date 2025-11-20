@@ -1,0 +1,79 @@
+/* ======== mobile ======== */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+  gap: 32px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 335px;
+  margin: 0 auto;
+  height: 48px;
+  border: 1px solid var(--opacity-transparent);
+  border-radius: 10px;
+  background: var(--schema-two);
+  padding: 4px;
+}
+
+.tabs button {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  width: 163px;
+  height: 100%;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: var(--font-nunito_Sans);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--black);
+  border-radius: 8px;
+}
+
+.active {
+  background: var(--white);
+  color: var(--black);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.inactive {
+  background: var(--schema-two);
+  color: var(--black);
+  border: none;
+}
+
+/*  ======== tablet ========= */
+
+@media screen and (min-width: 768px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+    gap: 32px;
+  }
+
+  .tabs {
+    margin: 0;
+    max-width: 422px;
+    justify-content: space-between;
+  }
+
+  .tabs button {
+    width: 207px;
+  }
+}

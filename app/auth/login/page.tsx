@@ -73,7 +73,7 @@ export default function LoginPage() {
                     </button>
                 </form>
                 <div className={css.formFooter}>
-                    Немає акаунту? <Link href="/register">Зареєструватись</Link>
+                    Немає акаунту? <Link href="/auth/register">Зареєструватись</Link>
                 </div>
 
             </div>

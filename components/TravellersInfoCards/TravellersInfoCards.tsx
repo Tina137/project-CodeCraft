@@ -10,9 +10,14 @@ interface Props {
   avatarUrl: string;
 }
 
-export default function TravellerCard({ id, name, description, avatarUrl }: Props) {
+export default function TravellerCard({
+  id,
+  name,
+  description,
+  avatarUrl,
+}: Props) {
   return (
-    <article className={styles.container}>
+    <div className={styles.container}>
       <img
   src={avatarUrl || "/avatar/defaultAvatar.webp"}
   alt={`Фото мандрівника ${name}`}
@@ -25,17 +30,12 @@ export default function TravellerCard({ id, name, description, avatarUrl }: Prop
       <div className={styles.infoBlock}>
         <h3 className={styles.personName}>{name}</h3>
 
-        <p className={styles.personAbout}>
-          {description}
-        </p>
+        <p className={styles.personAbout}>{description}</p>
 
-        <Link
-          href={`/travellers/${id}`}
-          className={styles.profileLink}
-        >
+        <Link href={`/travellers/${id}`} className={styles.profileLink}>
           Переглянути профіль
         </Link>
       </div>
-    </article>
+    </div>
   );
 }

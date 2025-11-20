@@ -1,0 +1,236 @@
+.page {
+  background: #f8fafc;
+  min-height: 100vh;
+  padding: 28px 16px;
+  box-sizing: border-box;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #0b1220;
+}
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  border-radius: 12px;
+  padding: 28px;
+  box-sizing: border-box;
+}
+.title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+  margin-top: 28px;
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 110%;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+.controls {
+  display: block;
+  margin-bottom: 18px;
+  box-sizing: border-box;
+}
+.filtersSelectWrap {
+  display: block;
+  width: 100%;
+  margin-bottom: 18px;
+  box-sizing: border-box;
+}
+
+.selectLabel {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0b1220;
+}
+
+.filtersSelect {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e6eef8;
+  background: #fff;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.filtersButtons {
+  display: none; 
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+.filter {
+  display: none;
+  background: transparent;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.filter:hover {
+  background: rgba(15,23,42,0.03);
+}
+
+.filterActive {
+  background: #f1f5f9;
+  border-radius: 12px;
+  padding: 8px 12px;
+  border: 1px solid #e6eef8;
+  font-weight: 700;
+  display: none; 
+  box-sizing: border-box;
+}
+.sorts {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.sortButton {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0b1220;
+}
+
+.sortActive {
+  background: #f1f5f9;
+  border: 1px solid #e6eef8;
+  color: #0b1220;
+}
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.item {
+  box-sizing: border-box;
+  flex: 0 0 auto; 
+  max-width: 100%;
+  min-width: 320px;
+}
+
+.loading, .empty {
+  width: 100%;
+  text-align: center;
+  color: #64748b;
+  padding: 28px 0;
+}
+
+.loadMoreWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.loadMore {
+  background: #2563eb;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  width: 135px;
+  height: 48px;
+  margin-top: 40px;
+  margin-bottom: 72px;
+}
+.loadMore[disabled] { opacity: 0.6; cursor: default; }
+
+@media (min-width: 768px) {
+
+  .item {
+    flex: 0 0 calc((100% - 24px) / 2);
+    max-width: calc((100% - 24px) / 2);
+    min-width: 340px;
+    max-width: 420px; 
+  }
+  .title {
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 110%;
+    letter-spacing: -0.01em;
+  }
+  .filtersButtons {
+    display: flex;
+  }
+  .filtersSelectWrap {
+    display: none;
+  }
+  .filter,
+  .filterActive {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .controls {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+}
+@media (min-width: 1440px) {
+
+  .container {
+    max-width: 1312px; 
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .item {
+    flex: 0 0 calc((100% - 48px) / 3);
+    max-width: calc((100% - 48px) / 3);
+    min-width: 400px;
+  }
+
+  .title {
+    margin-bottom: 40px;
+    margin-top: 28px;
+    font-weight: 700;
+    font-size: 56px;
+    line-height: 110%;
+    letter-spacing: -0.01em;
+  }
+  .controls {
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 150%;
+  }
+}
+
+.filter, .filterActive, .sortButton, .sortActive {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+}
+.filter:focus, .filterActive:focus, .sortButton:focus {
+  outline: 3px solid rgba(37,99,235,0.12);
+  outline-offset: 2px;
+}

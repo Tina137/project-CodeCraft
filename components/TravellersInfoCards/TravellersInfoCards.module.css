@@ -1,15 +1,16 @@
 .container {
   display: flex;
   flex-direction: column;
+  background-color: #e8eeff;
   border-radius: 16px;
   padding: 24px;
+  box-sizing: border-box;
   width: 100%;
-  align-items: flex-start;
-  background-color: #e8eeff;
-  min-width: 250px;
   max-width: 335px;
   gap: 24px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .container:hover {
@@ -32,7 +33,7 @@
 
 .infoBlock {
   gap: 16px;
-  width: 287px;
+  max-width: 287px;
   height: 179px;
   display: flex;
   flex-direction: column;
@@ -58,20 +59,21 @@
 }
 
 .profileLink {
-  display: inline-block;
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.15);
   text-align: center;
   color: #000;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 12px 0;
   border-radius: 8px;
   cursor: pointer;
   white-space: nowrap;
-  font-size: 16px;
-  font-weight: 500;
-  padding: 12px 24px;
-  max-width: 100%;
+  width: 100%;
   box-sizing: border-box;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-  background-color: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .profileLink:hover {
