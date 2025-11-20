@@ -155,7 +155,7 @@
 }
 .loadMore[disabled] { opacity: 0.6; cursor: default; }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
 
   .item {
     flex: 0 0 calc((100% - 24px) / 2);
@@ -191,7 +191,7 @@
     flex-wrap: wrap;
   }
 }
-@media (min-width: 1440px) {
+@media screen and (min-width: 1312px) {
 
   .container {
     max-width: 1312px; 
