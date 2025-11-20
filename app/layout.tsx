@@ -41,18 +41,14 @@ export const metadata: Metadata = {
 };
 export default function RootLayout({
   children,
-  modal,
-}: Readonly<{ children: React.ReactNode; modal: React.ReactNode }>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body className={`${nunitoSans.variable} ${sora.variable}`}>
         <TanStackProvider>
           <AuthProvider>
             <Header />
-            <main>
-              {children}
-              {modal}
-            </main>
+            <main>{children}</main>
             <div id="loader-root"></div>
             <Footer />
           </AuthProvider>

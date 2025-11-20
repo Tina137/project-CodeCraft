@@ -19,7 +19,7 @@ export default function TravellersList() {
   const [hasNextPage, setHasNextPage] = useState(true);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
-  const [perPage, setPerPage] = useState(0); 
+  const [perPage, setPerPage] = useState(0);
 
   const fetchTravelers = async (pageNumber: number, perPageArg: number) => {
     try {
@@ -39,9 +39,8 @@ export default function TravellersList() {
         articlesAmount: user.articlesAmount,
       }));
 
-      setTravelers(prev => [...prev, ...adapted]);
+      setTravelers((prev) => [...prev, ...adapted]);
       setHasNextPage(response.data.hasNextPage);
-
     } catch (err) {
       console.error("Помилка при завантаженні мандрівників:", err);
     } finally {
@@ -72,24 +71,29 @@ export default function TravellersList() {
   if (!travelers.length) return <p>Немає мандрівників для відображення.</p>;
 
   return (
-    <div className={css.listWrapper}>
-      <div className={css.listCardsWrapper}>
-        {travelers.map(traveler => (
-          <TravellerInfoCard key={traveler.id} {...traveler} />
-        ))}
-      </div>
-
-      {hasNextPage && (
-        <div className={css.listPagination}>
-          {loadingMore ? (
-            <span>Завантаження...</span>
-          ) : (
-            <button className={css.listPaginationBtn} onClick={handleLoadMore}>
-              Показати ще
-            </button>
-          )}
+    <div className="wrapper">
+      <div className={css.listWrapper}>
+        <div className={css.listCardsWrapper}>
+          {travelers.map((traveler) => (
+            <TravellerInfoCard key={traveler.id} {...traveler} />
+          ))}
         </div>
-      )}
+
+        {hasNextPage && (
+          <div className={css.listPagination}>
+            {loadingMore ? (
+              <span>Завантаження...</span>
+            ) : (
+              <button
+                className={css.listPaginationBtn}
+                onClick={handleLoadMore}
+              >
+                Показати ще
+              </button>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

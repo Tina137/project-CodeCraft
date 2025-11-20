@@ -119,7 +119,7 @@ const Header = () => {
                         href="/travellers"
                         className={`${css.navItemLink} ${textColorClass}`}
                       >
-                        ники
+                        Мандрівники
                       </Link>
                     </li>
                     <li className={css.navItem}>
