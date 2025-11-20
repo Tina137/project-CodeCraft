@@ -161,7 +161,7 @@ export default function TravellersStoriesItem({ story }: Props) {
       <ConfirmModal
         isOpen={showAuthModal}
         title="Помилка під час збереження"
-        message="Щоб зберегти статтю, вам треба увійти. Якщо ще немає облікового запису — зареєструйтесь."
+        message="Щоб зберегти статтю, вам потрібно увійти. Якщо ще немає облікового запису — зареєструйтесь."
         confirmText="Увійти"
         cancelText="Зареєструватись"
         onClose={() => setShowAuthModal(false)}
