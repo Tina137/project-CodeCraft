@@ -10,21 +10,26 @@ import { useSaveStory } from "@/hooks/useSaveStory";
 import { useState } from "react";
 import { useSavedStore } from "@/lib/store/savedStore";
 
-interface TravellersStoriesItemProps {
+interface Props {
   story: Story;
 }
 
-export default function TravellersStoriesItem({
-  story,
-}: TravellersStoriesItemProps) {
+export default function TravellersStoriesItem({ story }: Props) {
   const router = useRouter();
 
-  const { addMutation, removeMutation } = useSaveStory();
+  // Zustand stores
+  const savedList = useSavedStore((s) => s.savedList);
+  const savedLoaded = useSavedStore((s) => s.savedLoaded);
+  const userId = useSavedStore((s) => s.userId);
   const toggleGlobalSaved = useSavedStore((s) => s.toggleSaved);
 
-  const isSaved = useSavedStore((s) => s.savedList.includes(story._id));
+  const { addMutation, removeMutation } = useSaveStory();
 
+  // Favorite/save state
+  const isSaved = savedList.includes(story._id);
   const [count, setCount] = useState(story.favoriteCount);
+
+  const isLoading = addMutation.isPending || removeMutation.isPending;
 
   const toggleSave = () => {
     const handle401 = (err: any) => {
@@ -52,11 +57,16 @@ export default function TravellersStoriesItem({
     }
   };
 
-  const isLoading = addMutation.isPending || removeMutation.isPending;
+  // Open detailed page
+  const openStory = () => router.push(`/stories/${story._id}`);
 
-  const openStory = () => {
-    router.push(`/stories/${story._id}`);
-  };
+  // Owner logic
+  const ownerId =
+    typeof story.ownerId === "string" ? story.ownerId : story.ownerId?._id;
+
+  const isOwner = userId === ownerId;
+
+  const openEditor = () => router.push(`/stories/${story._id}/edit`);
 
   return (
     <div className={css.card}>
@@ -69,12 +79,14 @@ export default function TravellersStoriesItem({
       />
 
       <div className={css.cardContent}>
+        {/* TOP */}
         <div className={css.cardTop}>
           <p className={css.cardCategory}>{story.category?.name || ""}</p>
           <h2 className={css.cardTitle}>{story.title}</h2>
           <p className={css.cardDescription}>{story.article}</p>
         </div>
 
+        {/* BOTTOM */}
         <div className={css.cardBottom}>
           <div className={css.cardAuthor}>
             <Image
@@ -84,8 +96,10 @@ export default function TravellersStoriesItem({
               width={48}
               height={48}
             />
+
             <div className={css.authorInfo}>
-              <p className={css.authorName}>{story.ownerId?.name || "Автор"}</p>
+              <p className={css.authorName}>{story.ownerId?.name}</p>
+
               <div className={css.authorMeta}>
                 <p className={css.authorDate}>{formatDate(story.date)}</p>
                 <span className={css.metaDot}>•</span>
@@ -102,26 +116,43 @@ export default function TravellersStoriesItem({
             </div>
           </div>
 
+          {/* ACTIONS */}
           <div className={css.cardActions}>
             <button className={css.buttonPrimary} onClick={openStory}>
               Переглянути статтю
             </button>
 
-            <button
-              className={`${css.buttonIcon} ${isSaved ? css.buttonIconActive : ""}`}
-              disabled={isLoading}
-              onClick={toggleSave}
-            >
-              {isLoading ? (
-                <span className={css.loaderIcon} />
+            {/* Кнопки залежать від savedLoaded + owner */}
+            {savedLoaded &&
+              (isOwner ? (
+                /* EDIT BUTTON */
+                <button className={css.buttonIcon} onClick={openEditor}>
+                  <Icon
+                    name="icon-edit"
+                    size={24}
+                    className={css.buttonIconSvg}
+                  />
+                </button>
               ) : (
-                <Icon
-                  name="icon-bookmark"
-                  size={24}
-                  className={css.buttonIconSvg}
-                />
-              )}
-            </button>
+                /* SAVE BUTTON */
+                <button
+                  className={`${css.buttonIcon} ${
+                    isSaved ? css.buttonIconActive : ""
+                  }`}
+                  disabled={isLoading}
+                  onClick={toggleSave}
+                >
+                  {isLoading ? (
+                    <span className={css.loaderIcon} />
+                  ) : (
+                    <Icon
+                      name="icon-bookmark"
+                      size={24}
+                      className={css.buttonIconSvg}
+                    />
+                  )}
+                </button>
+              ))}
           </div>
         </div>
       </div>

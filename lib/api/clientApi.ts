@@ -156,21 +156,27 @@ export async function clientFetchStoriesPage(
   page: number,
   perPage: number
 ): Promise<PaginatedStoriesResponse> {
-  const res = await fetch(
-    `${API_URL}/api/stories?ownerId=${travellerId}&page=${page}&perPage=${perPage}`,
-    { credentials: "include" }
-  );
+  try {
+    const res = await api.get("/stories", {
+      params: {
+        ownerId: travellerId,
+        page,
+        perPage,
+      },
+    });
 
-  if (!res.ok) throw new Error(`Failed to load page ${page}`);
+    const json = res.data;
 
-  const json = await res.json();
-  return {
-    page: json.data.page,
-    perPage: json.data.perPage,
-    totalPages: json.data.totalPages,
-    totalItems: json.data.totalItems,
-    hasNextPage: json.data.hasNextPage,
-    hasPreviousPage: json.data.hasPreviousPage,
-    data: json.data.stories,
-  };
+    return {
+      page: json.data.page,
+      perPage: json.data.perPage,
+      totalPages: json.data.totalPages,
+      totalItems: json.data.totalItems,
+      hasNextPage: json.data.hasNextPage,
+      hasPreviousPage: json.data.hasPreviousPage,
+      data: json.data.stories,
+    };
+  } catch (err) {
+    throw new Error(`Failed to load page ${page}`);
+  }
 }

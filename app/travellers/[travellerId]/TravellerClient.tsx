@@ -1,12 +1,10 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import TravellersStories from "@/components/TravellersStories/TravellersStories";
 import { useStoriesPerPage } from "@/hooks/useStoriesPerPage";
 import { clientFetchStoriesPage } from "@/lib/api/clientApi";
-import { useSavedStore } from "@/lib/store/savedStore";
-import { getMe } from "@/lib/api/clientApi"; //
 import type { PaginatedStoriesResponse, Story } from "@/types/story";
 
 type Props = {
@@ -20,21 +18,10 @@ export default function TravellerStoriesWrapper({
 }: Props) {
   const uiPerPage = useStoriesPerPage();
 
-  const setSavedList = useSavedStore((s) => s.setSavedList);
-
-  useEffect(() => {
-    const fetchSaved = async () => {
-      try {
-        const me = await getMe();
-
-        setSavedList(me.data.savedStories ?? []);
-      } catch (e) {
-        console.error("Failed to fetch current user", e);
-      }
-    };
-
-    fetchSaved();
-  }, [setSavedList]);
+  const normalizedInitial: PaginatedStoriesResponse = {
+    ...initialStories,
+    data: initialStories.data ?? initialStories.data ?? [],
+  };
 
   const query = useInfiniteQuery({
     queryKey: ["traveller-stories", travellerId, uiPerPage],
@@ -43,7 +30,7 @@ export default function TravellerStoriesWrapper({
 
     initialPageParam: 1,
     initialData: {
-      pages: [initialStories],
+      pages: [normalizedInitial],
       pageParams: [1],
     },
 
@@ -52,7 +39,10 @@ export default function TravellerStoriesWrapper({
   });
 
   const allStories: Story[] = useMemo(
-    () => query.data!.pages.flatMap((p) => p.data),
+    () =>
+      query.data?.pages.flatMap((p) =>
+        Array.isArray(p.data) ? p.data : (p.data ?? [])
+      ) ?? [],
     [query.data]
   );
 
