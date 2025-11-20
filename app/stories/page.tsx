@@ -14,7 +14,6 @@ const CATEGORY_MAP: { name: string; id: string }[] = [
   { name: "Африка", id: "68fb50c80ae91338641121f4" },
 ];
 
-
 export default function StoriesPage() {
   const [stories, setStories] = useState<Story[]>([]);
   const [page, setPage] = useState(1);
@@ -41,7 +40,7 @@ export default function StoriesPage() {
     fetch(`${SERVER}/api/categories`)
       .then((r) => r.json())
       .then((json) => {
-        const cats = Array.isArray(json) ? json : json?.data ?? [];
+        const cats = Array.isArray(json) ? json : (json?.data ?? []);
         setCategories(Array.isArray(cats) ? cats : []);
       })
       .catch((err) => {
@@ -57,12 +56,14 @@ export default function StoriesPage() {
     fetch(buildUrl(1), { credentials: "include" })
       .then((r) => r.json())
       .then((json) => {
-        const items: Story[] = json?.data?.stories ?? json?.stories ??
-        (Array.isArray(json?.data) ? json.data : []) ??
-        (Array.isArray(json) ? json : []);
-           if (!Array.isArray(items)) {
-        setStories([]);
-    return;
+        const items: Story[] =
+          json?.data?.stories ??
+          json?.stories ??
+          (Array.isArray(json?.data) ? json.data : []) ??
+          (Array.isArray(json) ? json : []);
+        if (!Array.isArray(items)) {
+          setStories([]);
+          return;
         }
         setStories(items);
         setHasMore(items.length >= perPage);
@@ -103,42 +104,41 @@ export default function StoriesPage() {
     <main className={css.page}>
       <div className={css.container}>
         <h1 className={css.title}>Історії Мандрівників</h1>
-<div className={css.controls}>
-        <div className={css.filters}>
-          <button
-            className={!category ? css.filterActive : css.filter}
-            onClick={() => setCategory(null)}
-          >
-            Всі історії
-          </button>
-          {CATEGORY_MAP.map((c) => (
-    <button
-      key={c.id}
-      className={category === c.id ? css.filterActive : css.filter}
-      onClick={() => setCategory(c.id)}
-    >
-      {c.name}
+        <div className={css.controls}>
+          <div className={css.filters}>
+            <button
+              className={!category ? css.filterActive : css.filter}
+              onClick={() => setCategory(null)}
+            >
+              Всі історії
             </button>
-          ))}
+            {CATEGORY_MAP.map((c) => (
+              <button
+                key={c.id}
+                className={category === c.id ? css.filterActive : css.filter}
+                onClick={() => setCategory(c.id)}
+              >
+                {c.name}
+              </button>
+            ))}
+          </div>
+          <div className={css.filtersSelectWrap}>
+            <label className={css.selectLabel}>Категорії</label>
+            <select
+              className={css.filtersSelect}
+              value={category ?? ""}
+              onChange={(e) => setCategory(e.target.value || null)}
+              aria-label="Категорія"
+            >
+              <option value="Всі історії">Всі історії</option>
+              {CATEGORY_MAP.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-        <div className={css.filtersSelectWrap}>
-    <label className={css.selectLabel}>Категорії</label>
-    <select
-      className={css.filtersSelect}
-      value={category ?? ""}
-      onChange={(e) => setCategory(e.target.value || null)}
-      aria-label="Категорія"
-    >
-      <option value="Всі історії">Всі історії</option>
-      {CATEGORY_MAP.map((c) => (
-        <option key={c.id} value={c.id}>
-          {c.name}
-        </option>
-        
-      ))}
-    </select>
-  </div>
-  </div>
         <div className={css.list}>
           {loading ? (
             <div className={css.loading}>Завантаження…</div>
