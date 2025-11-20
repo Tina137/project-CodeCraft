@@ -1,88 +1,67 @@
-/* ========= mobile ========= */
-
-.wrapper {
-  width: 311px;
-  height: auto;
+.travellerInfo {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  text-align: center;
+  flex-direction: column;
+  height: auto;
   gap: 24px;
 }
 
-.image {
-  height: 199px;
+.avatar {
   width: 199px;
+  height: 199px;
   border-radius: 100%;
+  object-fit: cover;
 }
 
-.info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
+.travellerDetails {
+  width: 100%;
 }
 
-.title {
-  font-family: var(--font-family);
+.travellerName {
+  font-family: "Sora", sans-serif;
   font-weight: 700;
   font-size: 20px;
-  line-height: 1.3;
-  color: var(--black);
+  line-height: 130%;
+  letter-spacing: -0.01em;
+  color: #000;
   text-align: center;
+  margin-bottom: 8px;
 }
 
-.description {
-  font-family: var(--font-family);
+.travellerDescription {
+  font-family: "Nunito Sans", sans-serif;
   font-weight: 400;
   font-size: 16px;
-  line-height: 1.5;
-  color: var(--black);
+  line-height: 150%;
+  color: #000;
   text-align: center;
 }
 
-/* ========= tablet ========== */
-
 @media screen and (min-width: 768px) {
-  .wrapper {
-    width: auto;
-    display: flex;
+  .travellerInfo {
     flex-direction: row;
-    align-items: center;
-    text-align: left;
   }
 
-  .info {
-    align-items: flex-start;
+  .travellerDetails {
+    width: 481px;
   }
 
-  .title,
-  .description {
+  .travellerName,
+  .travellerDescription {
     text-align: left;
-    margin: 0;
   }
 }
 
-/* ========= desktop ========= */
-
 @media screen and (min-width: 1440px) {
-  .wrapper {
-    width: 1312px;
-    height: 199px;
-  }
-
-  .info {
+  .travellerDetails {
     width: 367px;
   }
-  .title {
+
+  .travellerName {
     font-size: 32px;
-    margin-bottom: 0;
   }
 
-  .description {
+  .travellerDescription {
     font-size: 18px;
   }
 }
-
-

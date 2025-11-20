@@ -1,6 +1,7 @@
 "use client";
 
 import styles from "./TravellerInfo.module.css";
+import Image from "next/image";
 
 interface TravellerInfoProps {
   name: string;
@@ -8,14 +9,30 @@ interface TravellerInfoProps {
   avatarUrl: string;
 }
 
-export default function TravellerInfo({ name, description, avatarUrl }: TravellerInfoProps) {
+export default function TravellerInfo({
+  name,
+  description,
+  avatarUrl,
+}: TravellerInfoProps) {
   return (
-    <div className={styles.wrapper}>
-      <img className={styles.image} src={avatarUrl}/>
-      <div className={styles.info}>
-        <h2 className={styles.title}>{name}</h2>
-        {description && <p className={styles.description}>{description}</p>}
+    <section className={styles.travellerInfo} aria-label="traveller info">
+      <div className={styles.travellerImage}>
+        <Image
+          className={styles.avatar}
+          src={avatarUrl || "/Placeholder_Image.png"}
+          alt={`${name} avatar`}
+          width={199}
+          height={199}
+        />
       </div>
-    </div>
+
+      <div className={styles.travellerDetails}>
+        <h3 className={styles.travellerName}>{name}</h3>
+
+        {description && (
+          <p className={styles.travellerDescription}>{description}</p>
+        )}
+      </div>
+    </section>
   );
 }
