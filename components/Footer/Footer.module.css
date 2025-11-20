@@ -1,4 +1,4 @@
-.footer{
+.footer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -6,9 +6,13 @@
     gap: 24px;
     background: #e8eeff;
     padding: 48px 20px; 
+
+    width: 100vw;  /* Примусова ширина вікна браузера */
+    margin-left: calc(50% - 50vw); /* Зсув вліво за межі батька */
+    margin-right: calc(50% - 50vw); /* Зсув вправо за межі батька */
 }
 
-.footerTop{
+.footerTop {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -27,14 +31,13 @@
     width: 100%;
 }
 
-.logoSection{
+.logoSection {
     display: flex;
     align-items: center;
     gap: 5px;
-    width: 400px;
 }
 
-.logoSectionText{
+.logoSectionText {
     font-weight: 400;
     font-size: 17px;
     line-height: 110%;
@@ -42,8 +45,7 @@
     color: #000;
 }
 
-
-.socialsList{
+.socialsList {
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -51,17 +53,15 @@
     gap: 16px;  
 }
 
-
-.footerLinks{
+.footerLinks {
     display: flex;
     align-items: flex-start;
     justify-content: center;
     flex-direction: row;
     gap: 24px;
-    width: 400px;
 }
 
-.footerLinksList{
+.footerLinksList {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -69,7 +69,7 @@
     gap: 16px;
 }
 
-.footerLinksItem{
+.footerLinksItem {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -81,14 +81,14 @@
     color: #000;
 }
 
-.footerLinksItemText{
+.footerLinksItemText {
     font-weight: 400;
     font-size: 16px;
     line-height: 150%;
     color: #000;
 }
 
-.footerBottom{
+.footerBottom {
     width: 100%;
     display: flex;
     align-items: center;
@@ -96,7 +96,6 @@
     flex-direction: column;
     border-top: 1px solid #d1d5db;
     padding-top: 32px;
-    display: flex;
     font-weight: 400;
     font-size: 12px;
     line-height: 150%;
@@ -108,48 +107,60 @@
    ========================================================================== */
 
 @media (min-width: 768px) {
-    .footerLogoSocials{
+    .footer {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .footerLogoSocials {
         flex-direction: row;
         justify-content: space-between; 
         align-items: center;
     }
 
-    .footerLinksList{
-    flex-direction: row;
+    .footerLinksList {
+        flex-direction: row;
     }
 }
 
 /* ==========================================================================
    3. МЕДІА-ЗАПИТИ (DESKTOP)
    ========================================================================== */
+
 @media (min-width: 1440px) {
+    .footer {
+        padding-left: 64px;
+        padding-right: 64px;
+    }
+
     .footerTop {
         display: flex;
-        flex-direction: row; /* Всі в один рядок */
+        flex-direction: row;
         align-items: center;
-        
-        /* Головна магія: розкидаємо 3 елементи (Лого, Соц, Лінки) по краях і центру */
-        justify-content: space-between; 
-        
+        justify-content: space-between;
         flex-wrap: nowrap;
         width: 100%;
     }
 
-    /* 👇 ЦЕ КЛЮЧОВИЙ МОМЕНТ */
     .footerLogoSocials {
-        /* "Розчиняємо" цей контейнер. Тепер Flexbox бачить його дітей 
-           (Лого і Соцмережі) як прямих нащадків .footerTop */
         display: contents; 
     }
 
-    /* На всяк випадок переконуємося, що список посилань теж у рядок */
-    .footerLinksList {
-        flex-direction: row;
-        gap: 24px; /* Відстань між посиланнями */
-    }
-    
-    /* Забираємо зайві відступи, якщо вони були */
     .socials {
         margin: 0; 
+    }
+
+    .logoSection {
+        width: 400px;
+        justify-content: flex-start; 
+    }
+
+    .footerLinks {
+        width: 400px; 
+        justify-content: flex-end; 
+    }
+
+    .footerLinksList {
+        gap: 24px;
     }
 }
