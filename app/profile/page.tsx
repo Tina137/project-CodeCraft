@@ -102,6 +102,7 @@ export default function ProfilePage() {
 
   return (
     <div className={styles.section}>
+      <div className={styles.topWrapper}>
       <TravellerInfo
         name={user.name}
         description={user.description}
@@ -123,12 +124,15 @@ export default function ProfilePage() {
           Мої історії
         </button>
       </div>
+      </div>
 
+      <div className={styles.storiesWrapper}>
       {loading ? (
         <p>Завантаження історій...</p>
       ) : (
         <TravellersStories items={stories} />
       )}
+      </div>
     </div>
   );
 }
