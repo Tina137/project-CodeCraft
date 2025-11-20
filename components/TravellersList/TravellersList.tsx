@@ -19,17 +19,17 @@ export default function TravellersList() {
   const [hasNextPage, setHasNextPage] = useState(true);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
-  const [perPage, setPerPage] = useState(8);
+  const [perPage, setPerPage] = useState(0); 
 
-  const fetchTravelers = async (pageNumber = 1, perPageArg = perPage) => {
+  const fetchTravelers = async (pageNumber: number, perPageArg: number) => {
     try {
       if (pageNumber === 1) setLoading(true);
       else setLoadingMore(true);
 
       const response = await axios.get(
-  `https://project-codecraft-backend.onrender.com/api/users?page=${pageNumber}&limit=${perPageArg}`,
-  { withCredentials: true }
-);
+        `https://project-codecraft-backend.onrender.com/api/users?page=${pageNumber}&limit=${perPageArg}`,
+        { withCredentials: true }
+      );
 
       const adapted = response.data.data.map((user: any) => ({
         id: user._id,
@@ -41,6 +41,7 @@ export default function TravellersList() {
 
       setTravelers(prev => [...prev, ...adapted]);
       setHasNextPage(response.data.hasNextPage);
+
     } catch (err) {
       console.error("Помилка при завантаженні мандрівників:", err);
     } finally {
@@ -50,13 +51,16 @@ export default function TravellersList() {
   };
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const width = window.innerWidth;
-      const initialPerPage = width >= 1024 ? 12 : 8;
-      setPerPage(initialPerPage);
-      fetchTravelers(1, initialPerPage);
-    }
+    const width = window.innerWidth;
+    const initial = width >= 1024 ? 12 : 8;
+    setPerPage(initial);
   }, []);
+
+  useEffect(() => {
+    if (perPage > 0) {
+      fetchTravelers(1, perPage);
+    }
+  }, [perPage]);
 
   const handleLoadMore = () => {
     const nextPage = page + 1;

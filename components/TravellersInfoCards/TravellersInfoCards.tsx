@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import styles from "./TravellersInfoCards.module.css";
 
 interface Props {
@@ -20,12 +19,13 @@ export default function TravellerCard({
   return (
     <div className={styles.container}>
       <img
-        src={avatarUrl}
-        alt={`Фото мандрівника ${name}`}
-        className={styles.photo}
-        width={120}
-        height={120}
-      />
+  src={avatarUrl || "/avatar/defaultAvatar.webp"}
+  alt={`Фото мандрівника ${name}`}
+  className={styles.photo}
+  width={120}
+  height={120}
+/>
+
 
       <div className={styles.infoBlock}>
         <h3 className={styles.personName}>{name}</h3>
