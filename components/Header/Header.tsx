@@ -17,10 +17,10 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
+  const isHomePage = pathname === "/";
+  const isAuthPage =
+    pathname === "/auth/login" || pathname === "/auth/register";
 
-   const isHomePage = pathname === '/';
-  const isAuthPage = pathname === '/auth/login' || pathname === '/auth/register';
-  
   const textColorClass = !isHomePage ? css.textDark : "";
   const loginBtnClass = !isHomePage ? css.loginBtnGrey : "";
   const registerBtnClass = !isHomePage ? css.registerBtnBlue : "";
@@ -58,7 +58,7 @@ const Header = () => {
     } catch (error) {
       console.error("Logout error", error);
     } finally {
-      clearIsAuthenticated(); 
+      clearIsAuthenticated();
       setIsLogoutModalOpen(false);
       router.push("/");
       router.refresh();
@@ -132,9 +132,11 @@ const Header = () => {
                     </li>
                   </ul>
                   <div className={css.wrapper}>
-                    <button className={css.publishBtn}>
-                      Опублікувати історію
-                    </button>
+                    <Link href="/stories/create">
+                      <button className={css.publishBtn}>
+                        Опублікувати історію
+                      </button>
+                    </Link>
                     <div className={css.userProfile}>
                       <div className={css.avatar}>
                         {avatarUrl ? (
@@ -149,9 +151,18 @@ const Header = () => {
                           </span>
                         )}
                       </div>
-                      <span className={`${css.userName} ${textColorClass}`}>{userName}</span>
-                      <button className={`${css.logoutBtn} ${!isHomePage ? css.borderLeftDark : ''}`} onClick={handleLogoutClick}>
-                        <Icon name="icon-logout" size={24} className={textColorClass}/> 
+                      <span className={`${css.userName} ${textColorClass}`}>
+                        {userName}
+                      </span>
+                      <button
+                        className={`${css.logoutBtn} ${!isHomePage ? css.borderLeftDark : ""}`}
+                        onClick={handleLogoutClick}
+                      >
+                        <Icon
+                          name="icon-logout"
+                          size={24}
+                          className={textColorClass}
+                        />
                       </button>
                     </div>
                   </div>
@@ -223,9 +234,14 @@ const Header = () => {
         )}
       </header>
 
-      <div className={`${css.backdrop} ${isMobileMenuOpen ? css.open : ''}`} onClick={toggleMobileMenu}>
-        <div className={`${css.menuContainer} ${isMobileMenuOpen ? css.open : ''}`} onClick={(e) => e.stopPropagation()}>
-          
+      <div
+        className={`${css.backdrop} ${isMobileMenuOpen ? css.open : ""}`}
+        onClick={toggleMobileMenu}
+      >
+        <div
+          className={`${css.menuContainer} ${isMobileMenuOpen ? css.open : ""}`}
+          onClick={(e) => e.stopPropagation()}
+        >
           <div className={css.menuHeader}>
             <div className={css.logoContainer}>
               <Icon name="icon-favicon" />
@@ -272,9 +288,11 @@ const Header = () => {
           <div className={css.mobileFooter}>
             {showAuthContent ? (
               <>
-                <button className={css.mobilePublishBtn}>
-                  Опублікувати історію
-                </button>
+                <Link href="/stories/create">
+                  <button className={css.mobilePublishBtn}>
+                    Опублікувати історію
+                  </button>
+                </Link>
                 <div className={css.mobileUserProfile}>
                   <div className={css.mobileAvatar}>
                     {avatarUrl ? (
@@ -288,8 +306,11 @@ const Header = () => {
                     )}
                   </div>
                   <span className={css.mobileUserName}>{userName}</span>
-                  <button className={css.mobileLogoutBtn} onClick={handleLogoutClick}>
-                    <Icon name="icon-logout" size={24} /> 
+                  <button
+                    className={css.mobileLogoutBtn}
+                    onClick={handleLogoutClick}
+                  >
+                    <Icon name="icon-logout" size={24} />
                   </button>
                 </div>
               </>
