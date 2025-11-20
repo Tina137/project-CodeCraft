@@ -13,7 +13,8 @@ interface ConfirmModalProps {
   onClose: () => void;
   confirmText?: string;
   cancelText?: string;
-  route: string;
+  routeLogin: string;
+  routeReg: string;
 }
 
 export const ConfirmModal: React.FC<ConfirmModalProps> = ({
@@ -25,7 +26,8 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
   onClose,
   confirmText = "Відмінити",
   cancelText = "Вийти",
-  route,
+  routeLogin = "/auth/login",
+  routeReg = "/auth/register",
 }) => {
   if (!isOpen) {
     return null;
@@ -45,15 +47,29 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
               {cancelText}
             </button>
           ) : (
-            <Link href={route}>kk</Link>
+            <Link
+              href={routeReg}
+              className={`${styles.button} ${styles.cancelButton}`}
+            >
+              {cancelText}
+            </Link>
           )}
 
-          <button
-            onClick={onConfirm}
-            className={`${styles.button} ${styles.confirmButton}`}
-          >
-            {confirmText}
-          </button>
+          {confirmText === "Відмінити" ? (
+            <button
+              onClick={onConfirm}
+              className={`${styles.button} ${styles.confirmButton}`}
+            >
+              {confirmText}
+            </button>
+          ) : (
+            <Link
+              href={routeLogin}
+              className={`${styles.button} ${styles.confirmButton}`}
+            >
+              {confirmText}
+            </Link>
+          )}
         </div>
       </div>
     </Modal>
