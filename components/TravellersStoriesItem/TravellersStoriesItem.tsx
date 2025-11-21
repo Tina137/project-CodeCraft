@@ -9,6 +9,7 @@ import Icon from "../Icon/Icon";
 import { useSaveStory } from "@/hooks/useSaveStory";
 import { useState } from "react";
 import { useSavedStore } from "@/lib/store/savedStore";
+import { useAuthStore } from "@/lib/store/authStore";
 import { ConfirmModal } from "@/components/Modal/ConfirmModal";
 
 interface Props {
@@ -21,13 +22,15 @@ export default function TravellersStoriesItem({ story }: Props) {
   const savedList = useSavedStore((s) => s.savedList);
   const savedLoaded = useSavedStore((s) => s.savedLoaded);
   const userId = useSavedStore((s) => s.userId);
-  const toggleGlobalSaved = useSavedStore((s) => s.toggleSaved);
 
+  const isAuth = useAuthStore((s) => s.isAuthenticated);
+
+  const toggleGlobalSaved = useSavedStore((s) => s.toggleSaved);
   const { addMutation, removeMutation } = useSaveStory();
 
-  const isSaved = savedList.includes(story._id);
-  const [count, setCount] = useState(story.favoriteCount);
+  const isSaved = isAuth && savedLoaded && savedList.includes(story._id);
 
+  const [count, setCount] = useState(story.favoriteCount);
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   const isLoading = addMutation.isPending || removeMutation.isPending;
@@ -35,7 +38,7 @@ export default function TravellersStoriesItem({ story }: Props) {
   const toggleSave = () => {
     if (!savedLoaded) return;
 
-    if (!userId) {
+    if (!isAuth || !userId) {
       setShowAuthModal(true);
       return;
     }
@@ -105,11 +108,11 @@ export default function TravellersStoriesItem({ story }: Props) {
                 height={48}
               />
 
-              <div className={css.authorInfo || ""}>
+              <div className={css.authorInfo}>
                 <p className={css.authorName}>{story.ownerId?.name}</p>
 
                 <div className={css.authorMeta}>
-                  <p className={css.authorDate || ""}>
+                  <p className={css.authorDate}>
                     {formatDate(story.date || story.createdAt)}
                   </p>
                   <span className={css.metaDot}>•</span>
