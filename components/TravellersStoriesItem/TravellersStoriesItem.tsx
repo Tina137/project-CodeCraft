@@ -33,10 +33,16 @@ export default function TravellersStoriesItem({ story }: Props) {
   const isLoading = addMutation.isPending || removeMutation.isPending;
 
   const toggleSave = () => {
+    if (!savedLoaded) return;
+
+    if (!userId) {
+      setShowAuthModal(true);
+      return;
+    }
+
     const handle401 = (err: any) => {
       if (err?.response?.status === 401) {
         setShowAuthModal(true);
-        return;
       }
     };
 
