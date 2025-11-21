@@ -11,6 +11,7 @@
   line-height: 1.1;
   letter-spacing: -0.56px;
   margin: 32px 0;
+  margin-bottom: 8px;
 }
 
 .grid {
@@ -223,6 +224,7 @@
   .previewBox {
     max-width: 335px;
     width: 100%;
+    margin: 0 auto;
   }
 }
 
@@ -233,6 +235,7 @@
 
   .title {
     font-size: 40px;
+    margin: 32px 0;
     margin-bottom: 8px;
   }
 
@@ -248,6 +251,7 @@
   .previewBox {
     max-width: 704px;
     width: 100%;
+    margin: 0 auto;
   }
 }
 
@@ -260,7 +264,8 @@
 
   .title {
     font-size: 48px;
-    margin-bottom: 8px;
+    margin: 48px 0;
+    margin-bottom: 24px;
   }
 
   .grid {
@@ -277,7 +282,7 @@
 
   .right {
     align-self: flex-start;
-    margin-top: 24px;
+    margin-top: 184px;
     max-width: 423px;
   }
 
@@ -289,6 +294,10 @@
 
   .articleLabel {
     margin-bottom: 72px;
+  }
+
+  .cancelBtn {
+    margin-bottom: 0;
   }
 }
 
