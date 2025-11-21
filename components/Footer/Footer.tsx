@@ -7,61 +7,75 @@ import { usePathname } from "next/navigation";
 
 const Footer = () => {
   const pathname = usePathname();
-  const isAuthPage = pathname === '/auth/login' || pathname === '/auth/register';
+  const isAuthPage =
+    pathname === "/auth/login" || pathname === "/auth/register";
 
   return (
-  <footer className={`${css.footer} ${isAuthPage ? css.footerAuth : ''}`}>
-    {!isAuthPage &&
-    (<div className={css.footerTop}>
-      <div className={css.footerLogoSocials}>
-      <div className={css.logoSection}>
-      <Icon name="icon-favicon"></Icon>
-      <p className={css.logoSectionText}>Подорожники</p>
+    <footer className={`${css.footer} ${isAuthPage ? css.footerAuth : ""}`}>
+      {/* ДОДАНО КОНТЕЙНЕР */}
+      <div className={css.container}>
+        {!isAuthPage && (
+          <div className={css.footerTop}>
+            <div className={css.footerLogoSocials}>
+              <div className={css.logoSection}>
+                <Icon name="icon-favicon"></Icon>
+                <p className={css.logoSectionText}>Подорожники</p>
+              </div>
+              <div className={css.socials}>
+                <ul className={css.socialsList}>
+                  <li className={css.socialsItem}>
+                    <Link href="https://www.facebook.com/">
+                      <Icon name="icon-Facebook"></Icon>
+                    </Link>
+                  </li>
+                  <li className={css.socialsItem}>
+                    <Link href="https://www.instagram.com/">
+                      <Icon name="icon-Instagram"></Icon>
+                    </Link>
+                  </li>
+                  <li className={css.socialsItem}>
+                    <Link href="https://www.X.com/">
+                      <Icon name="icon-X"></Icon>
+                    </Link>
+                  </li>
+                  <li className={css.socialsItem}>
+                    <Link href="https://www.youtube.com/">
+                      <Icon name="icon-Youtube"></Icon>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className={css.footerLinks}>
+              <ul className={css.footerLinksList}>
+                <li className={css.footerLinksItem}>
+                  <Link href="/" className={css.footerLinksItemText}>
+                    Головна
+                  </Link>
+                </li>
+                <li className={css.footerLinksItem}>
+                  <Link href="/stories" className={css.footerLinksItemText}>
+                    Історії
+                  </Link>
+                </li>
+                <li className={css.footerLinksItem}>
+                  <Link href="/travellers" className={css.footerLinksItemText}>
+                    Мандрівники
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        )}
+        <p
+          className={`${css.footerBottom} ${
+            isAuthPage ? css.footerBottomAuth : ""
+          }`}
+        >
+          © 2025 Подорожники. Всі права захищені.
+        </p>
       </div>
-      <div className={css.socials}>
-        <ul className={css.socialsList}>
-          <li className={css.socialsItem}>
-            <Link href="https://www.facebook.com/">
-            <Icon name="icon-Facebook"></Icon>
-            </Link>
-          </li>
-          <li className={css.socialsItem}>
-            <Link href="https://www.instagram.com/">
-            <Icon name="icon-Instagram"></Icon>
-            </Link>
-          </li>
-          <li className={css.socialsItem}>
-            <Link href="https://www.X.com/">
-            <Icon name="icon-X"></Icon>
-            </Link>
-          </li>
-          <li className={css.socialsItem}>
-            <Link href="https://www.youtube.com/">
-            <Icon name="icon-Youtube"></Icon>
-            </Link>
-          </li>
-        </ul>
-      </div>
-      </div>
-      <div className={css.footerLinks}>
-        <ul className={css.footerLinksList}>
-          <li className={css.footerLinksItem}>
-            <Link href="/" className={css.footerLinksItemText}>Головна</Link>
-          </li>
-          <li className={css.footerLinksItem}>
-            <Link href="/stories" className={css.footerLinksItemText}>Історії</Link>
-          </li>
-          <li className={css.footerLinksItem}>
-            <Link href="/travellers" className={css.footerLinksItemText}>Мандрівники</Link>
-          </li>
-        </ul>
-      </div>
-    </div>
-    )}
-    <p className={`${css.footerBottom} ${isAuthPage ? css.footerBottomAuth : ''}`}>
-      © 2025 Подорожники. Всі права захищені.
-    </p>
-  </footer>
+    </footer>
   );
 };
 

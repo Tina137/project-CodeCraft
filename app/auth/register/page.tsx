@@ -32,7 +32,7 @@ export default function RegisterPage() {
         } catch (err) {
             const message = (err as ApiError).response?.data?.error ?? (err as ApiError).message ?? "Сталася непередбачувана помилка";
             setError(message);
-            toast.error(message);
+            toast.error("Юзер з таким email вже існує.");
         }
     }
     
