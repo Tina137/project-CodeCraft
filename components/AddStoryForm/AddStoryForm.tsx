@@ -123,12 +123,11 @@ export default function AddStoryForm({ initialData, isEdit = false }: Props) {
       >
         {({ setFieldValue, isValid, dirty, errors, touched }) => (
           <Form className={css.formWrapper}>
-            <h1 className={css.title}>
-              {isEdit ? "Редагувати історію" : "Створити нову історію"}
-            </h1>
-
             <div className={css.grid}>
               <div className={css.left}>
+                <h1 className={css.title}>
+                  {isEdit ? "Редагувати історію" : "Створити нову історію"}
+                </h1>
                 <label className={css.label}>
                   <span className={css.labelText}>Обкладинка статті</span>
 
