@@ -288,11 +288,11 @@ const Header = () => {
           <div className={css.mobileFooter}>
             {showAuthContent ? (
               <>
-                <Link href="/stories/create">
-                  <button className={css.mobilePublishBtn}>
+                  <button 
+                  onClick={() => handleNavClick("/stories/create")}
+                  className={css.mobilePublishBtn}>
                     Опублікувати історію
                   </button>
-                </Link>
                 <div className={css.mobileUserProfile}>
                   <div className={css.mobileAvatar}>
                     {avatarUrl ? (
