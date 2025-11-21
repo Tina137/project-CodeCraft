@@ -5,27 +5,33 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { login } from "@/lib/api/clientApi";
 import { User } from "@/types/user";
-import { ApiError } from "@/app/api/api";
 import { useAuthStore } from "@/lib/store/authStore";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
     const router = useRouter();
     const [error, setError] = useState("");
     const setAuth = useAuthStore((state) => state.setUser);
 
-    const handleSubmit = async (formData: FormData) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        
         try {
             const formValues = Object.fromEntries(formData) as unknown as User;
             const result = await login(formValues);
+            
             if (result) {
                 setAuth(result);
+                toast.success("Вітаємо! Вхід успішний.");
                 router.push("/");
             } else {
                 setError("Invalid email or password");
+                toast.error("Неправильні пошта або пароль.");
             }
         } catch (err) {
-            setError((err as ApiError).response?.data?.error ?? (err as ApiError).message ?? "An unexpected error occurred");
+            toast.error("Неправильні пошта або пароль.");
         }
     }
     
@@ -45,7 +51,8 @@ export default function LoginPage() {
                 <p className={css.subtitle}>
                     Вітаємо знову у спільноту мандрівників!
                 </p>
-                <form action={handleSubmit}>
+                
+                <form onSubmit={handleSubmit}>
                     <div className={css.formGroup}>
                         <label htmlFor="email">Пошта*</label>
                         <input
