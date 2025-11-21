@@ -7,13 +7,6 @@ import TravellersStoriesItem from "@/components/TravellersStoriesItem/Travellers
 
 const SERVER = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 
-const CATEGORY_MAP: { name: string; id: string }[] = [
-  { name: "Європа", id: "68fb50c80ae91338641121f2" },
-  { name: "Азія", id: "68fb50c80ae91338641121f0" },
-  { name: "Пустелі", id: "68fb50c80ae91338641121f6" },
-  { name: "Африка", id: "68fb50c80ae91338641121f4" },
-];
-
 export default function StoriesPage() {
   const [stories, setStories] = useState<Story[]>([]);
   const [page, setPage] = useState(1);
@@ -105,18 +98,18 @@ export default function StoriesPage() {
       <div className={css.container}>
         <h1 className={css.title}>Історії Мандрівників</h1>
         <div className={css.controls}>
-          <div className={css.filters}>
+          <div className={css.filtersButtons}>
             <button
               className={!category ? css.filterActive : css.filter}
               onClick={() => setCategory(null)}
             >
               Всі історії
             </button>
-            {CATEGORY_MAP.map((c) => (
+            {categories.map((c) => (
               <button
-                key={c.id}
-                className={category === c.id ? css.filterActive : css.filter}
-                onClick={() => setCategory(c.id)}
+                key={c._id}
+                className={category === c._id ? css.filterActive : css.filter}
+                onClick={() => setCategory(c._id)}
               >
                 {c.name}
               </button>
@@ -131,8 +124,8 @@ export default function StoriesPage() {
               aria-label="Категорія"
             >
               <option value="Всі історії">Всі історії</option>
-              {CATEGORY_MAP.map((c) => (
-                <option key={c.id} value={c.id}>
+              {categories.map((c) => (
+                <option key={c._id} value={c._id}>
                   {c.name}
                 </option>
               ))}

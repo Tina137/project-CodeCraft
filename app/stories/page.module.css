@@ -3,7 +3,14 @@
   min-height: 100vh;
   padding: 28px 16px;
   box-sizing: border-box;
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial;
   color: #0b1220;
 }
 .container {
@@ -56,7 +63,7 @@
 }
 
 .filtersButtons {
-  display: none; 
+  display: none;
   gap: 12px;
   align-items: center;
   flex-wrap: wrap;
@@ -75,7 +82,7 @@
 }
 
 .filter:hover {
-  background: rgba(15,23,42,0.03);
+  background: rgba(15, 23, 42, 0.03);
 }
 
 .filterActive {
@@ -84,7 +91,7 @@
   padding: 8px 12px;
   border: 1px solid #e6eef8;
   font-weight: 700;
-  display: none; 
+  display: none;
   box-sizing: border-box;
 }
 .sorts {
@@ -122,12 +129,13 @@
 
 .item {
   box-sizing: border-box;
-  flex: 0 0 auto; 
+  flex: 0 0 auto;
   max-width: 100%;
   min-width: 320px;
 }
 
-.loading, .empty {
+.loading,
+.empty {
   width: 100%;
   text-align: center;
   color: #64748b;
@@ -153,15 +161,17 @@
   margin-top: 40px;
   margin-bottom: 72px;
 }
-.loadMore[disabled] { opacity: 0.6; cursor: default; }
+.loadMore[disabled] {
+  opacity: 0.6;
+  cursor: default;
+}
 
 @media screen and (min-width: 768px) {
-
   .item {
     flex: 0 0 calc((100% - 24px) / 2);
     max-width: calc((100% - 24px) / 2);
     min-width: 340px;
-    max-width: 420px; 
+    max-width: 420px;
   }
   .title {
     font-weight: 700;
@@ -171,6 +181,7 @@
   }
   .filtersButtons {
     display: flex;
+    justify-content: center;
   }
   .filtersSelectWrap {
     display: none;
@@ -192,9 +203,8 @@
   }
 }
 @media screen and (min-width: 1312px) {
-
   .container {
-    max-width: 1312px; 
+    max-width: 1312px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -224,13 +234,18 @@
   }
 }
 
-.filter, .filterActive, .sortButton, .sortActive {
+.filter,
+.filterActive,
+.sortButton,
+.sortActive {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   box-sizing: border-box;
 }
-.filter:focus, .filterActive:focus, .sortButton:focus {
-  outline: 3px solid rgba(37,99,235,0.12);
+.filter:focus,
+.filterActive:focus,
+.sortButton:focus {
+  outline: 3px solid rgba(37, 99, 235, 0.12);
   outline-offset: 2px;
 }
