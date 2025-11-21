@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Toaster } from "react-hot-toast";
 
 type Props = {
   children: React.ReactNode;
@@ -17,5 +18,13 @@ export default function PublicLayout({ children }: Props) {
     setLoading(false);
   }, [router]);
 
-  return <>{loading ? <div>Loading...</div> : children}</>;
+  return (
+    <>
+    <Toaster 
+        position="top-center" 
+        toastOptions={{ duration: 5000 }}
+      />
+    {loading ? <div>Loading...</div> : children}
+    </>
+  );
 }
