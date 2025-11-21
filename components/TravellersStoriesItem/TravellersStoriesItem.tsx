@@ -82,8 +82,8 @@ export default function TravellersStoriesItem({ story }: Props) {
           {/* TOP */}
           <div className={css.cardTop}>
             <p className={css.cardCategory}>{story.category?.name || ""}</p>
-            <h2 className={css.cardTitle}>{story.title}</h2>
-            <p className={css.cardDescription}>{story.article}</p>
+            <h2 className={css.cardTitle}>{story.title || ""}</h2>
+            <p className={css.cardDescription}>{story.article || ""}</p>
           </div>
 
           {/* BOTTOM */}
@@ -99,11 +99,13 @@ export default function TravellersStoriesItem({ story }: Props) {
                 height={48}
               />
 
-              <div className={css.authorInfo}>
+              <div className={css.authorInfo || ""}>
                 <p className={css.authorName}>{story.ownerId?.name}</p>
 
                 <div className={css.authorMeta}>
-                  <p className={css.authorDate}>{formatDate(story.date)}</p>
+                  <p className={css.authorDate || ""}>
+                    {formatDate(story.date || story.createdAt)}
+                  </p>
                   <span className={css.metaDot}>•</span>
 
                   <div className={css.favorite}>

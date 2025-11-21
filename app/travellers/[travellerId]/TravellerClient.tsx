@@ -6,6 +6,7 @@ import TravellersStories from "@/components/TravellersStories/TravellersStories"
 import { useStoriesPerPage } from "@/hooks/useStoriesPerPage";
 import { clientFetchStoriesPage } from "@/lib/api/clientApi";
 import type { PaginatedStoriesResponse, Story } from "@/types/story";
+import Loader from "@/components/Loader/Loader";
 
 type Props = {
   travellerId: string;
@@ -47,11 +48,15 @@ export default function TravellerStoriesWrapper({
   );
 
   return (
-    <TravellersStories
-      items={allStories}
-      hasMore={query.hasNextPage}
-      loadingMore={query.isFetchingNextPage}
-      onLoadMore={() => query.fetchNextPage()}
-    />
+    <>
+      {query.isFetching && <Loader />}
+
+      <TravellersStories
+        items={allStories}
+        hasMore={query.hasNextPage}
+        loadingMore={query.isFetchingNextPage}
+        onLoadMore={() => query.fetchNextPage()}
+      />
+    </>
   );
 }

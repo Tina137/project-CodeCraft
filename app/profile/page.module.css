@@ -75,7 +75,7 @@
 
   .topWrapper {
     align-items: flex-start;
-    max-width: 1312px; 
+    max-width: 1312px;
     width: 100%;
   }
 
@@ -83,7 +83,7 @@
     align-self: flex-start !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
-    width: auto;                   
+    width: auto;
   }
 
   .tabs {
@@ -100,14 +100,14 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    max-width: 1312px; 
+    max-width: 1312px;
   }
 }
 
 /* =========== desktop ============ */
 
 @media screen and (min-width: 1440px) {
-   .topWrapper {
+  .topWrapper {
     gap: 48px;
   }
 }
