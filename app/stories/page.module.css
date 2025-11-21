@@ -160,7 +160,7 @@
   .item {
     flex: 0 0 calc((100% - 24px) / 2);
     max-width: calc((100% - 24px) / 2);
-    min-width: 340px;
+    min-width: 300px;
     max-width: 420px; 
   }
   .title {
