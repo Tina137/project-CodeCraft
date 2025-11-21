@@ -28,12 +28,21 @@ const Header = () => {
     (state) => state
   );
 
-  const userName = user?.name || "User";
-  const avatarUrl = user?.avatarUrl || null;
+  const userData = (user as any)?.data || user;
+
+  const userName = userData?.name;
+  const avatarUrl = userData?.avatarUrl || null;
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (isMounted && isAuthenticated && !userData) {
+      console.warn("Знайдено некоректний стан авторизації. Скидання...");
+      clearIsAuthenticated();
+    }
+  }, [isMounted, isAuthenticated, userData, clearIsAuthenticated]);
 
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -73,7 +82,7 @@ const Header = () => {
     setIsMobileMenuOpen(false);
   };
 
-  const showAuthContent = isMounted && isAuthenticated;
+  const showAuthContent = isMounted && isAuthenticated && !!userData;
 
   return (
     <>
@@ -82,9 +91,7 @@ const Header = () => {
           <Link href="/" className={css.logoContainer}>
             <Icon name="icon-favicon" />
             {isAuthPage ? (
-              <p className={`${css.iconText} ${textColorClass}`}>
-                Подор
-              </p>
+              <p className={`${css.iconText} ${textColorClass}`}>Подор</p>
             ) : (
               <p className={`${css.iconText} ${textColorClass}`}>Подорожники</p>
             )}
@@ -140,7 +147,7 @@ const Header = () => {
                           {avatarUrl ? (
                             <img
                               src={avatarUrl}
-                              alt={userName}
+                              alt={userName || "User"}
                               className={css.avatarImg}
                             />
                           ) : (
@@ -150,7 +157,7 @@ const Header = () => {
                           )}
                         </div>
                         <span className={`${css.userName} ${textColorClass}`}>
-                          {userName}
+                          {userName || "Мандрівник"}
                         </span>
                         <button
                           className={`${css.logoutBtn} ${
@@ -300,14 +307,14 @@ const Header = () => {
                     {avatarUrl ? (
                       <img
                         src={avatarUrl}
-                        alt={userName}
+                        alt={userName || "User"}
                         className={css.mobileAvatarImg}
                       />
                     ) : (
                       <span style={{ color: "#999", fontSize: "20px" }}>?</span>
                     )}
                   </div>
-                  <span className={css.mobileUserName}>{userName}</span>
+                  <span className={css.mobileUserName}>{userName || "Мандрівник"}</span>
                   <button
                     className={css.mobileLogoutBtn}
                     onClick={handleLogoutClick}
