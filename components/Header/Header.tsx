@@ -83,7 +83,7 @@ const Header = () => {
           <Icon name="icon-favicon" />
           {isAuthPage ? (
             <p className={`${css.iconText} ${textColorClass}`}>
-              Подор<span className={css.iconTextSecondPart}>ожники</span>
+              Подор
             </p>
           ) : (
             <>
