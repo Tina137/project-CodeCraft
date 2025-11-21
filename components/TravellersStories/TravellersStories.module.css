@@ -1,9 +1,10 @@
 /* ===== LIST ===== */
 .list {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, max-content));
   gap: 24px;
-  margin-bottom: 40px;
+  justify-content: center;
+  width: 100%;
 }
 
 /* ===== LOAD MORE BUTTON ===== */

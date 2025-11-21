@@ -71,14 +71,10 @@ export default function StoryDetailsPage() {
         };
         setStory(normalized);
         const categoryId =
-          typeof raw.category === "string"
-            ? raw.category
-            : raw.category?._id;
+          typeof raw.category === "string" ? raw.category : raw.category?._id;
 
         const ownerId =
-          typeof raw.ownerId === "string"
-            ? raw.ownerId
-            : raw.ownerId?._id;
+          typeof raw.ownerId === "string" ? raw.ownerId : raw.ownerId?._id;
         const [catsJson, userWrapped] = await Promise.all([
           categoryId
             ? fetch(`${SERVER}/api/categories`)
@@ -92,12 +88,11 @@ export default function StoryDetailsPage() {
         if (categoryId && catsJson) {
           const cats = Array.isArray(catsJson)
             ? catsJson
-            : catsJson.data ?? [];
+            : (catsJson.data ?? []);
 
           if (Array.isArray(cats)) {
             const found = cats.find((c: any) => {
-              const cid =
-                typeof c._id === "string" ? c._id : c._id?.$oid;
+              const cid = typeof c._id === "string" ? c._id : c._id?.$oid;
               return cid === categoryId;
             });
 
@@ -176,9 +171,9 @@ export default function StoryDetailsPage() {
       if (width >= 1312) {
         setVisiblePopularCount(3);
       } else if (width >= 768) {
-        setVisiblePopularCount(4); 
+        setVisiblePopularCount(4);
       } else {
-        setVisiblePopularCount(2); 
+        setVisiblePopularCount(2);
       }
     };
 
@@ -196,11 +191,14 @@ export default function StoryDetailsPage() {
     };
 
     if (isSaved) {
-      removeMutation.mutate(story._id, {onSuccess: () => toggleGlobalSaved(story._id),
+      removeMutation.mutate(story._id, {
+        onSuccess: () => toggleGlobalSaved(story._id),
         onError: handle401,
       });
     } else {
-      addMutation.mutate(story._id, {onSuccess: () => toggleGlobalSaved(story._id), onError: handle401,
+      addMutation.mutate(story._id, {
+        onSuccess: () => toggleGlobalSaved(story._id),
+        onError: handle401,
       });
     }
   };
@@ -233,25 +231,27 @@ export default function StoryDetailsPage() {
         <div className={css.titleRow}>
           <h1 className={css.title}>{story.title}</h1>
         </div>
-       <div className={css.metaWrapper}>
-  <div className={css.metaBlock}>
-    <div className={css.metaRow}>
-      <span className={css.metaLabel}>Автор статті</span>
-      <span className={css.metaValue}>
-        {author?.name || story.ownerId?.name || "Автор"}
-      </span>
-    </div>
+        <div className={css.metaWrapper}>
+          <div className={css.metaBlock}>
+            <div className={css.metaRow}>
+              <span className={css.metaLabel}>Автор статті</span>
+              <span className={css.metaValue}>
+                {author?.name || story.ownerId?.name || "Автор"}
+              </span>
+            </div>
 
-    <div className={css.metaRow}>
-      <span className={css.metaLabel}>Опубліковано</span>
-      <span className={css.metaValue}>{formatDate(story.date)}</span>
-    </div>
-  </div>
+            <div className={css.metaRow}>
+              <span className={css.metaLabel}>Опубліковано</span>
+              <span className={css.metaValue}>
+                {formatDate(story.date || story.createdAt)}
+              </span>
+            </div>
+          </div>
 
-  {categoryName && (
-    <span className={css.metaCategory}>{categoryName}</span>
-  )}
-</div>
+          {categoryName && (
+            <span className={css.metaCategory}>{categoryName}</span>
+          )}
+        </div>
         <div className={css.mainImageWrapper}>
           <Image
             src={story.img || "/Placeholder_Image.png"}
@@ -281,8 +281,8 @@ export default function StoryDetailsPage() {
                 {isSaving
                   ? "Збереження…"
                   : isSaved
-                  ? "Видалити із збережених"
-                  : "Зберегти"}
+                    ? "Видалити із збережених"
+                    : "Зберегти"}
               </button>
             </div>
           </aside>
