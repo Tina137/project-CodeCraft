@@ -12,7 +12,6 @@ const Footer = () => {
 
   return (
     <footer className={`${css.footer} ${isAuthPage ? css.footerAuth : ""}`}>
-      {/* ДОДАНО КОНТЕЙНЕР */}
       <div className={css.container}>
         {!isAuthPage && (
           <div className={css.footerTop}>
