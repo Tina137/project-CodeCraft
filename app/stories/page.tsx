@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import type { Story } from "@/types/story";
 import css from "./page.module.css";
+import conCss from "../container.module.css";
 import TravellersStoriesItem from "@/components/TravellersStoriesItem/TravellersStoriesItem";
 
 const SERVER = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
@@ -95,7 +96,7 @@ export default function StoriesPage() {
 
   return (
     <main className={css.page}>
-      <div className={css.container}>
+      <div className={conCss.container}>
         <h1 className={css.title}>Історії Мандрівників</h1>
         <div className={css.controls}>
           <div className={css.filtersButtons}>
